@@ -1,0 +1,21 @@
+.root {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: grid;
+    align-items: start;
+    justify-items: center;
+    background: #F1F5FB;
+    min-height: 100vh;
+}
+
+.cursor-hover:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+a:active,
+a:hover,
+a {
+    text-decoration: none;
+}

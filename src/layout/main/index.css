@@ -1,0 +1,15 @@
+@import url(../../styles/normalize.css);
+@import url(../../styles/fonts.css);
+@import url(../../styles/root.css);
+@import url(../../pages/chats/chats.css);
+@import url(../../pages/profile/profile.css);
+@import url(../../pages/profile/editSimpleForm/editSimpleForm.css);
+@import url(../../pages/profile/editPasswordForm/editPasswordForm.css);
+@import url(../../pages/profile/editAvatarForm/editAvatarForm.css);
+
+
+@import url(../../components/startForm/startForm.css);
+@import url(../../components/popup/popup.css);
+
+
+@import url(../../components/errorPage/errorPage.css);
