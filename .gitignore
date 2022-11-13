@@ -1,7 +1,0 @@
-# dependencies
-/node_modules
-/.parcel-cache
-
-# production
-/build
-/dist
