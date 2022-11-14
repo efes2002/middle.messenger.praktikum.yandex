@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node ./server.js",
+    "start": "parcel build ./index.html & node ./server.js",
     "dev": "parcel ./index.html",
     "build": "parcel build ./index.html"
   },
