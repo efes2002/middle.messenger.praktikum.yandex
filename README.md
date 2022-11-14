@@ -5,7 +5,7 @@
 
 Figma: https://www.figma.com/community/file/1173753027075427256
 
-Netlify: 
+Netlify: https://63718dfc3de31a32add37e36--thriving-babka-648d5d.netlify.app/
 
 
 

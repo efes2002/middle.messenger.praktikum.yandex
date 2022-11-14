@@ -5,7 +5,7 @@
     justify-content: center;
     justify-items: center;
     width: 320px;
-    background: #C5E2FC;
+    background: var(--main-bg-color-3);
     border-radius: 15px;
 }
 
@@ -23,8 +23,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
-    color: #FF2F2F;
-
+    color: var(--main-tx-color-error);
 }
 
 .form__title {
@@ -37,7 +36,7 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 20px;
-    color: #000000;
+    color: var(--main-tx-color-1);
 }
 
 .form__lists {
@@ -64,20 +63,20 @@
     font-weight: 500;
     font-size: 9px;
     line-height: 9px;
-    color: #000000;
+    color: var(--main-tx-color-1);
 }
 
 .form__input {
     margin: 0 0 5px 0;
     padding: 0;
     border: 0;
-    background: #C5E2FC;
+    background: var(--main-bg-color-3);
     font-family: Inter,'Arial', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
-    color: #000000;
+    color: var(--main-tx-color-1);
     outline-width: 0;
 }
 
@@ -96,7 +95,7 @@
     font-weight: 400;
     font-size: 8px;
     line-height: 8px;
-    color: #FF2F2F;
+    color: var(--main-tx-color-error);
 }
 
 .form__button {
@@ -104,7 +103,7 @@
     padding: 0;
     width: 280px;
     height: 37px;
-    background: #5F7EA1;
+    background: var(--main-bg-bt-color-1);
     border: none;
     border-radius: 8px;
     font-family: Inter,'Arial', sans-serif;
@@ -112,7 +111,7 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
-    color: #FFFFFF;
+    color: var(--main-tx-bt-color-1);
 }
 
 .form__link {
@@ -123,5 +122,5 @@
     font-weight: 700;
     font-size: 11px;
     line-height: 11px;
-    color: #5F7EA1;
+    color: var(--main-tx-color-2);
 }

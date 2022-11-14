@@ -26,7 +26,7 @@
     height: 120px;
     margin: 0;
     padding: 0;
-    background-color: #E1EFFC;
+    background-color: var(--main-bg-color-2);
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto;
@@ -49,7 +49,7 @@
     padding: 0 0 0 10px;
     width: 288px;
     height: 26px;
-    background: #FFFFFF;
+    background: var(--main-bg-color-1);
     opacity: 0.5;
     border-radius: 10px;
     border: 0;
@@ -59,14 +59,14 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 12px;
-    color: #5F7EA2;
+    color: var(--main-bg-bt-color-1);
 }
 
 .chats__list-users {
     height: 656px;
     margin: 0;
     padding: 0;
-    background-color: #E1EFFC;
+    background-color: var(--main-bg-color-2);
 }
 
 .chats__users-box {
@@ -74,7 +74,7 @@
     padding: 0;
     width: 320px;
     height: 70px;
-    background: #E1EFFC;
+    background: var(--main-bg-color-2);
     display: grid;
     grid-template-columns: 70px 250px;
     grid-template-rows: 70px;
@@ -104,6 +104,7 @@
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 14px 56px;
+    color: var(--main-tx-color-1);
 }
 
 .chats__users-title {
@@ -115,7 +116,6 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: #000000;
     align-items: end;
 }
 
@@ -129,7 +129,6 @@
     font-weight: 400;
     font-size: 10px;
     line-height: 10px;
-    color: #000000;
     align-items: center;
     justify-self: end;
 }
@@ -138,13 +137,14 @@
     height: 50px;
     margin: 0;
     padding: 0;
-    background-color: #E1EFFC;
+    background-color: var(--main-bg-color-2);
     display: grid;
     grid-template-columns: 50px 50px;
     grid-template-rows: 50px;
     grid-column-gap: 50px;
     justify-content: center;
     align-items: center;
+    color: var(--main-bg-bt-color-1);
 }
 
 .chats__setting {
@@ -172,7 +172,6 @@
     font-weight: 700;
     font-size: 8px;
     line-height: 10px;
-    color: #5F7EA1;
 }
 
 .chats__profile {
@@ -200,7 +199,6 @@
     font-weight: 700;
     font-size: 8px;
     line-height: 10px;
-    color: #5F7EA1;
 }
 
 .chats__right {
@@ -217,7 +215,7 @@
     height: 50px;
     margin: 0;
     padding: 0 14px 0 0;
-    background-color: #E1EFFC;
+    background-color: var(--main-bg-color-2);
     display: grid;
     justify-items: end;
     align-items: center;
@@ -230,14 +228,14 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 14px;
-    color: #5F7EA1;
+    color: var(--main-bg-bt-color-1);
 }
 
 .chats__list-message {
     height: 726px;
     margin: 0;
     padding: 0;
-    background-color: #E1EFFC;
+    background-color: var(--main-bg-color-1);
     display: grid;
     align-items: center;
     justify-items: center;
@@ -261,7 +259,7 @@
     height: 50px;
     margin: 0;
     padding: 0;
-    background-color: #E1EFFC;
+    background-color: var(--main-bg-color-2);
 }
 
 .chats__button-message-file {
