@@ -1,3 +1,14 @@
+:root {
+    --main-bg-color-1: #F1F5FB;
+    --main-bg-color-2: #E1EFFC;
+    --main-bg-color-3: #C5E2FC;
+    --main-tx-color-1: #000000;
+    --main-tx-color-2: #5F7EA1;
+    --main-tx-color-error: #FF2F2F;
+    --main-tx-bt-color-1: #FFFFFF;
+    --main-bg-bt-color-1: #5F7EA1;
+}
+
 .root {
     margin: 0;
     padding: 0;

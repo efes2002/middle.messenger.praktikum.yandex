@@ -1,10 +1,9 @@
-
 .form-avatar__box {
     width: 460px;
     margin: 0;
     padding: 0;
     display: grid;
-    background: #E1EFFC;
+    background: var(--main-bg-color-2);
     border-radius: 15px;
     align-items: start;
     justify-content: center;
@@ -23,8 +22,6 @@
     color: #3369F3;
     text-decoration: underline;
 }
-
-
 
 .form-avatar__box-button {
     margin: 34px 0 60px 0;

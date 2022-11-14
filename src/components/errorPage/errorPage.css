@@ -14,7 +14,7 @@
     font-weight: 500;
     font-size: 60px;
     line-height: 60px;
-    color: #000000;
+    color: var(--main-tx-color-1);
 }
 .error-page__subtitle {
     margin: 0;
@@ -25,7 +25,7 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 20px;
-    color: #000000;
+    color: var(--main-tx-color-1);
 }
 .error-page__link {
     margin: 69px 0 0 0;
@@ -36,7 +36,7 @@
     font-weight: 700;
     font-size: 12px;
     line-height: 12px;
-    color: #5F7EA1;
+    color: var(--main-tx-color-2);
 }
 
 .root {

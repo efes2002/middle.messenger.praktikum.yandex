@@ -12,10 +12,10 @@
     justify-items: center;
     align-items: start;
     align-content: start;
-    background-color: #E1EFFC;
+    background-color: var(--main-bg-color-2);
     font-family: Inter,'Arial', sans-serif;
     font-style: normal;
-    color: #000000;
+    color: var(--main-tx-color-1);
 }
 
 .profile__avatar {
@@ -47,7 +47,7 @@
     height: 52px;
     margin: 0;
     padding: 0;
-    background: #C5E2FC;
+    background: var(--main-bg-color-3);
     border-radius: 15px;
     display: grid;
     align-content: center;
@@ -98,7 +98,7 @@
     font-weight: 700;
     font-size: 13px;
     line-height: 13px;
-    color: #5F7EA1;
+    color: var(--main-tx-color-2);
 }
 
 .profile__exit {
