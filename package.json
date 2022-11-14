@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
+    "@anikin/parcel-transformer-handlebars": "^1.0.5",
     "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
     "parcel": "^2.8.0"
   },
@@ -19,8 +19,5 @@
     "autoprefixer": "^10.4.13",
     "express": "^4.18.2",
     "handlebars": "^4.7.7"
-  },
-  "engines": {
-    "node": "16.14.2"
   }
 }
