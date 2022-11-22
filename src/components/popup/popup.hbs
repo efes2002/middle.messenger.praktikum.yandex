@@ -1,0 +1,9 @@
+{{#if isPopup}}
+    <div class="popup popup_opened">
+        <div class="popup__container">
+            {{#if isSimpleForm}} {{> editSimpleForm }} {{/if}}
+            {{#if isPasswordForm}} {{> editPasswordForm }} {{/if}}
+            {{#if isAvatarForm}} {{> editAvatarForm }} {{/if}}
+        </div>
+    </div>
+{{/if}}
