@@ -1,0 +1,158 @@
+import {v4 as makeUUID} from 'uuid';
+import {EventBus} from './eventBus.js';
+
+export default class Block {
+
+    static EVENTS = {
+        INIT: "init",
+        FLOW_CDM: "flow:component-did-mount",
+        FLOW_CDU: "flow:component-did-update",
+        FLOW_RENDER: "flow:render"
+    };
+
+    props = {};
+    _element = null;
+    _meta = null;
+    eventBus = ()=> EventBus;
+    id = makeUUID();
+    children = {};
+
+    constructor(tagName = "div", childrenAndProps = {}) {
+        const eventBus = new EventBus();
+        const {props, children} = this._getChildrenAndProps(childrenAndProps)
+        this._meta = { tagName, props };
+        this.id = makeUUID();
+        this.children = children;
+        this.props = this._makePropsProxy(props);
+
+        this.eventBus = () => eventBus;
+        this._registerEvents(eventBus);
+        eventBus.emit(Block.EVENTS.INIT);
+    }
+
+    get element() {
+        return this._element;
+    }
+
+    _getChildrenAndProps(childrenAndProps) {
+        const props = {};
+        const children = {};
+        Object.entries(childrenAndProps).forEach(([key, value]) => {
+            if (value instanceof Block) { children[key] = value; }
+            else { props[key] = value; }
+        })
+        return { props, children };
+    }
+
+    _addEvents() {
+        const { events = {} } = this.props;
+        Object.keys(events).forEach(eventName => {
+            this._element.addEventListener(eventName, events[eventName]);
+        });
+    }
+
+    _registerEvents(eventBus) {
+        eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    }
+
+    _createResources() {
+        const { tagName } = this._meta;
+        this._element = this._createDocumentElement(tagName);
+    }
+
+    _componentDidMount() {
+        this.componentDidMount();
+    }
+
+    _componentDidUpdate(oldProps, newProps) {
+        if (this.componentDidUpdate(oldProps, newProps)) {
+            this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+        };
+    }
+
+    _makePropsProxy(props) {
+        const self = this;
+        return new Proxy(props, {
+            get(target, prop) {
+                const value = target[prop];
+                const answer = typeof value === "function" ? value.bind(target): value;
+                return answer
+            },
+            set(target, prop, value) {
+                const oldTarget = { ...target };
+                target[prop] = value;
+                self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+                return true;
+            },
+            deleteProperty() {
+                throw new Error("Нет доступа")
+            },
+        });
+    }
+
+    _createDocumentElement(tagName) {
+        return document.createElement(tagName);
+    }
+
+    _render() {
+        const block = this.render();
+        this._element.append(block);
+        this._addEvents();
+    }
+
+    init() {
+        this._createResources();
+        this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    }
+
+    getContent() {
+        return this.element;
+    }
+
+    setProps = nextProps => {
+        if (!nextProps) { return; }
+        Object.assign(this.props, nextProps);
+    };
+
+    dispatchComponentDidMoun() {
+        this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    }
+
+    componentDidMount(oldProps) {
+    }
+
+    componentDidUpdate(oldProps, newProps) {
+        return true;
+    }
+
+    compile(context) {
+        const contextAndStubs = { ...context };
+        Object.entries(this.children).forEach(([name, component]) => {
+            contextAndStubs[name] = `<div data-id="${component.id}"/>`;
+        })
+        const html = template(contextAndStubs);
+        const temp = document.createElement('template');
+        temp.innerHTML = html;
+        Object.entries(this.children).forEach(([name, component])=>{
+            const stub = temp.content.querySelector(`[data-id=${ component.id }]`);
+            if (!stub) { return; }
+            stub.replaceWith(component.getContent());
+        })
+        return temp.content;
+    }
+
+    render() {
+        return new DocumentFragment();
+    }
+
+    show() {
+        this.getContent().style.display = "block";
+    }
+
+    hide() {
+        this.getContent().style.display = "none";
+    }
+}

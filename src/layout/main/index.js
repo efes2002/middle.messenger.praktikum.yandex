@@ -53,7 +53,7 @@ const PAGE = {
         data: registrationData
     }
 }
-
+/*
 function renderPage(namePage) {
     const component = PAGE[namePage].component;
     const data = PAGE[namePage].data;
@@ -65,3 +65,9 @@ window.renderPage = renderPage;
 document.addEventListener('DOMContentLoaded', () => {
     renderPage('chats');
 })
+*/
+
+import { Home } from '../../utils/pages/Home';
+
+const homePage = new Home();
+document.querySelector('#root').innerHTML = homePage.render();
