@@ -68,6 +68,25 @@ document.addEventListener('DOMContentLoaded', () => {
 */
 
 import { Home } from '../../utils/pages/Home';
+import {Button} from "../../utils/component/Button";
+import {registerComponent} from '../../utils/registerComponent.js'
 
-const homePage = new Home();
-document.querySelector('#root').innerHTML = homePage.render();
+/*
+const button = new Button({
+    label : "Click me",
+    events: {
+        click: () => console.log('click')
+    }
+})
+*/
+
+registerComponent('Button', Button);
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const homePage = new Home();
+
+    document.querySelector('#root').append(homePage.getContent());
+
+
+})

@@ -17,14 +17,13 @@ export default class Block {
     id = makeUUID();
     children = {};
 
-    constructor(tagName = "div", childrenAndProps = {}) {
+    constructor(childrenAndProps = {}) {
         const eventBus = new EventBus();
-        const {props, children} = this._getChildrenAndProps(childrenAndProps)
-        this._meta = { tagName, props };
+        const { props, children } = this._getChildrenAndProps(childrenAndProps)
+        this._meta = { props };
         this.id = makeUUID();
         this.children = children;
         this.props = this._makePropsProxy(props);
-
         this.eventBus = () => eventBus;
         this._registerEvents(eventBus);
         eventBus.emit(Block.EVENTS.INIT);
@@ -52,15 +51,13 @@ export default class Block {
     }
 
     _registerEvents(eventBus) {
-        eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+        eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
     _createResources() {
-        const { tagName } = this._meta;
-        this._element = this._createDocumentElement(tagName);
     }
 
     _componentDidMount() {
@@ -93,19 +90,22 @@ export default class Block {
         });
     }
 
-    _createDocumentElement(tagName) {
-        return document.createElement(tagName);
-    }
-
     _render() {
-        const block = this.render();
-        this._element.append(block);
+        const fragment = this.render();
+        const newElement = fragment.firstElementChild;
+
+        this._element?.replaceWith(newElement);
+        this._element = newElement;
         this._addEvents();
     }
 
-    init() {
+    _init() {
         this._createResources();
+        this.init();
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    }
+
+    init() {
     }
 
     getContent() {
@@ -128,16 +128,19 @@ export default class Block {
         return true;
     }
 
-    compile(context) {
+    compile(template, context) {
         const contextAndStubs = { ...context };
+        /*
         Object.entries(this.children).forEach(([name, component]) => {
             contextAndStubs[name] = `<div data-id="${component.id}"/>`;
         })
+        */
         const html = template(contextAndStubs);
         const temp = document.createElement('template');
         temp.innerHTML = html;
-        Object.entries(this.children).forEach(([name, component])=>{
-            const stub = temp.content.querySelector(`[data-id=${ component.id }]`);
+            console.log(html, this.children)
+         Object.entries(this.children).forEach(([name, component])=>{
+            const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
             if (!stub) { return; }
             stub.replaceWith(component.getContent());
         })
