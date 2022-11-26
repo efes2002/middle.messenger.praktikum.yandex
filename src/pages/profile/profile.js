@@ -20,11 +20,12 @@ export class Profile extends Block {
                         </li>
                     {{/each}}
                 </ul>
-                <div class="profile__box-link cursor-hover" onclick="renderPage('chats')">
+                <div class="profile__box-link cursor-hover" onclick="renderPage('main')">
                     <img class="profile__img-link"></img>
                     <div class="profile__title-link">Назад</div>
                 </div>
                 <div class="profile__exit cursor-hover" onclick="renderPage('login')">Выйти из приложения</div>
+                {{{Popup isPopup=false}}}
             </section>
         `;
     }

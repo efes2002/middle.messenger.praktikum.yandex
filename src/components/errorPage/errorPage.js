@@ -13,7 +13,7 @@ export class ErrorPage extends Block {
             <section class="error-page">
                 <h1 class="error-page__title">{{title}}</h1>
                 <h2 class="error-page__subtitle">{{subtitle}}</h2>
-                <a class="error-page__link cursor-hover" onclick="renderPage('chats')">{{linktitle}}</a>
+                <a class="error-page__link cursor-hover" onclick="renderPage('main')">{{linktitle}}</a>
             </section>
         `;
     }

@@ -1,5 +1,6 @@
 import { registerComponent } from './utils/registerComponent.js'
-import { Chats } from "./pages/chats/chats.js";
+import { Main } from "./pages/main/main.js";
+import mainData from "./pages/main/mainData.js";
 import { Page404 } from "./pages/page404/page404.js";
 import { Page5xx } from "./pages/page5xx/page5xx.js";
 import page404Data from "./pages/page404/page404Data.js";
@@ -17,8 +18,16 @@ import profileData from "./pages/profile/profileData";
 import { EditSimpleForm } from "./pages/profile/editSimpleForm/editSimpleForm";
 import { EditPasswordForm } from "./pages/profile/editPasswordForm/editPasswordForm";
 import { EditAvatarForm } from "./pages/profile/editAvatarForm/editAvatarForm";
+import { Chats } from "./pages/main/chats/chats";
+import { Chat } from "./pages/main/chats/chat/chat";
+import { Message } from "./pages/main/messages/message/message";
+import { Messages } from "./pages/main/messages/messages";
 
 const HELPER = {
+    'Chats': Chats,
+    'Chat': Chat,
+    'Messages': Messages,
+    'Message': Message,
     'ErrorPage': ErrorPage,
     'StartForm': StartForm,
     'RegForm': RegForm,
@@ -29,9 +38,9 @@ const HELPER = {
 }
 
 const PAGE = {
-    chats: {
-        page: Chats,
-        data: {}
+    main: {
+        page: Main,
+        data: mainData
     },
     page404: {
         page: Page404,
@@ -52,7 +61,7 @@ const PAGE = {
     registration: {
         page: Registration,
         data: registrationData
-    }
+    },
 }
 
 function renderPage(namePage) {
@@ -65,5 +74,5 @@ window.renderPage = renderPage;
 
 document.addEventListener('DOMContentLoaded', () => {
     Object.entries(HELPER).map(([key, value]) => registerComponent(key, value));
-    renderPage('chats');
+    renderPage('main');
 })

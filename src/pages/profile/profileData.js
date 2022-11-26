@@ -42,5 +42,6 @@ export default {
             value: '••••••••••••',
             id: 'profilePassword'
         }
-    ]
+    ],
+    isPopup: true,
 };

@@ -10,7 +10,7 @@ export class StartForm extends Block {
         //language=hbs
         return `
             <section class="form-box">
-                <form class="form" id="formUser" onsubmit="((event)=>{event.preventDefault(); renderPage('chats2');})">
+                <form class="form" id="formUser" onsubmit="((event)=>{event.preventDefault(); renderPage('main');})">
                     <h1 class="form__title">{{title}}</h1>
                     <div class="form__lists">
                         {{#each items}}
@@ -38,7 +38,7 @@ export class StartForm extends Block {
 
                     {{#if currentPage.isRegis}}
                         <button class="form__button cursor-hover" type="submit" form="formUser">{{button.title}}</button>
-                        <a class="form__link cursor-hover" onclick="renderPage('chats2')">{{link.title}}</a>
+                        <a class="form__link cursor-hover" onclick="renderPage('main')">{{link.title}}</a>
                     {{/if}}
                 </form>
             </section>

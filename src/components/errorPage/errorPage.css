@@ -1,8 +1,11 @@
 .error-page {
+    height: 100vh;
     margin: 0;
     padding: 0;
     display: grid;
-    justify-items: center
+    align-items: center;
+    align-content: center;
+    justify-items: center;
 }
 
 .error-page__title {
@@ -39,6 +42,4 @@
     color: var(--main-tx-color-2);
 }
 
-.root {
-    align-items: center;
-}
+
