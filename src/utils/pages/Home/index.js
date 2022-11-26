@@ -1,12 +1,22 @@
 import Block from "../../block";
-import template from "./home.hbs";
+//import AuthController from "../../controllers/AuthController";
 
-export class Home extends Block {
+export default class Home extends Block {
     constructor(props) {
-        super(props);
+        super({
+            ...props,
+            onLogout: () => console.log(5)
+        });
     }
     render() {
-        return this.compile(template, {children: this.children});
+        //language=hbs
+        return `
+            <div>
+                <h1>{{title}}</h1>
+                {{{Button label="click 3" onClick=onLogout}}}
+                {{{Button label="click 2"}}}
+            </div>
+        `;
     }
 }
 

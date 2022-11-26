@@ -1,6 +1,6 @@
-import Block from '../../block.js';
+import Block from '../../utils/block.js';
 
-export default class Button extends Block {
+export class TestButton extends Block {
     constructor({ label, onClick }) {
         super({
             label,

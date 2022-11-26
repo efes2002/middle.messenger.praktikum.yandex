@@ -1,5 +1,6 @@
 import {v4 as makeUUID} from 'uuid';
 import {EventBus} from './eventBus.js';
+import Handlebars from 'handlebars';
 
 export default class Block {
 
@@ -91,9 +92,9 @@ export default class Block {
     }
 
     _render() {
-        const fragment = this.render();
+        const template = this.render();
+        const fragment = this.compile(template, { ...this.props, children: this.children })
         const newElement = fragment.firstElementChild;
-
         this._element?.replaceWith(newElement);
         this._element = newElement;
         this._addEvents();
@@ -130,16 +131,10 @@ export default class Block {
 
     compile(template, context) {
         const contextAndStubs = { ...context };
-        /*
-        Object.entries(this.children).forEach(([name, component]) => {
-            contextAndStubs[name] = `<div data-id="${component.id}"/>`;
-        })
-        */
-        const html = template(contextAndStubs);
+        const compiled = Handlebars.compile(template);
         const temp = document.createElement('template');
-        temp.innerHTML = html;
-            console.log(html, this.children)
-         Object.entries(this.children).forEach(([name, component])=>{
+        temp.innerHTML = compiled(contextAndStubs);
+        Object.entries(this.children).forEach(([name, component])=>{
             const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
             if (!stub) { return; }
             stub.replaceWith(component.getContent());
@@ -148,7 +143,7 @@ export default class Block {
     }
 
     render() {
-        return new DocumentFragment();
+        return '';
     }
 
     show() {

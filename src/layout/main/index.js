@@ -67,26 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 */
 
-import { Home } from '../../utils/pages/Home';
-import {Button} from "../../utils/component/Button";
-import {registerComponent} from '../../utils/registerComponent.js'
-
-/*
-const button = new Button({
-    label : "Click me",
-    events: {
-        click: () => console.log('click')
-    }
-})
-*/
+import Home from '../../utils/pages/Home';
+import Button from "../../utils/component/Button";
+import { registerComponent } from '../../utils/registerComponent.js'
 
 registerComponent('Button', Button);
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    const homePage = new Home();
-
+    const homePage = new Home({ title: "Privet" });
     document.querySelector('#root').append(homePage.getContent());
-
-
 })
