@@ -1,5 +1,5 @@
 export default  {
-    title: "500-2",
-    subtitle: "Мы уже фиксим",
+    title: "404",
+    subtitle: "Не туда попали",
     linktitle: "Назад к чатам",
 };

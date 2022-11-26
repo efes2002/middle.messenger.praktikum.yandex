@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 
-export class Chats2 extends Block {
+export class Chats extends Block {
     constructor(props) {
         super({
             ...props,
@@ -47,11 +47,11 @@ export class Chats2 extends Block {
                     </ul>
                     <nav class="bottom-menu">
                         <ul class="chats__bottom-menu">
-                            <li class="chats__setting cursor-hover" onclick="renderPage('profile2')">
+                            <li class="chats__setting cursor-hover" onclick="renderPage('profile')">
                                 <div class="chats__setting-button"></div>
                                 <div class="chats__setting-text">Настройки</div>
                             </li>
-                            <li class="chats__profile cursor-hover" onclick="renderPage('profile2')">
+                            <li class="chats__profile cursor-hover" onclick="renderPage('profile')">
                                 <div class="chats__profile-button"></div>
                                 <div class="chats__profile-text">Профиль</div>
                             </li>
@@ -60,11 +60,11 @@ export class Chats2 extends Block {
                 </section>
                 <section class="chats__right">
                     <nav class="chats__right-top">
-                        <a class="chats__link-exit cursor-hover" onclick="renderPage('login2')">Выход</a>
+                        <a class="chats__link-exit cursor-hover" onclick="renderPage('login')">Выход</a>
                     </nav>
                     <section class="chats__list-message">
-                        <a class="chats__link-exit cursor-hover" onclick="renderPage('page4042')">Page 4042</a>
-                        <a class="chats__link-exit cursor-hover" onclick="renderPage('page5xx2')">Page 5xx2</a>
+                        <a class="chats__link-exit cursor-hover" onclick="renderPage('page404')">Page 404</a>
+                        <a class="chats__link-exit cursor-hover" onclick="renderPage('page5xx')">Page 5xx</a>
                         <div class="chats__message">
                             <div class="chats__message-text"></div>
                             <div class="chats__message-time"></div>

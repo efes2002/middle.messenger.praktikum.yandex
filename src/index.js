@@ -1,55 +1,57 @@
-import { TestButton } from './components/testButton/testButton.js';
 import { registerComponent } from './utils/registerComponent.js'
-import { TestMain} from './pages/testMain/testMain.js';
-import  indexData from './indexData.js';
-import { TestPage1 } from "./pages/testPage1/testPage1.js";
-import { TestPage2 } from "./pages/testPage2/testPage2.js";
-import { Chats2 } from "./pages/Chats2/Chats2.js";
-import { Page4042 } from "./pages/page4042/page4042.js";
-import { Page5xx2 } from "./pages/page5xx2/page5xx2.js";
-import page4042Data from "./pages/Page4042/page4042Data.js";
-import page5xx2Data from "./pages/page5xx2/page5xx2Data.js";
-import { ErrorPage2 } from "./components/errorPage2/errorPage2";
-
-
+import { Chats } from "./pages/chats/chats.js";
+import { Page404 } from "./pages/page404/page404.js";
+import { Page5xx } from "./pages/page5xx/page5xx.js";
+import page404Data from "./pages/page404/page404Data.js";
+import page5xxData from "./pages/page5xx/page5xxData.js";
+import { ErrorPage } from "./components/errorPage/errorPage";
+import { RegForm } from "./components/regForm/regForm";
+import { StartForm } from "./components/startForm/startForm";
+import { Popup } from "./components/popup/popup";
+import { Login } from "./pages/login/login";
+import loginData from "./pages/login/loginData.js";
+import { Registration } from "./pages/registration/registration";
+import registrationData from "./pages/registration/registrationData.js";
+import { Profile } from "./pages/profile/profile";
+import profileData from "./pages/profile/profileData";
+import { EditSimpleForm } from "./pages/profile/editSimpleForm/editSimpleForm";
+import { EditPasswordForm } from "./pages/profile/editPasswordForm/editPasswordForm";
+import { EditAvatarForm } from "./pages/profile/editAvatarForm/editAvatarForm";
 
 const HELPER = {
-    'TestButton': TestButton,
-    'ErrorPage2': ErrorPage2,
+    'ErrorPage': ErrorPage,
+    'StartForm': StartForm,
+    'RegForm': RegForm,
+    'Popup': Popup,
+    'EditSimpleForm': EditSimpleForm,
+    'EditPasswordForm': EditPasswordForm,
+    'EditAvatarForm': EditAvatarForm,
 }
 
 const PAGE = {
-    testMain: {
-        page: TestMain,
-        data: indexData
-    },
-    testPage1: {
-        page: TestPage1,
+    chats: {
+        page: Chats,
         data: {}
     },
-    chats2: {
-        page: Chats2,
-        data: {}
+    page404: {
+        page: Page404,
+        data: page404Data
     },
-    page4042: {
-        page: Page4042,
-        data: page4042Data
-    },
-    page5xx2: {
-        page: Page5xx2,
-        data: page5xx2Data
+    page5xx: {
+        page: Page5xx,
+        data: page5xxData
     },
     profile: {
-        page: TestMain,
-        data: {}
+        page: Profile,
+        data: profileData
     },
     login: {
-        page: TestMain,
-        data: {}
+        page: Login,
+        data: loginData
     },
     registration: {
-        page: TestMain,
-        data: {}
+        page: Registration,
+        data: registrationData
     }
 }
 
@@ -61,8 +63,7 @@ function renderPage(namePage) {
 
 window.renderPage = renderPage;
 
-
 document.addEventListener('DOMContentLoaded', () => {
     Object.entries(HELPER).map(([key, value]) => registerComponent(key, value));
-    renderPage('chats2');
+    renderPage('chats');
 })
