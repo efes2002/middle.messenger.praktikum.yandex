@@ -4,20 +4,28 @@ export class Profile extends Block {
     constructor(props) {
         super({
             ...props,
+            //isOpenPopupProfile: false,
+            //funcs: console.log('Создание компанента'),
+            isOpen: ()=>{
+                //console.log(81, this.props.isOpenPopupProfile, this.props.isOpenPopupProfile);
+                this.props.isOpenPopupProfile = !this.props.isOpenPopupProfile;
+                //console.log(82, this.props.isOpenPopupProfile);
+            }
         });
     }
+
+
+
     render() {
+        //console.log('Рендер profile', this.props.isOpenPopupProfile)
         //language=hbs
         return `
             <section class="profile">
                 <img class="profile__avatar cursor-hover"></img>
-                <h1 class="profile__title">Иван</h1>
+                <h1 class="profile__title">Иван {{#if isOpenPopupProfile}} ДА {{else}} НЕТ {{/if}}</h1>
                 <ul class="profile__items">
                     {{#each items}}
-                        <li class="profile__item cursor-hover_green" id={{id}}>
-                            <h2 class="profile__item-title">{{title}}</h2>
-                            <div class="profile__item-value" name={{name}}>{{value}}</div>
-                        </li>
+                        {{{InputProfile id=id title=title name=name value=value isOpen=../isOpen}}}
                     {{/each}}
                 </ul>
                 <div class="profile__box-link cursor-hover" onclick="renderPage('main')">

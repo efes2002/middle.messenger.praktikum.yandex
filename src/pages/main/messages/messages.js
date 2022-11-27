@@ -19,6 +19,7 @@ export class Messages extends Block {
                             img=img 
                             url=url 
                             status=status
+                            isOpenPopup=../isOpenPopup
                     }}}
                 {{/each}}
             </section>

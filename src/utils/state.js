@@ -1,5 +1,8 @@
-const state = {
+import testDataMain from "../pages/main/testDataMain";
+
+export const state =  {
     users: {
+        id: '',
         avatar: '',
         email: 'pochta@yandex.ru',
         login: 'Ivan1989',
@@ -8,9 +11,13 @@ const state = {
         display_name: 'Иванчик',
         phone: `+7(907)777-77-77`
     },
+    isLogin: true,
     listChats : [],
     liveChatId : '',
     liveMessages: [],
-    isOpenPopup: false,
+    isOpenPopupProfile: false,
+    messages: testDataMain.messages,
+    chats: testDataMain.chats,
 }
+
 

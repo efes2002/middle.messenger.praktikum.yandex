@@ -3,15 +3,15 @@ export default  {
         {
             name: 'login',
             title: 'Логин',
-            value: 'Ivan1989',
+            value: '',
             id: 'loginPageLogin',
             error: false,
-            errorText: 'sdfdsfdsf'
+            errorText: ''
         },
         {
             name: 'password',
             title: 'Пароль',
-            value: '••••••••••••',
+            value: '',
             id: 'loginPagePassword',
             error: false,
             errorText: ''

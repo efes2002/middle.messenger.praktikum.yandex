@@ -3,7 +3,7 @@ export default  {
         {
             name: 'email',
             title: 'Почта',
-            value: 'pochta@yandex.r111.u',
+            value: '',
             id: 'regPageEmail',
             error: true,
             errorText: 'Не валидный email'
@@ -11,7 +11,7 @@ export default  {
         {
             name: 'login',
             title: 'Логин',
-            value: 'ivanivanov',
+            value: '',
             id: 'regPageLogin',
             error: false,
             errorText: ''
@@ -19,7 +19,7 @@ export default  {
         {
             name: 'first_name',
             title: 'Имя',
-            value: 'Иван',
+            value: '',
             id: 'regPageFirstName',
             error: false,
             errorText: ''
@@ -27,7 +27,7 @@ export default  {
         {
             name: 'second_name',
             title: 'Фамилия',
-            value: 'Иванов',
+            value: '',
             id: 'regPageLastName',
             error: false,
             errorText: ''
@@ -35,7 +35,7 @@ export default  {
         {
             name: 'phone',
             title: 'Телефон',
-            value: '+7(909)967-30-30',
+            value: '',
             id: 'regPagePhone',
             error: false,
             errorText: ''
@@ -43,7 +43,7 @@ export default  {
         {
             name: 'password',
             title: 'Пароль',
-            value: '••••••••••••',
+            value: '',
             id: 'regPagePassword',
             error: false,
             errorText: ''
@@ -51,7 +51,7 @@ export default  {
         {
             name: 'passwordSecond',
             title: 'Пароль (ещё раз)',
-            value: '••••••••••••',
+            value: '',
             id: 'regPageSecondPassword',
             error: true,
             errorText: 'Пароли не совпадают'
@@ -67,9 +67,5 @@ export default  {
     errorBox: {
         isErrorBox: false,
         text: "",
-    },
-    currentPage: {
-        isLogin: false,
-        isRegis: true,
     },
 };

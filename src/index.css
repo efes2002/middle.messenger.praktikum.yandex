@@ -7,6 +7,7 @@
 @import url(./pages/main/messages/messages.css);
 @import url(./pages/main/messages/message/message.css);
 @import url(./pages/profile/profile.css);
+@import url(./pages/profile/inputProfile/inputProfile.css);
 @import url(./pages/profile/editSimpleForm/editSimpleForm.css);
 @import url(./pages/profile/editPasswordForm/editPasswordForm.css);
 @import url(./pages/profile/editAvatarForm/editAvatarForm.css);

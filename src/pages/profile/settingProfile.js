@@ -3,45 +3,44 @@ export default {
         {
             name: 'email',
             title: 'Почта',
-            value: 'pochta@yandex.ru',
+            value: '',
             id: 'profileEmail'
         },
         {
             name: 'login',
             title: 'Логин',
-            value: 'Ivan1989',
+            value: '',
             id: 'profileLogin'
         },
         {
             name: 'first_name',
             title: 'Имя',
-            value: 'Иван',
+            value: '',
             id: 'profileFirstName'
         },
         {
             name: 'second_name',
             title: 'Фамилия',
-            value: 'Иванов',
+            value: '',
             id: 'profileSecondName'
         },
         {
             name: 'display_name',
             title: 'Имя в чате',
-            value: 'Иванчик',
+            value: '',
             id: 'profileNike'
         },
         {
             name: 'phone',
             title: 'Телефон',
-            value: `+7(907)777-77-77`,
+            value: ``,
             id: 'profilePhoneNumber'
         },
         {
             name: 'password',
             title: 'Пароль',
-            value: '••••••••••••',
+            value: '',
             id: 'profilePassword'
         }
     ],
-    isPopup: true,
 };

@@ -13,7 +13,7 @@ export class Main extends Block {
             <div class="main">
                 <section class="main__left">
                     <article class="main__left-top">
-                        <div class="main__avatar"></div>
+                        <div class="main__avatar" click="{{onLogout}}">{{#if isOpenPopupProfile}} ДА {{else}} НЕТ {{/if}}</div>
                         <input class="main__list-search" value="Поиск"></input>
                     </article>
                     {{{Chats chatsData=chats}}}
@@ -34,7 +34,7 @@ export class Main extends Block {
                     <nav class="main__right-top">
                         <a class="main__link-exit cursor-hover" onclick="renderPage('login')">Выход</a>
                     </nav>
-                    {{{Messages messagesData=messages}}}
+                    {{{Messages messagesData=messages isOpenPopup=isOpenPopup }}}
                     <section class="main__right-bottom">
                         <div class="chats__button-message-file"></div>
                         <div class="chats__input-message-box"></div>

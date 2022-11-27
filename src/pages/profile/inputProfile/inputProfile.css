@@ -1,0 +1,28 @@
+.input-profile__item {
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    background: var(--main-bg-color-3);
+    border-radius: 15px;
+    display: grid;
+    align-content: center;
+    grid-row-gap: 6px;
+}
+
+.input-profile__item-title {
+    margin: 0 0 0 16px;
+    padding: 0;
+    font-weight: 500;
+    font-size: 6px;
+    line-height: 9px;
+}
+
+.input-profile__item-value {
+    margin: 0 16px;
+    padding: 0;
+    border: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    outline-width: 0;
+}

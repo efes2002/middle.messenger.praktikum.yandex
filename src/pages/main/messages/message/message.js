@@ -14,7 +14,7 @@ export class Message extends Block {
                     {{#if img}}
                         <img class="message__img" src="{{url}}"/>
                     {{else}}
-                        <div class="message__text">{{text}}</div>
+                        <div class="message__text">{{text}}, {{isOpenPopup}}</div>
                     {{/if}}
                     <div class="message__item">
                         <div class="message__time">{{time}}</div>

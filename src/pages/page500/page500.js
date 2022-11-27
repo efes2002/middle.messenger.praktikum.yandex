@@ -1,6 +1,6 @@
 import Block from "../../utils/block";
 
-export class Page5xx extends Block {
+export class Page500 extends Block {
     constructor(props) {
         super({
             ...props,
