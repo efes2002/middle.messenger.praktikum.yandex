@@ -57,10 +57,7 @@
 .profile__img-link {
     margin: 0;
     padding: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: coral;
+    width: 100%;
 }
 
 .profile__title-link {

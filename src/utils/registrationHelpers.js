@@ -11,6 +11,11 @@ import { EditPasswordForm } from "../pages/profile/editPasswordForm/editPassword
 import { EditAvatarForm } from "../pages/profile/editAvatarForm/editAvatarForm";
 import { registerComponent } from "./registerComponent";
 import { InputProfile } from "../pages/profile/inputProfile/inputProfile";
+import { Button } from "../components/button/button";
+import { AvatarProfile } from "../pages/profile/avatarProfile/avatarProfile";
+import {ButtonSendMessage} from "../pages/main/buttonSendMessage/buttonSendMessage";
+import {AddFileMessage} from "../pages/main/addFileMessage/addFileMessage";
+import {InputMessage} from "../pages/main/inputMessage/inputMessage";
 
 const HELPERS = {
     'Chats': Chats,
@@ -25,6 +30,11 @@ const HELPERS = {
     'EditPasswordForm': EditPasswordForm,
     'EditAvatarForm': EditAvatarForm,
     'InputProfile': InputProfile,
+    'AvatarProfile': AvatarProfile,
+    'Button': Button,
+    'ButtonSendMessage': ButtonSendMessage,
+    'AddFileMessage': AddFileMessage,
+    'InputMessage': InputMessage
 }
 
 export const registrationHelpers = () => {Object.entries(HELPERS).map(([key, value]) => registerComponent(key, value));}

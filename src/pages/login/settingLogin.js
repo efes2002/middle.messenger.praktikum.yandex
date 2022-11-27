@@ -28,8 +28,4 @@ export default  {
         isErrorBox: true,
         text: "Неверный логин или пароль ",
     },
-    currentPage: {
-        isLogin: true,
-        isRegis: false,
-    },
 };

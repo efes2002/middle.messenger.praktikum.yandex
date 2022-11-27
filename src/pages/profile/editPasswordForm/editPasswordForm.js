@@ -28,8 +28,18 @@ export class EditPasswordForm extends Block {
                         <span class="form-pass__input-error"/>Ошибка при повторном вводе</span>
                     </label>
                     <div class="form-pass__box-button">
-                        <button class="popup__button popup__button-not" onclick="renderPage('profile')">Отмена</button>
-                        <button class="popup__button popup__button-yes" type="submit" form="formPass">Применить</button>
+                        {{{Button
+                                className="popup__button popup__button-not"
+                                nameInput=nameInput
+                                label="Отмена"
+                                onclick=closePopup
+                                form="formPass"}}}
+                        {{{Button
+                                className="popup__button popup__button-yes"
+                                nameInput=nameInput
+                                label="Применить"
+                                onclick=editPassword
+                                form="formPass"}}}
                     </div>
                 </form>
             </section>

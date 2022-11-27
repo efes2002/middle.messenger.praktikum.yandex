@@ -4,7 +4,6 @@ export class Main extends Block {
     constructor(props) {
         super({
             ...props,
-            onLogout: () => console.log(5),
         });
     }
     render() {
@@ -13,7 +12,7 @@ export class Main extends Block {
             <div class="main">
                 <section class="main__left">
                     <article class="main__left-top">
-                        <div class="main__avatar" click="{{onLogout}}">{{#if isOpenPopupProfile}} ДА {{else}} НЕТ {{/if}}</div>
+                        <img class="main__avatar" src="static/Avatarka.webp"/>
                         <input class="main__list-search" value="Поиск"></input>
                     </article>
                     {{{Chats chatsData=chats}}}
@@ -35,11 +34,11 @@ export class Main extends Block {
                         <a class="main__link-exit cursor-hover" onclick="renderPage('login')">Выход</a>
                     </nav>
                     {{{Messages messagesData=messages isOpenPopup=isOpenPopup }}}
-                    <section class="main__right-bottom">
-                        <div class="chats__button-message-file"></div>
-                        <div class="chats__input-message-box"></div>
-                        <div class="chats__button-message-text"></div>
-                    </section>
+                    <form class="main__right-bottom">
+                        {{{AddFileMessage}}}
+                        {{{InputMessage}}}
+                        {{{ButtonSendMessage}}}
+                    </form>
                 </section>
             </div>
         `;

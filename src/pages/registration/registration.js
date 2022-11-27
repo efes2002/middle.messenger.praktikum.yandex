@@ -15,7 +15,8 @@ export class Registration extends Block {
                     button=button
                     link=link
                     errorBox=errorBox
-                    currentPage=currentPage
+                    isLogin=false
+                    isRegis=true
             }}}
         `;
     }

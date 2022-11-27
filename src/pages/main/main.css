@@ -172,7 +172,12 @@
 }
 
 .main__right-bottom {
-    height: 50px;
+    display: grid;
+    grid-template-columns: 24px minmax(100px, 653px) 24px;
+    grid-template-rows: 50px;
+    column-gap: 17px;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     padding: 0;
     background-color: var(--main-bg-color-2);
@@ -187,5 +192,16 @@
 }
 
 .main__button-message-text {
-
+    margin: 0;
+    padding: 0 10px;
+    border: 0;
+    height: 24px;
+    background: var(--main-bg-color-4);
+    opacity: 0.5;
+    border-radius: 10px;
+    font-family: Inter,'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
 }

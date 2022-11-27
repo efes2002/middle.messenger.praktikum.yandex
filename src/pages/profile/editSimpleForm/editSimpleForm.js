@@ -3,23 +3,33 @@ import Block from "../../../utils/block";
 export class EditSimpleForm extends Block {
     constructor(props) {
         super({
-            ...props,
+            ...props
         });
     }
     render() {
         //language=hbs
         return `
             <section class="form-box">
-                <form class="form-simple__box" id="formSimple" onsubmit="renderPage('profile')">
-                    <h1 class="popup__title">Редактирование логина</h1>
+                <form class="form-simple__box" id="formSimple">
+                    <h1 class="popup__title">Редактирование - {{title}}</h1>
                     <div class="popup__form">
-                        <label class="form-simple__label" id={{id}}>
-                            <input class="form-simple__input" value="asfsaf"></input>
+                        <label class="form-simple__label">
+                            <input class="form-simple__input" value={{value}}></input>
                         </label>
                     </div>
                     <div class="form-simple__box-button">
-                        <button class="popup__button popup__button-not" onclick="renderPage('profile')">Отмена</button>
-                        <button class="popup__button popup__button-yes" type="submit" form="formSimple">Применить</button>
+                        {{{Button
+                                className="popup__button popup__button-not"
+                                nameInput=nameInput
+                                label="Отмена"
+                                onclick=closePopup
+                                form="formSimple"}}}
+                        {{{Button 
+                                className="popup__button popup__button-yes" 
+                                nameInput=nameInput 
+                                label="Применить" 
+                                onclick=editProfile 
+                                form="formSimple"}}}
                     </div>
                 </form>
             </section>

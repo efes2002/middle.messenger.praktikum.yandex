@@ -31,12 +31,12 @@ export class StartForm extends Block {
                         <div class="form__sign-box">{{errorBox.text}}</div>
                     {{/if}}
 
-                    {{#if currentPage.isLogin}}
+                    {{#if isLogin}}
                         <button class="form__button cursor-hover" type="submit" form="formUser">{{button.title}}</button>
                         <a class="form__link cursor-hover" onclick="renderPage('registration')">{{link.title}}</a>
                     {{/if}}
 
-                    {{#if currentPage.isRegis}}
+                    {{#if isRegis}}
                         <button class="form__button cursor-hover" type="submit" form="formUser">{{button.title}}</button>
                         <a class="form__link cursor-hover" onclick="renderPage('main')">{{link.title}}</a>
                     {{/if}}

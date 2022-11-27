@@ -15,7 +15,8 @@ export class Login extends Block {
                     button=button
                     link=link
                     errorBox=errorBox
-                    currentPage=currentPage
+                    isLogin=true
+                    isRegis=false
             }}}
         `;
     }
