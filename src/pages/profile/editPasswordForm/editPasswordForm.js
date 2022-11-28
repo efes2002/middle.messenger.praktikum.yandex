@@ -12,21 +12,42 @@ export class EditPasswordForm extends Block {
             <section class="form-pass__box">
                 <h1 class="popup__title">Редактирование пароля</h1>
                 <form class="form-pass__form" id="formPass" onsubmit="renderPage('profile')">
-                    <label class="form-pass__label">
-                        <h2 class="form-pass__input-title">Старый пароль</h2>
-                        <input class="form-pass__input" value="•••••••••••" name="oldPassword"></input>
-                        <span class="form-pass__input-error"/>Неправильный пароль</span>
-                    </label>
-                    <label class="form-pass__label" >
-                        <h2 class="form-pass__input-title">Новый пароль</h2>
-                        <input class="form-pass__input" value="•••••••••••" name="newPassword"></input>
-                        <span class="form-pass__input-error"/>Неверный формат</span>
-                    </label>
-                    <label class="form-pass__label">
-                        <h2 class="form-pass__input-title">Повторите новый пароль</h2>
-                        <input class="form-pass__input" value=•••••••••••" name="newPasswordSecond"></input>
-                        <span class="form-pass__input-error"/>Ошибка при повторном вводе</span>
-                    </label>
+                    <div class="form-pass__label">
+                        <label class="form-pass__input-title">Старый пароль</label>
+                        {{{InputValidation
+                                className='form-pass__input'
+                                name='password'
+                                form=form
+                                id='oldPassword'
+                                classNameError='form-pass__input-error'
+                                errorText='Невалидный пароль'
+                                value=''}}}
+                        <span class="form-pass__input-error"/></span>
+                    </div>
+                    <div class="form-pass__label" >
+                        <label class="form-pass__input-title">Новый пароль</label>
+                        {{{InputValidation
+                                className='form-pass__input'
+                                name='password'
+                                form=form
+                                id='newPassword'
+                                classNameError='form-pass__input-error'
+                                errorText='Невалидный пароль'
+                                value=''}}}
+                        <span class="form-pass__input-error"/></span>
+                    </div>
+                    <div class="form-pass__label">
+                        <label class="form-pass__input-title">Повторите новый пароль</label>
+                        {{{InputValidation
+                                className='form-pass__input'
+                                name='password'
+                                form=form
+                                id='newPasswordSecond'
+                                classNameError='form-pass__input-error'
+                                errorText='Невалидный пароль'
+                                value=''}}}
+                        <span class="form-pass__input-error"/></span>
+                    </div>
                     <div class="form-pass__box-button">
                         {{{Button
                                 className="popup__button popup__button-not"

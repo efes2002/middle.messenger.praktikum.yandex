@@ -9,7 +9,7 @@ export class InputMessage extends Block {
     render() {
         //language=hbs
         return `
-            <input class="main__button-message-text"></input>
+            <input class="main__input-message" name={{name}} form={{form}}></input>
         `;
     }
 }

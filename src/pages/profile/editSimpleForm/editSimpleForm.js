@@ -3,19 +3,26 @@ import Block from "../../../utils/block";
 export class EditSimpleForm extends Block {
     constructor(props) {
         super({
-            ...props
+            ...props,
+            a: console.log('EditSimpleForm', props)
         });
     }
     render() {
         //language=hbs
         return `
-            <section class="form-box">
+            <section class="form-box">o
                 <form class="form-simple__box" id="formSimple">
                     <h1 class="popup__title">Редактирование - {{title}}</h1>
                     <div class="popup__form">
-                        <label class="form-simple__label">
-                            <input class="form-simple__input" value={{value}}></input>
-                        </label>
+                        {{{InputValidation
+                                className='form-simple__input'
+                                name=name
+                                form=form
+                                id=id
+                                errorText=errorText
+                                classNameError='form__input-error'
+                                value=value}}}
+                        <span class="form__input-error"></span>
                     </div>
                     <div class="form-simple__box-button">
                         {{{Button

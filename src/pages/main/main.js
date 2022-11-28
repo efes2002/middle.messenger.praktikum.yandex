@@ -1,9 +1,13 @@
 import Block from "../../utils/block";
+import {ACTION, dispatch} from "../../utils/state";
 
 export class Main extends Block {
     constructor(props) {
         super({
             ...props,
+            submitForm: (element, children, event) => {
+                dispatch(ACTION.submitForm, { event: event });
+            },
         });
     }
     render() {
@@ -33,11 +37,11 @@ export class Main extends Block {
                     <nav class="main__right-top">
                         <a class="main__link-exit cursor-hover" onclick="renderPage('login')">Выход</a>
                     </nav>
-                    {{{Messages messagesData=messages isOpenPopup=isOpenPopup }}}
-                    <form class="main__right-bottom">
+                    {{{ Messages messagesData=messages isOpenPopup=isOpenPopup }}}
+                    <form class="main__right-bottom" id="formMessage">
                         {{{AddFileMessage}}}
-                        {{{InputMessage}}}
-                        {{{ButtonSendMessage}}}
+                        {{{InputMessage form="formMessage" name="message"}}}
+                        {{{ButtonSendMessage onclick=submitForm form="formMessage"}}}
                     </form>
                 </section>
             </div>

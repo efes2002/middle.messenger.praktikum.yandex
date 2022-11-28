@@ -10,17 +10,12 @@
     justify-items: center;
 }
 
-.form-simple__label {
-    margin: 42px 0 0 0;
-    padding: 0;
-    background: var(--main-bg-color-2);
-    border-radius: 8px;
-}
+
 
 .form-simple__input {
     width: 330px;
     height: 32px;
-    margin: 0;
+    margin: 42px 0 0 0;
     padding: 0 0 0 10px;
     box-sizing: border-box;
     background: var(--main-bg-color-1);

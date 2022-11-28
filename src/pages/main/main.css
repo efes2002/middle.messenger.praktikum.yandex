@@ -184,14 +184,26 @@
 }
 
 .main__button-message-file {
-
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    background-color: var(--main-bg-color-2);
+    background-image: url('../../../static/img14.svg');
 }
 
-.main__input-message-box {
-
+.main__button-message-sent {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    background-color: var(--main-bg-color-2);
+    background-image: url('../../../static/img13.svg');
 }
 
-.main__button-message-text {
+.main__input-message {
     margin: 0;
     padding: 0 10px;
     border: 0;
@@ -205,3 +217,4 @@
     font-size: 12px;
     line-height: 15px;
 }
+

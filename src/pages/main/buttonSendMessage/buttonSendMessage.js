@@ -4,14 +4,17 @@ export class ButtonSendMessage extends Block {
     constructor(props) {
         super({
             ...props,
+            events: {
+                click: (event)=>{
+                    props.onclick(this, props, event)
+                }
+            }
         });
     }
     render() {
         //language=hbs
         return `
-            <div>
-                <img class="main__button-message-file cursor-hover" type="button" src="static/img13.svg"></img>
-            </div>
+             <button class="main__button-message-sent cursor-hover" src="static/img13.svg"></button>
         `;
     }
 }

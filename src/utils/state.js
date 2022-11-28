@@ -1,8 +1,13 @@
 import testDataMain from "../pages/main/testDataMain";
+import {validationInput} from "./validationInput";
 
 export const ACTION = {
     closePopup: 'closePopup',
-    isOpen: 'isOpen'
+    isOpen: 'isOpen',
+    submitForm: 'submitForm',
+    validationOnBlur: 'validationOnBlur',
+    validationOnFocus: 'validationOnFocus',
+    editProfile: 'editProfile'
 }
 
 export const state =  {
@@ -29,8 +34,10 @@ export const state =  {
         },
         setting: {
             title: '',
-            nameInput: '',
-            value: ''
+            name: '',
+            value: '',
+            classNameError: '',
+            errorText: ''
         }
     },
     messages: testDataMain.messages,
@@ -38,17 +45,17 @@ export const state =  {
 }
 
 export const dispatch = (action, value) => {
-
+    const { props = {}, element = {}, children = {}, event = {} } = value;
     switch (action) {
+
         case ACTION.closePopup: {
-            const { props } = value
             exchangeOfStates({
                 popupProfile: {...props.popupProfile, isOpen: false}
             })
             break;
         }
+
         case ACTION.isOpen: {
-            const { props, element, children } = value;
             const tmpSet  = !props.popupProfile.isOpen;
             exchangeOfStates({
                 popupProfile: {
@@ -61,13 +68,60 @@ export const dispatch = (action, value) => {
                     },
                     setting: {
                         title : children.title,
-                        nameInput: children.name,
-                        value: children.value
+                        name: children.name,
+                        value: children.value,
+                        classNameError: children.classNameError,
+                        errorText: children.errorText,
                     }
                 }
             });
             break;
         }
+
+        case ACTION.submitForm: {
+                event.preventDefault();
+                const tempObj = {};
+                Array.from(event.target.form.elements).forEach((input) => {
+                    if (input.nodeName === "INPUT") {
+                        tempObj[input.name] = input.value;
+                        input.value = '';
+                    }
+                });
+                console.log(tempObj);
+            break;
+        }
+
+        case ACTION.validationOnBlur: {
+            if (!validationInput(props.name, event.target.value)&&(event.target.value !== '')) {
+                Array.from(event.target.parentElement.children).forEach((element) => {
+                    if (element.className === props.classNameError) {
+                        element.innerText = props.errorText;
+                    }
+                });
+            }
+            break;
+        }
+
+        case ACTION.validationOnFocus: {
+            Array.from(event.target.parentElement.children).forEach((element) => {
+                if (element.className === props.classNameError) {
+                    element.innerText = '';
+                }
+            });
+            break;
+        }
+
+        case ACTION.editProfile: {
+            const value = event.target.form[0].value;
+            event.preventDefault();
+
+            console.log(7, value);
+            exchangeOfStates({
+                users: {...props.users, [children.nameInput]: value},
+            });
+            break;
+        }
+
         default:
             alert( "Нет таких значений" );
     }

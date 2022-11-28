@@ -4,11 +4,8 @@ import settingPage404 from "../pages/page404/settingPage404";
 import {Page500} from "../pages/page500/page500";
 import settingPage500 from "../pages/page500/settingPage500";
 import {Profile} from "../pages/profile/profile";
-import settingProfile from "../pages/profile/settingProfile";
 import {Login} from "../pages/login/login";
-import settingLogin from "../pages/login/settingLogin";
 import {Registration} from "../pages/registration/registration";
-import settingRegistration from "../pages/registration/settingRegistration";
 
 export default {
     main: {
@@ -25,14 +22,14 @@ export default {
     },
     profile: {
         page: Profile,
-        setting: settingProfile
+        setting: {}
     },
     login: {
         page: Login,
-        setting: settingLogin
+        setting: {}
     },
     registration: {
         page: Registration,
-        setting: settingRegistration
+        setting: {}
     },
 }

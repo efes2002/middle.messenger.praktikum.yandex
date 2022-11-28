@@ -31,5 +31,5 @@ const exchangeOfStates = (state)=> {
 window.exchangeOfStates = exchangeOfStates;
 
 document.addEventListener('DOMContentLoaded', () => {
-    togglePage('main');
+    togglePage('profile');
 })

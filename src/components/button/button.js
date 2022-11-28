@@ -4,7 +4,6 @@ export class Button extends Block {
     constructor(props) {
         super({
             ...props,
-            valueInputTmp: '',
             events: {
                 click: (event)=>{
                     props.onclick(this, props, event)
