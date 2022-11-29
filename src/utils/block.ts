@@ -1,6 +1,9 @@
 import {v4 as makeUUID} from 'uuid';
 import { EventBus } from './eventBus';
-import Handlebars from 'handlebars/dist/handlebars.js';
+import Handlebars from 'handlebars';
+
+
+type nul<E> = E | null;
 
 export default class Block {
 
@@ -11,9 +14,9 @@ export default class Block {
         FLOW_RENDER: "flow:render"
     };
 
-    props: any = {};
-    _element: HTMLElement = null;
-    _meta: { props: any } = null;
+    props: any | null = {};
+    _element: nul<HTMLElement> | null = null;
+    _meta: { props: any } | null = null;
     eventBus = ():any => EventBus;
     id = makeUUID();
     children: Record<string, Block> = {};
@@ -34,10 +37,10 @@ export default class Block {
         return this._element;
     }
 
-    _getChildrenAndProps(childrenAndProps) {
-        const props = {};
-        const children = {};
-        Object.entries(childrenAndProps).forEach(([key, value]) => {
+    _getChildrenAndProps(childrenAndProps: any) {
+        const props: any = {};
+        const children: any = {};
+        Object.entries(childrenAndProps).forEach(([key, value]: [string, any]) => {
             if (value instanceof Block) { children[key] = value; }
             else { props[key] = value; }
         })
@@ -47,7 +50,7 @@ export default class Block {
     _addEvents() {
         const { events = {} } = this.props;
         Object.keys(events).forEach(eventName => {
-            this._element.addEventListener(eventName, events[eventName]);
+            this._element!.addEventListener(eventName, events[eventName]);
         });
     }
 
@@ -61,17 +64,17 @@ export default class Block {
     _createResources() {
     }
 
-    _componentDidMount(oldProps) {
+    _componentDidMount(oldProps: any) {
         this.componentDidMount(oldProps);
     }
 
-    _componentDidUpdate(oldProps, newProps) {
+    _componentDidUpdate(oldProps:any, newProps:any) {
         if (this.componentDidUpdate(oldProps, newProps)) {
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         }
     }
 
-    _makePropsProxy(props) {
+    _makePropsProxy(props: any) {
         const self = this;
         return new Proxy(props, {
             get(target, prop) {
@@ -128,7 +131,7 @@ export default class Block {
         return true;
     }
 
-    compile(template, context) {
+    compile(template: any, context: any) {
         const contextAndStubs: any = { ...context };
         const compiled = Handlebars.compile(template);
         const temp = document.createElement('template');

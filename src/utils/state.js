@@ -17,9 +17,9 @@ export const state = {
         avatar: '',
         email: 'pochta@yandex.ru',
         login: 'Ivan1989',
-        firstName: 'Иван',
-        secondName: 'Иванов',
-        displayName: 'Иванчик',
+        first_name: 'Иван',
+        second_name: 'Иванов',
+        display_name: 'Иванчик',
         phone: `+7(907)777-77-77`
     },
     isLogin: true,
@@ -127,10 +127,9 @@ export const dispatch = (action, value) => {
             exchangeOfStates({
                 users: {...props.users, [name]: value},
             }, [PAGE_NAME.main, PAGE_NAME.profile]);
-
             console.log('Я еще раз проверил на валидность значений, вот результа: ');
-            if (validationInput(name, value)&&(value !== '')) { console.log({ name : 'OK верное значение' }); }
-            else { console.log({ name : 'FALSE не верное значение'}); }
+            if (validationInput(name, value)&&(value !== '')) { console.log({ name : '11OK верное значение' }); }
+            else { console.log({ name : '11FALSE не верное значение'}); }
             break;
         }
 

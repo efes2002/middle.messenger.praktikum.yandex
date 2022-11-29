@@ -10,7 +10,7 @@ export class EditSimpleForm extends Block {
         //language=hbs
         return `
             
-            <section class="form-box">o
+            <section class="form-box">
                 <form class="form-simple__box" id="formSimple">
                     <h1 class="popup__title">Редактирование - {{setting.title}}</h1>
                     {{{InputValidation

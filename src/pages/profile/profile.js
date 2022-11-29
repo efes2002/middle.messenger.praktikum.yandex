@@ -55,7 +55,7 @@ export class Profile extends Block {
                             title='Имя'   
                             name='first_name'
                             id='profPageFirstName'
-                            value=users.firstName 
+                            value=users.first_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -64,7 +64,7 @@ export class Profile extends Block {
                             title='Фамилия' 
                             name='second_name'
                             id='profPageSecondName'
-                            value=users.secondName 
+                            value=users.second_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -73,7 +73,7 @@ export class Profile extends Block {
                             title='Имя в чате'
                             name='display_name'
                             id='profPageDisplayName' 
-                            value=users.displayName 
+                            value=users.display_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
