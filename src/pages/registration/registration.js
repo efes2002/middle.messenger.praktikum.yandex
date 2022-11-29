@@ -6,7 +6,7 @@ export class Registration extends Block {
         super({
             ...props,
             submitForm: (element, children, event) => {
-                dispatch(ACTION.submitForm, { event: event });
+                dispatch(ACTION.submitForm, { element: this, event: event });
                 renderPage('main');
             },
         });
@@ -21,58 +21,51 @@ export class Registration extends Block {
                         {{{ FormElement
                                 form="formUserReg"
                                 name='email' 
-                                title='Почта' 
-                                value='' 
+                                title='Почта'
+                                value=''
                                 id='regPageEmail'
-                                isError=false 
                                 errorText='Не валидный email' }}}
                         {{{ FormElement
                                 form="formUserReg"
                                 name='login' 
-                                title='Логин' 
-                                value='' 
+                                title='Логин'
+                                value=''
                                 id='regPageLogin'
-                                isError=false 
                                 errorText='Не валидный login' }}}
                         {{{ FormElement
                                 form="formUserReg"
                                 name='first_name' 
-                                title='Имя' 
-                                value='' 
+                                title='Имя'
+                                value=''
                                 id='regPageFirstName'
-                                isError=false 
                                 errorText='Не валидное Имя' }}}
                         {{{ FormElement
                                 form="formUserReg"
                                 name='second_name' 
-                                title='Фамилия' 
-                                value='' 
+                                title='Фамилия'
+                                value=''
                                 id='regPageLastName'
-                                isError=false 
                                 errorText='Не валидная Фамилия' }}}
                         {{{ FormElement
                                 form="formUserReg"
                                 name='phone' 
-                                title='Телефон' 
-                                value='' 
+                                title='Телефон'
+                                value=''
                                 id='regPagePhone'
-                                isError=false 
                                 errorText='Не валидный телефон' }}}
                         {{{ FormElement
                                 form="formUserReg"
                                 name='password' 
-                                title='Пароль' 
-                                value='' 
+                                title='Пароль'
+                                value=''
                                 id='regPagePassword'
-                                isError=false 
                                 errorText='Не валидный пароль' }}}
                         {{{ FormElement
                                 form="formUserReg"
                                 name='passwordSecond' 
-                                title='Пароль (ещё раз)' 
-                                value='' 
+                                title='Пароль (ещё раз)'
+                                value=''
                                 id='regPageSecondPassword'
-                                isError=false 
                                 errorText='Пароли не совпадают' }}}
                     </div>
                     {{{Button

@@ -1,5 +1,6 @@
 import testDataMain from "../pages/main/testDataMain";
 import {validationInput} from "./validationInput";
+import {PAGE_NAME} from "./listPageAndSetting";
 
 export const ACTION = {
     closePopup: 'closePopup',
@@ -10,7 +11,7 @@ export const ACTION = {
     editProfile: 'editProfile'
 }
 
-export const state =  {
+export const state = {
     users: {
         id: '',
         avatar: '',
@@ -22,19 +23,20 @@ export const state =  {
         phone: `+7(907)777-77-77`
     },
     isLogin: true,
-    listChats : [],
-    liveChatId : '',
+    listChats: [],
+    liveChatId: '',
     liveMessages: [],
     popupProfile: {
         isOpen: false,
-        name: {
-        isSimpleForm: true,
-        isPasswordForm: false,
-        isAvatarForm: false
+        namePopupForm: {
+            isSimpleForm: false,
+            isPasswordForm: false,
+            isAvatarForm: false
         },
         setting: {
             title: '',
             name: '',
+            id: '',
             value: '',
             classNameError: '',
             errorText: ''
@@ -51,17 +53,16 @@ export const dispatch = (action, value) => {
         case ACTION.closePopup: {
             exchangeOfStates({
                 popupProfile: {...props.popupProfile, isOpen: false}
-            })
+            }, [PAGE_NAME.profile])
             break;
         }
 
         case ACTION.isOpen: {
-            const tmpSet  = !props.popupProfile.isOpen;
             exchangeOfStates({
                 popupProfile: {
                     ...props.popupProfile,
-                    isOpen: tmpSet,
-                    name: {
+                    isOpen: true,
+                    namePopupForm: {
                         isSimpleForm: element.props.isSimpleForm,
                         isPasswordForm: element.props.isPasswordForm,
                         isAvatarForm: element.props.isAvatarForm,
@@ -70,24 +71,32 @@ export const dispatch = (action, value) => {
                         title : children.title,
                         name: children.name,
                         value: children.value,
+                        id: children.id,
                         classNameError: children.classNameError,
                         errorText: children.errorText,
                     }
                 }
-            });
+            }, [PAGE_NAME.profile]);
             break;
         }
 
         case ACTION.submitForm: {
-                event.preventDefault();
-                const tempObj = {};
-                Array.from(event.target.form.elements).forEach((input) => {
-                    if (input.nodeName === "INPUT") {
-                        tempObj[input.name] = input.value;
-                        input.value = '';
-                    }
-                });
-                console.log(tempObj);
+            event.preventDefault();
+            const tempObj = {};
+            Array.from(event.target.form.elements).forEach((item) => {
+                if (item.nodeName === "INPUT") {
+                    tempObj[item.name] = item.value;
+                    item.value = '';
+                }
+              });
+            event.target.form.querySelectorAll('.form__input-error').forEach((item)=>item.textContent='');
+            const tempObj2 = {};
+            Object.entries(tempObj).forEach(([key, value]) => {
+                if (validationInput(key, value)&&(value !== '')) { tempObj2[key] = 'OK верное значение' }
+                else {  tempObj2[key] = 'FALSE не верное значение' }
+            })
+            console.log(tempObj);
+            console.log('Я еще раз проверил на валидность значений, вот результа: ', tempObj2);
             break;
         }
 
@@ -113,12 +122,15 @@ export const dispatch = (action, value) => {
 
         case ACTION.editProfile: {
             const value = event.target.form[0].value;
+            const name = event.target.form[0].name;
             event.preventDefault();
-
-            console.log(7, value);
             exchangeOfStates({
-                users: {...props.users, [children.nameInput]: value},
-            });
+                users: {...props.users, [name]: value},
+            }, [PAGE_NAME.main, PAGE_NAME.profile]);
+
+            console.log('Я еще раз проверил на валидность значений, вот результа: ');
+            if (validationInput(name, value)&&(value !== '')) { console.log({ name : 'OK верное значение' }); }
+            else { console.log({ name : 'FALSE не верное значение'}); }
             break;
         }
 

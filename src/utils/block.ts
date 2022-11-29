@@ -1,6 +1,6 @@
 import {v4 as makeUUID} from 'uuid';
-import {EventBus} from './eventBus.js';
-import Handlebars from 'handlebars';
+import { EventBus } from './eventBus';
+import Handlebars from 'handlebars/dist/handlebars.js';
 
 export default class Block {
 
@@ -11,14 +11,14 @@ export default class Block {
         FLOW_RENDER: "flow:render"
     };
 
-    props = {};
-    _element = null;
-    _meta = null;
-    eventBus = ()=> EventBus;
+    props: any = {};
+    _element: HTMLElement = null;
+    _meta: { props: any } = null;
+    eventBus = ():any => EventBus;
     id = makeUUID();
-    children = {};
+    children: Record<string, Block> = {};
 
-    constructor(childrenAndProps = {}) {
+    constructor(childrenAndProps: any = {}) {
         const eventBus = new EventBus();
         const { props, children } = this._getChildrenAndProps(childrenAndProps)
         this._meta = { props };
@@ -30,7 +30,7 @@ export default class Block {
         eventBus.emit(Block.EVENTS.INIT);
     }
 
-    get element() {
+    get element(): any {
         return this._element;
     }
 
@@ -51,7 +51,7 @@ export default class Block {
         });
     }
 
-    _registerEvents(eventBus) {
+    _registerEvents(eventBus: EventBus) {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -61,14 +61,14 @@ export default class Block {
     _createResources() {
     }
 
-    _componentDidMount() {
-        this.componentDidMount();
+    _componentDidMount(oldProps) {
+        this.componentDidMount(oldProps);
     }
 
     _componentDidUpdate(oldProps, newProps) {
         if (this.componentDidUpdate(oldProps, newProps)) {
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
-        };
+        }
     }
 
     _makePropsProxy(props) {
@@ -76,8 +76,7 @@ export default class Block {
         return new Proxy(props, {
             get(target, prop) {
                 const value = target[prop];
-                const answer = typeof value === "function" ? value.bind(target): value;
-                return answer
+                return typeof value === "function" ? value.bind(target): value;
             },
             set(target, prop, value) {
                 const oldTarget = { ...target };
@@ -94,7 +93,7 @@ export default class Block {
     _render() {
         const template = this.render();
         const fragment = this.compile(template, { ...this.props, children: this.children })
-        const newElement = fragment.firstElementChild;
+        const newElement = fragment.firstElementChild as HTMLElement;
         this._element?.replaceWith(newElement);
         this._element = newElement;
         this._addEvents();
@@ -113,28 +112,28 @@ export default class Block {
         return this.element;
     }
 
-    setProps = nextProps => {
+    setProps = ( nextProps: any ) => {
         if (!nextProps) { return; }
         Object.assign(this.props, nextProps);
     };
 
-    dispatchComponentDidMoun() {
+    dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
     }
 
-    componentDidMount(oldProps) {
+    componentDidMount(oldProps: any) {
     }
 
-    componentDidUpdate(oldProps, newProps) {
+    componentDidUpdate(oldProps: any, newProps: any) {
         return true;
     }
 
     compile(template, context) {
-        const contextAndStubs = { ...context };
+        const contextAndStubs: any = { ...context };
         const compiled = Handlebars.compile(template);
         const temp = document.createElement('template');
         temp.innerHTML = compiled(contextAndStubs);
-        Object.entries(this.children).forEach(([name, component])=>{
+        Object.entries(this.children).forEach(([name, component]: [string, Block])=>{
             const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
             if (!stub) { return; }
             stub.replaceWith(component.getContent());

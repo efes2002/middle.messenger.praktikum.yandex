@@ -9,7 +9,7 @@ export class Page404 extends Block {
     render() {
         //language=hbs
         return `
-            {{{ErrorPage title=title subtitle=subtitle linktitle=linktitle}}}
+            {{{ErrorPage title="404" subtitle="Не туда попали" linktitle="Назад к чатам"}}}
         `;
     }
 }

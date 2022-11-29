@@ -7,10 +7,10 @@ export class InputValidation extends Block {
             ...props,
             events: {
                 blur: (event) => {
-                    dispatch(ACTION.validationOnBlur, { props: this.props, event: event });
+                    dispatch(ACTION.validationOnBlur, { element: this, props: this.props, event: event });
                 },
                 focus: (event) => {
-                    dispatch(ACTION.validationOnFocus, { props: this.props, event: event });
+                    dispatch(ACTION.validationOnFocus, { element: this, props: this.props, event: event });
                 },
             }
         });

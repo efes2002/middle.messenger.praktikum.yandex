@@ -39,4 +39,6 @@ const HELPERS = {
     'InputValidation': InputValidation,
 }
 
-export const registrationHelpers = () => {Object.entries(HELPERS).map(([key, value]) => registerComponent(key, value));}
+export const registrationHelpers = () => {Object.entries(HELPERS).map(([key, value]) => {
+    registerComponent(key, value);
+});}

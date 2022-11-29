@@ -9,7 +9,7 @@ export class Page500 extends Block {
     render() {
         //language=hbs
         return `
-            {{{ErrorPage title=title subtitle=subtitle linktitle=linktitle}}}
+            {{{ErrorPage title="500" subtitle="Мы уже фиксим" linktitle="Назад к чатам"}}}
         `;
     }
 }

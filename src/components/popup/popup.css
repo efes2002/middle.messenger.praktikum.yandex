@@ -39,12 +39,6 @@
     color: var(--main-tx-color-1);
 }
 
-.popup__form {
-    margin: 0;
-    padding: 0;
-    display: grid;
-}
-
 .popup__button {
     width: 113px;
     height: 26px;

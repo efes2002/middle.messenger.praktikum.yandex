@@ -9,44 +9,34 @@ export class Popup extends Block {
     render() {
         //language=hbs
         return `
-            {{#if isOpen}}
                 <div class="popup popup_opened">
                     <div class="popup__container">
-                        {{#if isSimpleForm}} 
-                            {{{ EditSimpleForm 
-                                    title=title
-                                    nameInput=nameInput
-                                    name=name
-                                    value=value
+                        {{#if namePopupForm.isSimpleForm}} 
+                            {{{ EditSimpleForm
+                                    setting=setting
                                     editProfile=editProfile
                                     closePopup=closePopup
-                                    nameInput=nameInput
-                                    classNameError=classNameError
-                                    errorText=errorText
-                                    value=value}}}
+                            }}}
                         {{/if}}
-                        {{#if isPasswordForm}} 
+                        {{#if namePopupForm.isPasswordForm}} 
                             {{{ EditPasswordForm
-                                    name=name
-                                    value=value
+                                    name=setting.name
+                                    classNameError=setting.classNameError
+                                    errorText=setting.errorText
                                     closePopup=closePopup
                                     editPassword=editPassword
-                                    classNameError=classNameError
-                                    errorText=errorText
+                                    value=''
                             }}} 
                         {{/if}}
-                        {{#if isAvatarForm}} 
+                        {{#if namePopupForm.isAvatarForm}} 
                             {{{ EditAvatarForm
-                                    nameInput=nameInput
+                                    name=setting.name
                                     closePopup=closePopup
                                     editAvatar=editAvatar
                             }}} 
                         {{/if}}
                     </div>
                 </div>
-            {{else}}
-                <div></div>
-            {{/if}}
         `;
     }
 }

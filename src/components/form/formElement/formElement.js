@@ -15,9 +15,9 @@ export class FormElement extends Block {
                         className='form__input' 
                         name=name 
                         form=form 
-                        id=id 
-                        classNameError='form__input-error'
+                        id=id
                         errorText=errorText
+                        classNameError='form__input-error'
                         value=value}}}
                 <div class="form__input-line"></div>
                 <span class="form__input-error"></span>

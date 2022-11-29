@@ -1,18 +1,18 @@
 import { registrationHelpers } from "./utils/registrationHelpers";
-import PAGE from "./utils/listPageAndSetting";
+import PAGES, {PAGE_NAME} from "./utils/listPageAndSetting";
 import { state } from "./utils/state";
 
 function renderPages(pages) {
-    const arrPages = {};
+    const objPages = {};
     Object.entries(pages).forEach(([key, value]) => {
-        arrPages[key] = new value.page({...value.setting, ...state});
+        objPages[key] = new value({ ...state});
     });
-    return arrPages;
+    return objPages;
 }
 
 registrationHelpers();
 
-const listPage = renderPages(PAGE);
+const listPage = renderPages(PAGES);
 
 function togglePage(namePage) {
     document.querySelector('#root').innerHTML = '';
@@ -21,15 +21,15 @@ function togglePage(namePage) {
 
 window.renderPage = togglePage;
 
-//Временное решение которое помогает объединить состояния у всех страниц
-const exchangeOfStates = (state)=> {
-    for (let key in listPage) {
-        listPage[key].setProps(state);
-    }
+//Временное решение которое помогает объединить состояния у страниц которы мы передали в функцию
+const exchangeOfStates = (state, listPagesUpdate)=> {
+    Object.entries(listPage).forEach(([key, value]) => {
+        if (listPagesUpdate.includes(key)) { listPage[key].setProps(state); }
+    });
 }
 
 window.exchangeOfStates = exchangeOfStates;
 
 document.addEventListener('DOMContentLoaded', () => {
-    togglePage('profile');
+    togglePage(PAGE_NAME.registration);
 })

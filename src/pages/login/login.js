@@ -24,7 +24,6 @@ export class Login extends Block {
                                 title='Логин'
                                 value=''
                                 id='loginPageLogin'
-                                isError=false
                                 errorText='Не валидный Логин' }}}
                         {{{ FormElement
                                 form="formUserLogin"
@@ -32,7 +31,6 @@ export class Login extends Block {
                                 title='Пароль'
                                 value=''
                                 id='loginPagePassword'
-                                isError=false
                                 errorText='Не валидный пароль' }}}
                     </div>
                     {{#if errorBox.isErrorBox}}
