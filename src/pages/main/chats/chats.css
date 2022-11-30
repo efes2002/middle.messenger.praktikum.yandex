@@ -1,0 +1,19 @@
+.chats__list-users {
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 5px 0;
+  background-color: var(--main-bg-color-2);
+}
+
+.chats__list-users::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chats__list-users::-webkit-scrollbar-track {
+  background: var(--main-bg-color-3);
+}
+
+.chats__list-users::-webkit-scrollbar-thumb {
+  background-color: var(--main-bg-bt-color-1);
+}
