@@ -1,68 +1,75 @@
 type Options = {
-    data?: unknown;
-    method?: string;
-    headers?: unknown;
-    timeout?: number;
-}
+  data?: any;
+  method?: string;
+  headers?: any;
+  timeout?: number;
+};
 
-type funHTTP = (string , Options) => Promise<unknown>;
+type FunHTTP = (arg0: string, arg1: Options) => Promise<unknown>;
 
 const METHODS: Record<string, string> = {
-    GET: 'GET',
-    PUT: 'PUT',
-    POST: 'POST',
-    DELETE: 'DELETE',
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
 };
 
 function queryStringify(data: any): string {
-    return "?" + Object
-        .entries(data)
-        .map((item)=>`${item[0]}=${item[1]}`)
-        .join("&")
+  return `?${Object
+    .entries(data)
+    .map((item) => `${item[0]}=${item[1]}`)
+    .join('&')}`;
 }
 
-export class HTTPTransport {
+export default class HTTPTransport {
+  get:FunHTTP = (url, options = {}) => {
+    const params = options.data ? queryStringify(options.data) : '';
+    return this.request(url + params, { ...options, method: METHODS.GET }, options.timeout);
+  };
 
-    get:funHTTP  = (url, options = {}) => {
-        const params = options.data ? queryStringify(options.data) : '';
-        return this.request(url + params, {...options, method: METHODS.GET}, options.timeout);
-    };
+  put:FunHTTP = (url, options = {}) => this.request(
+    url,
+    { ...options, method: METHODS.PUT },
+    options.timeout,
+  );
 
-    put:funHTTP = (url, options = {}) => {
-        return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
-    };
+  post:FunHTTP = (url, options = {}) => this.request(
+    url,
+    { ...options, method: METHODS.POST },
+    options.timeout,
+  );
 
-    post:funHTTP = (url, options = {}) => {
-        return this.request(url, {...options, method: METHODS.POST}, options.timeout);
-    };
+  delete:FunHTTP = (url, options = {}) => this.request(
+    url,
+    { ...options, method: METHODS.DELETE },
+    options.timeout,
+  );
 
-    delete:funHTTP = (url, options = {}) => {
-        return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
-    };
+  // eslint-disable-next-line class-methods-use-this
+  request = (url: string, options: any, timeout = 5000) => {
+    const { method, headers = {}, data = {} } = options;
 
-    request = (url, options, timeout = 5000) => {
-        const {method, headers = {}, data = {}} = options;
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, url);
 
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open(method, url);
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      function setHeaders(headers: any) {
+        // eslint-disable-next-line guard-for-in,no-restricted-syntax
+        for (const key in headers) {
+          xhr.setRequestHeader(key, headers[key]);
+        }
+      }
+      setHeaders(headers);
+      xhr.timeout = timeout;
 
-            function setHeaders(headers){
-                for(let key in headers){
-                    xhr.setRequestHeader(key, headers[key])
-                }
-            }
-            setHeaders(headers);
-            xhr.timeout = timeout;
+      if (method === METHODS.GET) { xhr.send(); } else { xhr.send(JSON.stringify(data)); }
 
-            if (method === METHODS.GET) { xhr.send(); }
-            else { xhr.send(JSON.stringify(data)); }
-
-            xhr.onload = function() {resolve(xhr);};
-            xhr.onabort = reject;
-            xhr.onerror = reject;
-            xhr.ontimeout = reject;
-
-        });
-    };
+      // eslint-disable-next-line func-names
+      xhr.onload = function () { resolve(xhr); };
+      xhr.onabort = reject;
+      xhr.onerror = reject;
+      xhr.ontimeout = reject;
+    });
+  };
 }

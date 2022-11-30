@@ -1,41 +1,38 @@
 :root {
-    --main-bg-color-1: #F1F5FB;
-    --main-bg-color-2: #E1EFFC;
-    --main-bg-color-3: #C5E2FC;
-    --main-bg-color-4: #FFFFFF;
-    --main-bg-color-5: #C5F0C4;
-    --main-tx-color-1: #000000;
-    --main-tx-color-2: #5F7EA1;
-    --main-tx-color-error: #FF2F2F;
-    --main-tx-bt-color-1: #FFFFFF;
-    --main-bg-bt-color-1: #5F7EA1;
-    --main-bg-bt-color-3: #C5F0C4;
+  --main-bg-color-1: #f1f5fb;
+  --main-bg-color-2: #e1effc;
+  --main-bg-color-3: #c5e2fc;
+  --main-bg-color-4: #fff;
+  --main-bg-color-5: #c5f0c4;
+  --main-tx-color-1: #000;
+  --main-tx-color-2: #5f7ea1;
+  --main-tx-color-error: #ff2f2f;
+  --main-tx-bt-color-1: #fff;
+  --main-bg-bt-color-1: #5f7ea1;
+  --main-bg-bt-color-3: #c5f0c4;
 }
 
 .root {
-    margin: 0;
-    padding: 0;
-    background: #F1F5FB;
-    min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #f1f5fb;
+  min-height: 100vh;
 }
 
 .main-page {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    display: grid;
-    align-items: start;
-    justify-items: center;
-    align-content: start;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  align-content: start;
 }
 
 .cursor-hover:hover {
-    opacity: 0.6;
-    cursor: pointer;
+  opacity: 0.6;
+  cursor: pointer;
 }
 
-a:active,
-a:hover,
-a {
-    text-decoration: none;
-}
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
