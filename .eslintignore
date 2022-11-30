@@ -1,0 +1,6 @@
+/build
+/dist
+**/*.min.js
+/node_modules
+/.github
+/server.js
