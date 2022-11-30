@@ -11,8 +11,9 @@
 			]
 		},
 		"outDir": "dist",
-    "target": "es5",
+    "target": "esNext",
     "module": "commonjs",
+    "declaration": "false",
     "lib": ["ES2019", "DOM"],
     "isolatedModules": true,
     "strict": true,
