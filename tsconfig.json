@@ -1,26 +1,24 @@
 {
   "compilerOptions": {
-		"rootDir": ".",
-		"baseUrl": ".",
-		"paths": {
-			"src/*": [
-				"./src/*"
-			],
-			"static/*": [
-				"./static/*"
-			]
-		},
-		"outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+      "static/*": [
+        "./static/*"
+      ]
+    },
+    "outDir": "dist",
     "target": "esNext",
-    "module": "commonjs",
     "declaration": false,
+    "module": "commonjs",
     "strictNullChecks": true,
     "sourceMap": true,
-    "lib": ["ES2019", "DOM"],
-    "isolatedModules": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true
   }
 }
