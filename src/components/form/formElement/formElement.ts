@@ -1,7 +1,7 @@
-import Block from '../../../utils/block';
+import Block, { Props } from '../../../utils/block';
 
 export default class FormElement extends Block {
-  constructor(props: any) {
+  constructor(props: Props) {
     super({
       ...props,
     });

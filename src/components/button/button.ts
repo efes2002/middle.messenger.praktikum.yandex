@@ -1,11 +1,11 @@
-import Block from '../../utils/block';
+import Block, { Props } from '../../utils/block';
 
 export default class Button extends Block {
-  constructor(props: any) {
+  constructor(props: Props) {
     super({
       ...props,
       events: {
-        click: (event: any) => {
+        click: (event: Event) => {
           props.onclick(this, props, event);
         },
       },

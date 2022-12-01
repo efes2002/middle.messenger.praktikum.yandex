@@ -1,53 +1,55 @@
 import { v4 as makeUUID } from 'uuid';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Handlebars from 'handlebars';
 import EventBus from './eventBus';
 
-type Nul<E> = E | null;
+export type Children = Record<string, Block>;
+export type Props = {
+  [key: string]: any | Block;
+  children?: Children;
+  events?: Record<string, (...args: any) => void>;
+};
 
-export default class Block {
+export default abstract class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
-  };
+  } as const;
 
-  props: any | null = {};
+  props: Props;
 
-  _element: Nul<HTMLElement> | null = null;
+  _element: HTMLElement;
 
-  _meta: { props: any } | null = null;
+  _meta: { props: Props };
 
-  // eslint-disable-next-line class-methods-use-this
-  eventBus = (): any => EventBus;
+  _eventBus: () => EventBus;
 
-  id = makeUUID();
+  _id: string = makeUUID();
 
-  children: Record<string, Block> = {};
+  children: Children;
 
-  constructor(childrenAndProps: any = {}) {
+  protected constructor(childrenAndProps: Props = {}) {
+    const { props, children } = this._getChildrenAndProps(childrenAndProps);
     const eventBus = new EventBus();
-    const {
-      props,
-      children,
-    } = this._getChildrenAndProps(childrenAndProps);
+    this._eventBus = () => eventBus;
     this._meta = { props };
-    this.id = makeUUID();
+    this._id = makeUUID();
     this.children = children;
     this.props = this._makePropsProxy(props);
-    this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  get element(): any {
+  get element() {
     return this._element;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  _getChildrenAndProps(childrenAndProps: any) {
-    const props: any = {};
-    const children: any = {};
+  _getChildrenAndProps(childrenAndProps: Props) {
+    const props: Props = {};
+    const children: Children = {};
     Object.entries(childrenAndProps)
       .forEach(([key, value]: [string, any]) => {
         if (value instanceof Block) {
@@ -62,12 +64,11 @@ export default class Block {
     };
   }
 
-  protected _addEvents() {
+  _addEvents() {
     const { events = {} } = this.props;
-    Object.keys(events)
-      .forEach((eventName: string) => {
-        this._element!.addEventListener(eventName, events[eventName]);
-      });
+    Object.keys(events).forEach((eventName) => {
+      this._element!.addEventListener(eventName, events[eventName]);
+    });
   }
 
   _registerEvents(eventBus: EventBus) {
@@ -87,29 +88,35 @@ export default class Block {
 
   _componentDidUpdate() {
     if (this.componentDidUpdate()) {
-      this.eventBus()
-        .emit(Block.EVENTS.FLOW_RENDER);
+      this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: Props) {
     const self = this;
     return new Proxy(props, {
-      get(target, prop) {
+      get(target, prop: string) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: any, prop: any, value: any) {
+      set(target, prop: string, value) {
         const oldTarget = { ...target };
         // eslint-disable-next-line no-param-reassign
         target[prop] = value;
-        self.eventBus()
+        self._eventBus()
           .emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
       deleteProperty() {
         throw new Error('Нет доступа');
       },
+    });
+  }
+
+  _removeEvents() {
+    const { events = {} } = this.props;
+    Object.keys(events).forEach((eventName) => {
+      this._element.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -128,7 +135,7 @@ export default class Block {
   _init() {
     this._createResources();
     this.init();
-    this.eventBus()
+    this._eventBus()
       .emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -140,15 +147,16 @@ export default class Block {
     return this.element;
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: Props) => {
     if (!nextProps) {
       return;
     }
+    // @ts-ignore
     Object.assign(this.props, nextProps);
   };
 
   dispatchComponentDidMount() {
-    this.eventBus()
+    this._eventBus()
       .emit(Block.EVENTS.FLOW_CDM);
   }
 
@@ -166,7 +174,7 @@ export default class Block {
     temp.innerHTML = compiled(contextAndStubs);
     Object.entries(this.children)
       .forEach(([, component]: [string, Block]) => {
-        const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
+        const stub = temp.content.querySelector(`[data-id="${component._id}"]`);
         if (!stub) {
           return;
         }

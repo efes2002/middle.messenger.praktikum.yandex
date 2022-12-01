@@ -1,12 +1,12 @@
-import Block from '../../utils/block';
+import Block, { Children, Props } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
 import { ACTION, dispatch } from '../../utils/state';
 
 export default class Main extends Block {
-  constructor(props: any) {
+  constructor(props: Props) {
     super({
       ...props,
-      submitForm: (element: any, children: any, event: Event) => {
+      submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
         dispatch(ACTION.submitForm, { event });
       },
     });
@@ -18,7 +18,9 @@ export default class Main extends Block {
             <div class="main">
                 <section class="main__left">
                     <article class="main__left-top">
-                        <img class="main__avatar" src="static/Avatarka.webp"/>
+                        <img class="main__avatar" 
+                             src="static/Avatarka.webp"
+                             alt="Это ваш Аватар"/>
                         <input class="main__list-search" value="Поиск"></input>
                     </article>
                     {{{Chats chatsData=chats}}}

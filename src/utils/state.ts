@@ -55,6 +55,7 @@ export const dispatch = (action: string, value: any): void => {
   const {
     props = {}, element = {}, children = {}, event = {},
   } = value;
+
   switch (action) {
     case ACTION.closePopup: {
       exchangeOfStates({
@@ -123,6 +124,13 @@ export const dispatch = (action: string, value: any): void => {
             elem.innerText = props.errorText;
           }
         });
+      } else if (event.target.value === '') {
+        Array.from(event.target.parentElement.children).forEach((elem: any) => {
+          if (elem.className === props.classNameError) {
+            // eslint-disable-next-line no-param-reassign
+            elem.innerText = 'Поле обязательное для заполнения';
+          }
+        });
       }
       break;
     }
@@ -149,10 +157,10 @@ export const dispatch = (action: string, value: any): void => {
       console.log('Я еще раз проверил на валидность значений, вот результа: ');
       if (validationInput(name, value) && (value !== '')) {
         // eslint-disable-next-line no-console
-        console.log({ name: '11OK верное значение' });
+        console.log({ name: 'OK верное значение' });
       } else {
         // eslint-disable-next-line no-console
-        console.log({ name: '11FALSE не верное значение' });
+        console.log({ name: 'FALSE не верное значение' });
       }
       break;
     }

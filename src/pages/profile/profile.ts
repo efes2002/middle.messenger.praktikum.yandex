@@ -1,26 +1,26 @@
 // eslint-disable-next-line import/no-cycle
 import { dispatch, ACTION } from '../../utils/state';
-import Block from '../../utils/block';
+import Block, { Children } from '../../utils/block';
 
 export default class Profile extends Block {
   constructor(props: any) {
     super({
       ...props,
-      isOpen: (element: any, children: any) => {
-        dispatch(ACTION.isOpen, { props: this.props, element, children });
+      isOpen: (element: Block, children: Children) => {
+        dispatch(ACTION.isOpen, { props: this, element, children });
       },
       closePopup: () => {
         dispatch(ACTION.closePopup, { props: this.props });
       },
-      editProfile: (element: any, children: any, event: Event) => {
+      editProfile: (_element: Block, children: Children, event: Event) => {
         dispatch(ACTION.editProfile, { props: this.props, event, children });
         dispatch(ACTION.closePopup, { props: this.props });
       },
-      editAvatar: (element: any, children: any, event: Event) => {
+      editAvatar: (_element: Block, _children: Children, event: Event) => {
         event.preventDefault();
         dispatch(ACTION.closePopup, { props: this.props });
       },
-      editPassword: (element: any, children: any, event: Event) => {
+      editPassword: (_element: Block, _children: Children, event: Event) => {
         event.preventDefault();
         dispatch(ACTION.closePopup, { props: this.props });
       },

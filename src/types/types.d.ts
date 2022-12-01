@@ -1,14 +1,10 @@
-export declare module '*.hbs';
-export declare module 'handlebars/dist/handlebars.runtime';
-export declare module 'handlebars';
+declare module '*.hbs';
+declare module 'handlebars';
 
-export declare global {
+declare global {
   interface Window {
     togglePage:any;
   }
 }
 
-export type Nul<E> = E | null;
-
 export type State = any;
-export type Props = any;
