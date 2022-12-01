@@ -40,5 +40,5 @@ export const exchangeOfStates = (state: any, listPagesUpdate: string[]) => {
 // window.exchangeOfStates = exchangeOfStates;
 
 document.addEventListener('DOMContentLoaded', () => {
-  togglePage(PAGE_NAME.login);
+  togglePage(PAGE_NAME.registration);
 });
