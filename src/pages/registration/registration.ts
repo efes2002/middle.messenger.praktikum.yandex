@@ -1,14 +1,14 @@
-import Block from '../../utils/block';
+import Block, { Props } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
 import { ACTION, dispatch } from '../../utils/state';
 // eslint-disable-next-line import/no-cycle
 import { togglePage } from '../../index';
 
 export default class Registration extends Block {
-  constructor(props: any) {
+  constructor(props: Props) {
     super({
       ...props,
-      submitForm: (element: any, children: any, event: Event) => {
+      submitForm: (_element: Block, _children: Props, event: Event) => {
         dispatch(ACTION.submitForm, { element: this, event });
         togglePage('main');
       },
