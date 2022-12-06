@@ -10,7 +10,7 @@ export type Props = {
   events?: Record<string, (...args: any) => void>;
 };
 
-export default abstract class Block {
+export default class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -30,7 +30,7 @@ export default abstract class Block {
 
   children: Children;
 
-  protected constructor(childrenAndProps: Props = {}) {
+  constructor(childrenAndProps: Props = {}) {
     const { props, children } = this._getChildrenAndProps(childrenAndProps);
     const eventBus = new EventBus();
     this._eventBus = () => eventBus;
