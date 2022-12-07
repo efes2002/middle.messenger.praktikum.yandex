@@ -1,8 +1,9 @@
+// eslint-disable-next-line import/no-cycle
+import { router } from '../../index';
 import Block, { Props, Children } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
 import { ACTION, dispatch } from '../../utils/state';
 // eslint-disable-next-line import/no-cycle
-import { togglePage } from '../../index';
 
 export default class Login extends Block {
   constructor(props: Props) {
@@ -10,7 +11,7 @@ export default class Login extends Block {
       ...props,
       submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
         dispatch(ACTION.submitForm, { event });
-        togglePage('main');
+        router.go('/main');
       },
     });
   }
@@ -46,7 +47,7 @@ export default class Login extends Block {
                         label='Войти'
                         onclick=submitForm
                         form="formUserLogin"}}}
-                <a class="form__link cursor-hover" onclick="togglePage('registration')">
+                <a class="form__link cursor-hover" href="registration">
                     Нет аккаунта?
                 </a>
             </form>

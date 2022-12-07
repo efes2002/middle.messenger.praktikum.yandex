@@ -108,6 +108,7 @@
   grid-template-rows: auto auto;
   grid-row-gap: 2px;
   justify-items: center;
+  text-decoration: none;
 }
 
 .main__profile-button {
@@ -117,6 +118,7 @@
   margin: 0;
   padding: 0;
   border-radius: 50%;
+  text-decoration: none;
 }
 
 .main__profile-text {

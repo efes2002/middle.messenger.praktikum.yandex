@@ -100,11 +100,11 @@ export default class Profile extends Block {
                             classNameError='form__input-error'
                             errorText='невалидно'}}}
                 </ul>
-                <div class="profile__box-link cursor-hover" onclick="togglePage('main')">
+                <div class="profile__box-link cursor-hover" href="/main">
                     <img class="profile__img-link" src="static/img12.svg"></img>
                     <div class="profile__title-link">Назад</div>
                 </div>
-                <div class="profile__exit cursor-hover" onclick="togglePage('login')">
+                <div class="profile__exit cursor-hover" href="/login">
                     Выйти из приложения
                 </div>
             {{#if popupProfile.isOpen}}

@@ -2,7 +2,8 @@ import Block, { Props } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
 import { ACTION, dispatch } from '../../utils/state';
 // eslint-disable-next-line import/no-cycle
-import { togglePage } from '../../index';
+import { router } from '../../index';
+// eslint-disable-next-line import/no-cycle
 
 export default class Registration extends Block {
   constructor(props: Props) {
@@ -10,7 +11,7 @@ export default class Registration extends Block {
       ...props,
       submitForm: (_element: Block, _children: Props, event: Event) => {
         dispatch(ACTION.submitForm, { element: this, event });
-        togglePage('main');
+        router.go('/main');
       },
     });
   }
@@ -78,7 +79,7 @@ export default class Registration extends Block {
                             label='Зарегистрироваться'
                             onclick=submitForm
                             form="formUserReg"}}}
-                    <a class="form__link cursor-hover" onclick="togglePage('main')">Войти</a>
+                    <a class="form__link cursor-hover" href="/main">Войти</a>
                 </form>
             </section>
         `;

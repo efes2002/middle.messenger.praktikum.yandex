@@ -1,9 +1,9 @@
 import testDataMain from '../pages/main/testDataMain';
 import { validationInput } from './validationInput';
 // eslint-disable-next-line import/no-cycle
-import { PAGE_NAME } from './listPageAndSetting';
+import PAGES, { PAGE_NAME } from './listPageAndSetting';
+
 // eslint-disable-next-line import/no-cycle
-import { exchangeOfStates } from '..';
 
 export const ACTION: Record<any, string> = {
   closePopup: 'closePopup',
@@ -49,6 +49,20 @@ export const state: State = {
   },
   messages: testDataMain.messages,
   chats: testDataMain.chats,
+};
+
+// eslint-disable-next-line @typescript-eslint/no-shadow
+const exchangeOfStates = (state: any, listPagesUpdate: string[]) => {
+  Object.entries(PAGES)
+    .forEach(([key]) => {
+      console.log(1, listPagesUpdate);
+      console.log(2, key);
+      if (listPagesUpdate.includes(key)) {
+        console.log(3, PAGES, key);
+
+        PAGES[key].setProps(state);
+      }
+    });
 };
 
 export const dispatch = (action: string, value: any): void => {

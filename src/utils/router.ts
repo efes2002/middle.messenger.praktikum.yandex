@@ -4,7 +4,7 @@ import Block from 'src/utils/block';
 class Route {
   private _pathname: string;
 
-  private _blockClass: typeof Block;
+  private readonly _blockClass: any;
 
   private _block: Block | null = null;
 
