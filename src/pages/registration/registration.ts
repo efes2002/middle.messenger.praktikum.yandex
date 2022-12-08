@@ -1,6 +1,6 @@
 import Block, { Props } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
-import { ACTION, dispatch } from '../../utils/state';
+import { ACTION, dispatch } from '../../utils/dispatch';
 // eslint-disable-next-line import/no-cycle
 import { router } from '../../index';
 // eslint-disable-next-line import/no-cycle

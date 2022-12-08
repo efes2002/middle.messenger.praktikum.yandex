@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { dispatch, ACTION } from '../../utils/state';
+import { dispatch, ACTION } from '../../utils/dispatch';
 import Block, { Children } from '../../utils/block';
 
 export default class Profile extends Block {
@@ -33,14 +33,14 @@ export default class Profile extends Block {
             <section class="profile">
                 {{{AvatarProfile isAvatarForm=true isOpen=isOpen editAvatar=editAvatar}}}
                 <h1 class="profile__title">
-                    {{users.display_name}}
+                    {{user.display_name}}
                 </h1>
                 <ul class="profile__items">
                     {{{InputProfile 
                             title='Почта' 
                             name='email'
                             id='profPageEmail'
-                            value=users.email 
+                            value=user.email 
                             isOpen=isOpen 
                             isSimpleForm=true 
                             classNameError='form__input-error'
@@ -49,7 +49,7 @@ export default class Profile extends Block {
                             title='Логин' 
                             name='login'
                             id='profPageLogin'
-                            value=users.login 
+                            value=user.login 
                             isOpen=isOpen 
                             isSimpleForm=true 
                             classNameError='form__input-error'
@@ -58,7 +58,7 @@ export default class Profile extends Block {
                             title='Имя'   
                             name='first_name'
                             id='profPageFirstName'
-                            value=users.first_name 
+                            value=user.first_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -67,7 +67,7 @@ export default class Profile extends Block {
                             title='Фамилия' 
                             name='second_name'
                             id='profPageSecondName'
-                            value=users.second_name 
+                            value=user.second_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -76,7 +76,7 @@ export default class Profile extends Block {
                             title='Имя в чате'
                             name='display_name'
                             id='profPageDisplayName' 
-                            value=users.display_name 
+                            value=user.display_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -85,7 +85,7 @@ export default class Profile extends Block {
                             title='Телефон' 
                             name='phone'
                             id='profPagePhone'
-                            value=users.phone 
+                            value=user.phone 
                             isOpen=isOpen 
                             isSimpleForm=true
                             classNameError='form__input-error'

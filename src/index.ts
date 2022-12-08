@@ -3,9 +3,15 @@ import { registrationHelpers } from './utils/registrationHelpers';
 // eslint-disable-next-line import/no-cycle
 import PAGES from './utils/listPageAndSetting';
 import Router from './utils/router';
-import { state } from './utils/state';
+// eslint-disable-next-line import/no-cycle
+import Store from './utils/store';
+import startValue from './utils/startValue';
 
-export default state;
+export const store = new Store();
+
+store.initializationState(startValue);
+
+export default store.getState();
 
 export const router: Router = new Router();
 

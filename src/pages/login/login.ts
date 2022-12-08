@@ -2,7 +2,7 @@
 import { router } from '../../index';
 import Block, { Props, Children } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
-import { ACTION, dispatch } from '../../utils/state';
+import { ACTION, dispatch } from '../../utils/dispatch';
 // eslint-disable-next-line import/no-cycle
 
 export default class Login extends Block {

@@ -1,9 +1,6 @@
-import testDataMain from '../pages/main/testDataMain';
 import { validationInput } from './validationInput';
 // eslint-disable-next-line import/no-cycle
-import PAGES, { PAGE_NAME } from './listPageAndSetting';
-
-// eslint-disable-next-line import/no-cycle
+import { store } from '../index';
 
 export const ACTION: Record<any, string> = {
   closePopup: 'closePopup',
@@ -14,57 +11,6 @@ export const ACTION: Record<any, string> = {
   editProfile: 'editProfile',
 };
 
-type State = any;
-
-export const state: State = {
-  users: {
-    id: '',
-    avatar: '',
-    email: 'pochta@yandex.ru',
-    login: 'Ivan1989',
-    first_name: 'Иван',
-    second_name: 'Иванов',
-    display_name: 'Иванчик',
-    phone: '+7(907)777-77-77',
-  },
-  isLogin: true,
-  listChats: [],
-  liveChatId: '',
-  liveMessages: [],
-  popupProfile: {
-    isOpen: false,
-    namePopupForm: {
-      isSimpleForm: false,
-      isPasswordForm: false,
-      isAvatarForm: false,
-    },
-    setting: {
-      title: '',
-      name: '',
-      id: '',
-      value: '',
-      classNameError: '',
-      errorText: '',
-    },
-  },
-  messages: testDataMain.messages,
-  chats: testDataMain.chats,
-};
-
-// eslint-disable-next-line @typescript-eslint/no-shadow
-const exchangeOfStates = (state: any, listPagesUpdate: string[]) => {
-  Object.entries(PAGES)
-    .forEach(([key]) => {
-      console.log(1, listPagesUpdate);
-      console.log(2, key);
-      if (listPagesUpdate.includes(key)) {
-        console.log(3, PAGES, key);
-
-        PAGES[key].setProps(state);
-      }
-    });
-};
-
 export const dispatch = (action: string, value: any): void => {
   const {
     props = {}, element = {}, children = {}, event = {},
@@ -72,16 +18,15 @@ export const dispatch = (action: string, value: any): void => {
 
   switch (action) {
     case ACTION.closePopup: {
-      exchangeOfStates({
-        popupProfile: { ...props.popupProfile, isOpen: false },
-      }, [PAGE_NAME.profile]);
+      store.setState({
+        popupProfile: { ...store.getState().popupProfile, isOpen: false },
+      });
       break;
     }
 
     case ACTION.isOpen: {
-      exchangeOfStates({
+      store.setState({
         popupProfile: {
-          ...props.popupProfile,
           isOpen: true,
           namePopupForm: {
             isSimpleForm: element.props.isSimpleForm,
@@ -97,7 +42,7 @@ export const dispatch = (action: string, value: any): void => {
             errorText: children.errorText,
           },
         },
-      }, [PAGE_NAME.profile]);
+      });
       break;
     }
 
@@ -164,9 +109,9 @@ export const dispatch = (action: string, value: any): void => {
       const { value } = event.target.form[0];
       const { name } = event.target.form[0];
       event.preventDefault();
-      exchangeOfStates({
-        users: { ...props.users, [name]: value },
-      }, [PAGE_NAME.main, PAGE_NAME.profile]);
+      store.setState({
+        user: { ...store.getState().user, [name]: value },
+      });
       // eslint-disable-next-line no-console
       console.log('Я еще раз проверил на валидность значений, вот результа: ');
       if (validationInput(name, value) && (value !== '')) {

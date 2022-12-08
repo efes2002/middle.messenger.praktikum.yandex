@@ -1,6 +1,7 @@
 import Block, { Children, Props } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
-import { ACTION, dispatch } from '../../utils/state';
+import { ACTION, dispatch } from '../../utils/dispatch';
+// eslint-disable-next-line import/no-cycle
 import { router } from '../../index';
 
 export default class Main extends Block {
@@ -27,7 +28,7 @@ export default class Main extends Block {
                              alt="Это ваш Аватар"/>
                         <input class="main__list-search" value="Поиск"></input>
                     </article>
-                    {{{Chats chatsData=chats}}}
+                    {{{Chats chatsData=main.chats}}}
                     <nav class="bottom-menu">
                         <ul class="main__bottom-menu">
                             <li class="main__setting cursor-hover" onclick="togglePage('profile')">
@@ -45,7 +46,7 @@ export default class Main extends Block {
                     <nav class="main__right-top">
                         <a class="main__link-exit cursor-hover" href="login">Выход</a>
                     </nav>
-                    {{{ Messages messagesData=messages isOpenPopup=isOpenPopup }}}
+                    {{{ Messages messagesData=main.messages }}}
                     <form class="main__right-bottom" id="formMessage">
                         {{{AddFileMessage}}}
                         {{{InputMessage form="formMessage" name="message"}}}
