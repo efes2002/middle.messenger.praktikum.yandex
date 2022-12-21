@@ -11,7 +11,7 @@ export default class Registration extends Block {
       ...props,
       submitForm: (_element: Block, _children: Props, event: Event) => {
         dispatch(ACTION.submitForm, { element: this, event });
-        router.go('/main');
+        router.go('/messenger');
       },
     });
   }
@@ -79,7 +79,12 @@ export default class Registration extends Block {
                             label='Зарегистрироваться'
                             onclick=submitForm
                             form="formUserReg"}}}
-                    <a class="form__link cursor-hover" href="/main">Войти</a>
+
+                    {{{Link
+                            className="form__link cursor-hover"
+                            link="/messenger"
+                            label="Войти"
+                    }}}
                 </form>
             </section>
         `;

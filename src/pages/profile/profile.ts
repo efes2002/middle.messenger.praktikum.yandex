@@ -100,13 +100,24 @@ export default class Profile extends Block {
                             classNameError='form__input-error'
                             errorText='невалидно'}}}
                 </ul>
-                <div class="profile__box-link cursor-hover" href="/main">
-                    <img class="profile__img-link" src="static/img12.svg"></img>
-                    <div class="profile__title-link">Назад</div>
+                <div class="profile__box-link cursor-hover">
+                    {{{LinkImg
+                            className="profile__img-link"
+                            link="/messenger"
+                            src="static/img12.svg"
+                            alt="кнопка настройки"
+                    }}}
+                    {{{Link
+                            className="profile__title-link"
+                            link="/messenger"
+                            label="Назад"
+                    }}}
                 </div>
-                <div class="profile__exit cursor-hover" href="/login">
-                    Выйти из приложения
-                </div>
+                {{{Link
+                        className="profile__exit cursor-hover"
+                        link="/"
+                        label="Выйти из приложения"
+                }}}
             {{#if popupProfile.isOpen}}
                 {{{Popup
                         closePopup=closePopup

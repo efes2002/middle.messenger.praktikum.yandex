@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import Main from '../pages/main';
+// eslint-disable-next-line import/no-cycle
 import Page404 from '../pages/page404';
+// eslint-disable-next-line import/no-cycle
 import Page500 from '../pages/page500';
 // eslint-disable-next-line import/no-cycle
 import Profile from '../pages/profile';
@@ -10,12 +12,12 @@ import Login from '../pages/login';
 import Registration from '../pages/registration';
 
 export const PAGE_NAME : Record<string, string> = {
-  main: 'main',
+  main: 'messenger',
   page404: 'page404',
   page500: 'page500',
-  profile: 'profile',
-  login: 'login',
-  registration: 'registration',
+  profile: 'settings',
+  login: '',
+  registration: 'sign-up',
 };
 
 const listPage: Record<string, any> = {

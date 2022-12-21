@@ -127,6 +127,16 @@
   font-weight: 700;
   font-size: 8px;
   line-height: 10px;
+  text-decoration: none;
+  color: #5f7ea2;
+}
+
+.main__profile-text:hover {
+  text-decoration: none;
+}
+
+.main__profile-text:active {
+  text-decoration: none;
 }
 
 .main__right {
@@ -159,6 +169,7 @@
   font-size: 14px;
   line-height: 14px;
   color: var(--main-bg-bt-color-1);
+  text-decoration: none;
 }
 
 .main__list-message {

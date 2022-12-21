@@ -19,6 +19,9 @@ import InputMessage from '../pages/main/inputMessage/inputMessage';
 import FormElement from '../components/form/formElement/formElement';
 // eslint-disable-next-line import/no-cycle
 import InputValidation from '../components/InputValidation/InputValidation';
+// eslint-disable-next-line import/no-cycle
+import Link from '../components/link/link';
+import LinkImg from '../components/linkImg/linkImg';
 
 const HELPERS: Record<string, any> = {
   Chats,
@@ -39,6 +42,8 @@ const HELPERS: Record<string, any> = {
   InputMessage,
   FormElement,
   InputValidation,
+  Link,
+  LinkImg,
 };
 
 // eslint-disable-next-line import/prefer-default-export

@@ -133,4 +133,5 @@
   font-size: 11px;
   line-height: 11px;
   color: var(--main-tx-color-2);
+  text-decoration: none;
 }

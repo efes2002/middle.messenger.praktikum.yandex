@@ -11,7 +11,7 @@ export default class Login extends Block {
       ...props,
       submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
         dispatch(ACTION.submitForm, { event });
-        router.go('/main');
+        router.go('/messenger');
       },
     });
   }
@@ -47,9 +47,12 @@ export default class Login extends Block {
                         label='Войти'
                         onclick=submitForm
                         form="formUserLogin"}}}
-                <a class="form__link cursor-hover" href="registration">
-                    Нет аккаунта?
-                </a>
+
+                {{{Link
+                        className="form__link cursor-hover"
+                        link="/sign-up"
+                        label="Нет аккаунта?"
+                }}}
             </form>
         </section>
     `;
