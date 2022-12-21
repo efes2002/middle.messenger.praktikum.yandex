@@ -1,32 +1,31 @@
 // eslint-disable-next-line max-classes-per-file
 import Block from 'src/utils/block';
 
+function render(query: string, block: Block | null) {
+  const root = document.querySelector(query);
+  if (root === null) { throw new Error(`root not found by selector "${query}"`); }
+  root.innerHTML = '';
+  root.append(block!.getContent()!);
+  return root;
+}
+
 class Route {
-  private _pathname: string;
+  private readonly _pathname: string;
 
   private readonly _blockClass: any;
 
   private _block: Block | null = null;
 
-  private _props: any;
+  private readonly _query: string;
 
-  constructor(pathname: string, view: typeof Block, props: any) {
+  constructor(pathname: string, view: typeof Block, query: string) {
     this._pathname = pathname;
     this._blockClass = view;
-    this._props = props;
-  }
-
-  navigate(pathname: string) {
-    if (this.match(pathname)) {
-      this._pathname = pathname;
-      this.render();
-    }
+    this._query = query;
   }
 
   leave() {
-    if (this._block) {
-      this._block.getContent();
-    }
+    this._block = null;
   }
 
   match(pathname: string) {
@@ -35,13 +34,9 @@ class Route {
 
   render() {
     if (!this._block) {
-      this._block = new this._blockClass();
+      this._block = new this._blockClass({});
+      render(this._query, this._block);
     }
-
-    const root = document.querySelector(this._props.rootQuery);
-
-    root.innerHTML = '';
-    root.appendChild(this._block!.getContent());
   }
 }
 
@@ -59,11 +54,12 @@ export default class Router {
       // eslint-disable-next-line no-constructor-return
       return Router.__instance;
     }
-    this._currentRoute = null;
+    this.routes = [];
+    Router.__instance = this;
   }
 
   public use(pathname: string, block: typeof Block) {
-    const route = new Route(pathname, block, { rootQuery: '#root' });
+    const route = new Route(pathname, block, '#root');
 
     this.routes.push(route);
 
@@ -71,9 +67,11 @@ export default class Router {
   }
 
   public start() {
-    window.onpopstate = (() => {
-      this._onRoute(window.location.pathname);
-    });
+    window.onpopstate = (event: PopStateEvent) => {
+      const target = event.currentTarget as Window;
+
+      this._onRoute(target.location.pathname);
+    };
 
     this._onRoute(window.location.pathname);
   }

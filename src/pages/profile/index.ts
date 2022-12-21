@@ -1,11 +1,13 @@
 // eslint-disable-next-line import/no-cycle
 import Profile from './profile';
-// eslint-disable-next-line import/no-cycle
-import state, { store } from '../../index';
+import { withStore } from '../../utils/store';
+import startValue from '../../utils/startValue';
 
-export default class extends Profile {
-  constructor(props: any) {
-    super({ ...props, ...state });
-    store.on(this);
-  }
-}
+const withState = withStore((state) => ({
+  popupProfile: startValue.popupProfile,
+  user: startValue.user,
+  ...state,
+}));
+
+// eslint-disable-next-line import/prefer-default-export
+export default withState(Profile);

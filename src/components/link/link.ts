@@ -9,7 +9,6 @@ export default class Link extends Block {
       events: {
         click: (event: Event) => {
           event.preventDefault();
-          console.log('click link');
           router.go(props.link);
         },
       },

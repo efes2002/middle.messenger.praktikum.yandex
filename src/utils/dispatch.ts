@@ -1,6 +1,6 @@
 import { validationInput } from './validationInput';
 // eslint-disable-next-line import/no-cycle
-import { store } from '../index';
+import store from './store';
 
 export const ACTION: Record<any, string> = {
   closePopup: 'closePopup',
@@ -18,29 +18,25 @@ export const dispatch = (action: string, value: any): void => {
 
   switch (action) {
     case ACTION.closePopup: {
-      store.setState({
-        popupProfile: { ...store.getState().popupProfile, isOpen: false },
-      });
+      store.set('popupProfile', { ...store.getState().popupProfile, isOpen: false });
       break;
     }
 
     case ACTION.isOpen: {
-      store.setState({
-        popupProfile: {
-          isOpen: true,
-          namePopupForm: {
-            isSimpleForm: element.props.isSimpleForm,
-            isPasswordForm: element.props.isPasswordForm,
-            isAvatarForm: element.props.isAvatarForm,
-          },
-          setting: {
-            title: children.title,
-            name: children.name,
-            value: children.value,
-            id: children.id,
-            classNameError: children.classNameError,
-            errorText: children.errorText,
-          },
+      store.set('popupProfile', {
+        isOpen: true,
+        namePopupForm: {
+          isSimpleForm: element.props.isSimpleForm,
+          isPasswordForm: element.props.isPasswordForm,
+          isAvatarForm: element.props.isAvatarForm,
+        },
+        setting: {
+          title: children.title,
+          name: children.name,
+          value: children.value,
+          id: children.id,
+          classNameError: children.classNameError,
+          errorText: children.errorText,
         },
       });
       break;
@@ -109,9 +105,7 @@ export const dispatch = (action: string, value: any): void => {
       const { value } = event.target.form[0];
       const { name } = event.target.form[0];
       event.preventDefault();
-      store.setState({
-        user: { ...store.getState().user, [name]: value },
-      });
+      store.set('user', { ...store.getState().user, [name]: value });
       // eslint-disable-next-line no-console
       console.log('Я еще раз проверил на валидность значений, вот результа: ');
       if (validationInput(name, value) && (value !== '')) {

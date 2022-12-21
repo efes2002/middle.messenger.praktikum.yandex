@@ -1,11 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import Login from './login';
-// eslint-disable-next-line import/no-cycle
-import state, { store } from '../../index';
 
 export default class extends Login {
   constructor(props: any) {
-    super({ ...props, ...state });
-    store.on(this);
+    super({ ...props });
   }
 }

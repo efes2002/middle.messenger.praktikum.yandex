@@ -7,6 +7,7 @@ export default class Profile extends Block {
     super({
       ...props,
       isOpen: (element: Block, children: Children) => {
+        console.log('profile-props');
         dispatch(ACTION.isOpen, { props: this, element, children });
       },
       closePopup: () => {
