@@ -57,6 +57,9 @@ export default class HTTPTransport {
     const { method, headers = {}, data = {} } = options;
 
     return new Promise((resolve, reject) => {
+
+      console.log(87, method, url);
+
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
@@ -68,7 +71,7 @@ export default class HTTPTransport {
         }
       }
       setHeaders(headers);
-
+      console.log(87, data, method, METHODS.GET);
       if (method === METHODS.GET) { xhr.send(); } else { xhr.send(JSON.stringify(data)); }
 
       // eslint-disable-next-line func-names

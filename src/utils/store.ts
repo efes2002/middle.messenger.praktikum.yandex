@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import { set } from './helpers';
+import { isEqual, set } from './helpers';
 import EventBus from './eventBus';
 import Block from './Block';
 
@@ -11,9 +11,7 @@ export class Store extends EventBus {
   private state: any = {};
 
   public set(keypath: string, data: unknown) {
-    console.log('set.store', this.state);
     set(this.state, keypath, data);
-
     this.emit(StoreEvents.Updated, this.getState());
   }
 
@@ -26,16 +24,16 @@ const store = new Store();
 
 export function withStore(mapStateToProps: (state: any) => any) {
   return function wrap(Component: typeof Block) {
-    let previousState: any;
+    let previousState: any = null;
     return class WithStore extends Component {
       constructor(props: any) {
         previousState = mapStateToProps(store.getState());
-
         super({ ...props, ...previousState });
-
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
-          previousState = stateProps;
+          if (isEqual(previousState, stateProps)) {
+            return;
+          }
           this.setProps({ ...stateProps });
         });
       }

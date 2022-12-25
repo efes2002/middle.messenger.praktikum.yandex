@@ -1,47 +1,22 @@
 import { validationInput } from './validationInput';
 // eslint-disable-next-line import/no-cycle
 import store from './store';
+// eslint-disable-next-line import/no-cycle
+import authController from '../controllers/AuthController';
 
 export const ACTION: Record<any, string> = {
-  closePopup: 'closePopup',
-  isOpen: 'isOpen',
   submitForm: 'submitForm',
   validationOnBlur: 'validationOnBlur',
   validationOnFocus: 'validationOnFocus',
   editProfile: 'editProfile',
 };
 
-export const dispatch = (action: string, value: any): void => {
+export const dispatch = (action: string, value: any) => {
   const {
-    props = {}, element = {}, children = {}, event = {},
+    props = {}, event = {},
   } = value;
 
   switch (action) {
-    case ACTION.closePopup: {
-      store.set('popupProfile', { ...store.getState().popupProfile, isOpen: false });
-      break;
-    }
-
-    case ACTION.isOpen: {
-      store.set('popupProfile', {
-        isOpen: true,
-        namePopupForm: {
-          isSimpleForm: element.props.isSimpleForm,
-          isPasswordForm: element.props.isPasswordForm,
-          isAvatarForm: element.props.isAvatarForm,
-        },
-        setting: {
-          title: children.title,
-          name: children.name,
-          value: children.value,
-          id: children.id,
-          classNameError: children.classNameError,
-          errorText: children.errorText,
-        },
-      });
-      break;
-    }
-
     case ACTION.submitForm: {
       event.preventDefault();
       const tempObj: Record<string, any> = {};
@@ -65,9 +40,12 @@ export const dispatch = (action: string, value: any): void => {
         } else { tempObj2[key] = 'FALSE не верное значение'; }
       });
       // eslint-disable-next-line no-console
-      console.log(tempObj);
+      console.log(7, tempObj);
       // eslint-disable-next-line no-console
       console.log('Я еще раз проверил на валидность значений, вот результа: ', tempObj2);
+      authController.signin({ login: tempObj.login, password: tempObj.password })
+        .then((data) => { console.log(91, data); })
+        .catch((e) => { console.log(92, e); });
       break;
     }
 
@@ -105,7 +83,7 @@ export const dispatch = (action: string, value: any): void => {
       const { value } = event.target.form[0];
       const { name } = event.target.form[0];
       event.preventDefault();
-      store.set('user', { ...store.getState().user, [name]: value });
+      store.set(`user.${name}`, value);
       // eslint-disable-next-line no-console
       console.log('Я еще раз проверил на валидность значений, вот результа: ');
       if (validationInput(name, value) && (value !== '')) {

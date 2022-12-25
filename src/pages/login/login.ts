@@ -11,7 +11,7 @@ export default class Login extends Block {
       ...props,
       submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
         dispatch(ACTION.submitForm, { event });
-        router.go('/messenger');
+        //router.go('/messenger');
       },
     });
   }

@@ -22,23 +22,6 @@ interface User {
   'phone': string
 }
 
-interface PopupProfile {
-  'isOpen': boolean;
-  'namePopupForm': {
-    'isSimpleForm': boolean;
-    'isPasswordForm': boolean;
-    'isAvatarForm': boolean;
-  };
-  'setting': {
-    'title': string;
-    'name': string;
-    'id': string;
-    'value': string;
-    'classNameError': string;
-    'errorText': string;
-  };
-}
-
 interface Main {
   'chats': Array<any> | null;
   'liveChatId': number | null;
@@ -48,6 +31,5 @@ interface Main {
 export interface State {
   root?: Root;
   user?: User;
-  popupProfile?: PopupProfile;
   main?: Main;
 }

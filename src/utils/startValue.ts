@@ -12,22 +12,6 @@ const startValue: State = {
     display_name: 'Иванчик',
     phone: '+7(907)777-77-77',
   },
-  popupProfile: {
-    isOpen: false,
-    namePopupForm: {
-      isSimpleForm: false,
-      isPasswordForm: false,
-      isAvatarForm: false,
-    },
-    setting: {
-      title: '',
-      name: '',
-      id: '',
-      value: '',
-      classNameError: '',
-      errorText: '',
-    },
-  },
   main: {
     chats: [
       { time: '12:45', name: 'Иван Петренко' },

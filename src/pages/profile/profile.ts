@@ -1,29 +1,71 @@
-// eslint-disable-next-line import/no-cycle
 import { dispatch, ACTION } from '../../utils/dispatch';
 import Block, { Children } from '../../utils/block';
+import store from '../../utils/store';
+import startValue from '../../utils/startValue';
 
 export default class Profile extends Block {
   constructor(props: any) {
     super({
       ...props,
+      start: store.set('user', startValue.user),
+      isOpenForm: false,
+      popupForm: {
+        isOpenName: {
+          isSimpleForm: false,
+          isPasswordForm: false,
+          isAvatarForm: false,
+        },
+        setting: {
+          title: '',
+          name: '',
+          value: '',
+          id: null,
+          classNameError: '',
+          errorText: '',
+        },
+      },
+      user: {
+        id: store.getState().user.id,
+        avatar: store.getState().user.avatar,
+        email: store.getState().user.email,
+        login: store.getState().user.login,
+        first_name: store.getState().user.first_name,
+        second_name: store.getState().user.second_name,
+        display_name: store.getState().user.display_name,
+        phone: store.getState().user.phone,
+      },
       isOpen: (element: Block, children: Children) => {
-        console.log('profile-props');
-        dispatch(ACTION.isOpen, { props: this, element, children });
+        this.props.isOpenForm = true;
+        this.props.popupForm = {
+          isOpenName: {
+            isSimpleForm: element.props.isSimpleForm,
+            isPasswordForm: element.props.isPasswordForm,
+            isAvatarForm: element.props.isAvatarForm,
+          },
+          setting: {
+            title: children.title,
+            name: children.name,
+            value: children.value,
+            id: children.id,
+            classNameError: children.classNameError,
+            errorText: children.errorText,
+          },
+        };
       },
       closePopup: () => {
-        dispatch(ACTION.closePopup, { props: this.props });
+        this.props.isOpenForm = false;
       },
       editProfile: (_element: Block, children: Children, event: Event) => {
         dispatch(ACTION.editProfile, { props: this.props, event, children });
-        dispatch(ACTION.closePopup, { props: this.props });
+        this.props.closePopup();
       },
       editAvatar: (_element: Block, _children: Children, event: Event) => {
         event.preventDefault();
-        dispatch(ACTION.closePopup, { props: this.props });
+        this.props.closePopup();
       },
       editPassword: (_element: Block, _children: Children, event: Event) => {
         event.preventDefault();
-        dispatch(ACTION.closePopup, { props: this.props });
+        this.props.closePopup();
       },
     });
   }
@@ -119,15 +161,15 @@ export default class Profile extends Block {
                         link="/"
                         label="Выйти из приложения"
                 }}}
-            {{#if popupProfile.isOpen}}
+            {{#if isOpenForm}}
                 {{{Popup
                         closePopup=closePopup
                         editProfile=editProfile
                         editAvatar=editAvatar
                         editPassword=editPassword
-                        isOpen=popupProfile.isOpen
-                        namePopupForm=popupProfile.namePopupForm
-                        setting=popupProfile.setting 
+                        isOpen=popupForm.isOpenValue
+                        namePopupForm=popupForm.isOpenName
+                        setting=popupForm.setting 
                 }}}
             {{/if}}
             </section>
