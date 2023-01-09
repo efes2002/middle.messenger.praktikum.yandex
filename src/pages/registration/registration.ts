@@ -10,7 +10,7 @@ export default class Registration extends Block {
     super({
       ...props,
       submitForm: (_element: Block, _children: Props, event: Event) => {
-        dispatch(ACTION.submitForm, { element: this, event });
+        dispatch(ACTION.signup, { element: this, event });
         router.go('/messenger');
       },
     });

@@ -2,6 +2,8 @@ import Block, { Children, Props } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
 import { ACTION, dispatch } from '../../utils/dispatch';
 // eslint-disable-next-line import/no-cycle
+import authController from '../../controllers/AuthController';
+// eslint-disable-next-line import/no-cycle
 
 export default class Main extends Block {
   constructor(props: Props) {
@@ -9,6 +11,9 @@ export default class Main extends Block {
       ...props,
       submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
         dispatch(ACTION.submitForm, { event });
+      },
+      logOut: () => {
+        authController.logout();
       },
     });
   }
@@ -60,8 +65,9 @@ export default class Main extends Block {
                     <nav class="main__right-top">
                         {{{Link
                             className="main__link-exit cursor-hover"
-                            link="/"
+                            link=""
                             label="Выход"
+                            onclick=logOut
                         }}}
                     </nav>
                     {{{ Messages messagesData=main.messages }}}

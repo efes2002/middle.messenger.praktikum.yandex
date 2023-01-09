@@ -1,4 +1,4 @@
-import BaseAPI from './BaseAPI';
+import HTTPTransport from '../utils/HTTPTransport';
 
 export interface SigninData {
   login: string;
@@ -25,25 +25,37 @@ export interface User {
   avatar: string;
 }
 
-export class AuthAPI extends BaseAPI {
-  constructor() {
-    super('/auth');
+export class AuthAPI {
+  protected _http: HTTPTransport;
+
+  constructor(endpoint: string) {
+    this._http = new HTTPTransport(endpoint);
   }
 
   signin(data: SigninData) {
-    return this.http.post('/signin', { data });
+    return this._http.post('signin', {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    });
   }
 
   signup(data: SignupData) {
-    return this.http.post('/signup', { data });
+    return this._http.post('signup', {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    });
   }
 
   read() {
-    return this.http.get('/user', {});
+    return this._http.get('user', {});
   }
 
   logout() {
-    return this.http.post('/logout', {});
+    return this._http.post('logout', {});
   }
 
   create = undefined;
@@ -53,4 +65,4 @@ export class AuthAPI extends BaseAPI {
   delete = undefined;
 }
 
-export default new AuthAPI();
+export default new AuthAPI('/auth/');

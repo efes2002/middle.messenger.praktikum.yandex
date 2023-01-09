@@ -1,13 +1,12 @@
+// eslint-disable-next-line import/no-cycle
 import { dispatch, ACTION } from '../../utils/dispatch';
 import Block, { Children } from '../../utils/block';
 import store from '../../utils/store';
-import startValue from '../../utils/startValue';
 
 export default class Profile extends Block {
   constructor(props: any) {
     super({
       ...props,
-      start: store.set('user', startValue.user),
       isOpenForm: false,
       popupForm: {
         isOpenName: {

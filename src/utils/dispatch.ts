@@ -2,14 +2,45 @@ import { validationInput } from './validationInput';
 // eslint-disable-next-line import/no-cycle
 import store from './store';
 // eslint-disable-next-line import/no-cycle
-import authController from '../controllers/AuthController';
+import authController, {} from '../controllers/AuthController';
+import { SignupData, SigninData } from '../api/AuthAPI';
 
 export const ACTION: Record<any, string> = {
   submitForm: 'submitForm',
   validationOnBlur: 'validationOnBlur',
   validationOnFocus: 'validationOnFocus',
   editProfile: 'editProfile',
+  signin: 'signin',
+  signup: 'signup',
 };
+
+function submitHandling(event: any):any {
+  const tempObj: Record<string, any> = {};
+  const tempObj2: Record<string, any> = {};
+
+  Array.from(event.target.form.elements).forEach((item: any) => {
+    if (item.nodeName === 'INPUT') {
+      tempObj[item.name] = item.value;
+      // eslint-disable-next-line no-param-reassign
+      item.value = '';
+    }
+  });
+
+  event.target.form.querySelectorAll('.form__input-error')
+    // eslint-disable-next-line no-param-reassign,no-return-assign
+    .forEach((item: any):string => item.textContent = '');
+
+  Object.entries(tempObj).forEach(([key, value]: [string, any]) => {
+    if (validationInput(key, value) && (value !== '')) {
+      tempObj2[key] = 'OK верное значение';
+    } else { tempObj2[key] = 'FALSE не верное значение'; }
+  });
+  // eslint-disable-next-line no-console
+  //console.log(7, tempObj);
+  // eslint-disable-next-line no-console
+  //console.log('Я еще раз проверил на валидность значений, вот результа: ', tempObj2);
+  return tempObj;
+}
 
 export const dispatch = (action: string, value: any) => {
   const {
@@ -17,35 +48,29 @@ export const dispatch = (action: string, value: any) => {
   } = value;
 
   switch (action) {
-    case ACTION.submitForm: {
+    case ACTION.signin: {
       event.preventDefault();
-      const tempObj: Record<string, any> = {};
-      Array.from(event.target.form.elements).forEach((item: any) => {
-        if (item.nodeName === 'INPUT') {
-          tempObj[item.name] = item.value;
-          // eslint-disable-next-line no-param-reassign
-          item.value = '';
-        }
-      });
-      event.target.form.querySelectorAll('.form__input-error')
-        // eslint-disable-next-line no-param-reassign,no-return-assign
-        .forEach((item: any):string => item.textContent = '');
+      const tempObj = submitHandling(event);
+      const dataValue: SigninData = {
+        login: tempObj.login,
+        password: tempObj.password,
+      };
+      authController.signin(dataValue);
+      break;
+    }
 
-      const tempObj2: Record<string, any> = {};
-
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      Object.entries(tempObj).forEach(([key, value]: [string, any]) => {
-        if (validationInput(key, value) && (value !== '')) {
-          tempObj2[key] = 'OK верное значение';
-        } else { tempObj2[key] = 'FALSE не верное значение'; }
-      });
-      // eslint-disable-next-line no-console
-      console.log(7, tempObj);
-      // eslint-disable-next-line no-console
-      console.log('Я еще раз проверил на валидность значений, вот результа: ', tempObj2);
-      authController.signin({ login: tempObj.login, password: tempObj.password })
-        .then((data) => { console.log(91, data); })
-        .catch((e) => { console.log(92, e); });
+    case ACTION.signup: {
+      event.preventDefault();
+      const tempObj = submitHandling(event);
+      const dataValue: SignupData = {
+        first_name: tempObj.first_name,
+        second_name: tempObj.second_name,
+        login: tempObj.login,
+        email: tempObj.email,
+        password: tempObj.password,
+        phone: tempObj.phone,
+      };
+      authController.signup(dataValue);
       break;
     }
 

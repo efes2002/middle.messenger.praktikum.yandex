@@ -1,4 +1,5 @@
 import API, { AuthAPI, SigninData, SignupData } from '../api/AuthAPI';
+// eslint-disable-next-line import/no-cycle
 import { router } from '../index';
 import store from '../utils/store';
 
@@ -9,32 +10,35 @@ export class AuthController {
     this.api = API;
   }
 
-  signin(data: SigninData) {
-    return this.api.signin(data);
+  async signin(data: SigninData) {
+    try {
+      await this.api.signin(data);
+      await this.fetchUser();
+      router.go('/settings');
+    } catch (e: any) {
+      console.error(e);
+    }
   }
 
-  async signup(data: SignupData) {
+  async signup(data: SignupData):Promise<void> {
     try {
       await this.api.signup(data);
-
-      await this.fetchUser();
-
-      router.go('/profile');
+      router.go('/');
     } catch (e: any) {
-      console.error(e.message);
+      console.error(e);
     }
   }
 
   async fetchUser() {
-    const user = await this.api.read();
-
-    store.set('user', user);
+    const user: any = await this.api.read();
+    store.set('user', JSON.parse(user));
+    if (user) { store.set('isAuth', true); }
   }
 
   async logout() {
     try {
       await this.api.logout();
-
+      store.set('isAuth', false);
       router.go('/');
     } catch (e: any) {
       console.error(e.message);
