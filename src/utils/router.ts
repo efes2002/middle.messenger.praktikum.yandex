@@ -1,7 +1,10 @@
 // eslint-disable-next-line max-classes-per-file
 import Block from 'src/utils/block';
+import store from './store';
 
 function render(query: string, block: Block | null) {
+
+
   const root = document.querySelector(query);
   if (root === null) { throw new Error(`root not found by selector "${query}"`); }
   root.innerHTML = '';
@@ -67,6 +70,7 @@ export default class Router {
   }
 
   public start() {
+    console.log('router-start');
     window.onpopstate = (event: PopStateEvent) => {
       const target = event.currentTarget as Window;
 
@@ -77,8 +81,15 @@ export default class Router {
   }
 
   private _onRoute(pathname: string) {
+
+    console.log('route_onRoute', pathname, store.getState().isAuth);
     const route = this.getRoute(pathname);
     if (!route) { return; }
+
+    if (pathname === '/') {
+      this.go('/sign-up');
+      return;
+    }
 
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
@@ -89,15 +100,18 @@ export default class Router {
   }
 
   public go(pathname: string) {
+    console.log('router-go');
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
   public back() {
+    console.log('router-back');
     this.history.back();
   }
 
   public forward() {
+    console.log('router-forward');
     this.history.forward();
   }
 

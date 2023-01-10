@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await AuthController.fetchUser();
     router.start();
+    store.set('isAuth', true);
   } catch (e) {
     router.start();
     router.go('/');
