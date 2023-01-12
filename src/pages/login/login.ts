@@ -1,8 +1,10 @@
 // eslint-disable-next-line import/no-cycle
-import { router } from '../../index';
+//import { router } from '../../index';
 import Block, { Props, Children } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
 import { ACTION, dispatch } from '../../utils/dispatch';
+// eslint-disable-next-line import/no-cycle
+import authController from '../../controllers/AuthController';
 // eslint-disable-next-line import/no-cycle
 
 export default class Login extends Block {
@@ -12,6 +14,9 @@ export default class Login extends Block {
       submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
         dispatch(ACTION.signin, { element: this, event });
         //router.go('/messenger');
+      },
+      logOut: () => {
+        authController.logout();
       },
     });
   }
@@ -52,6 +57,12 @@ export default class Login extends Block {
                         className="form__link cursor-hover"
                         link="/sign-up"
                         label="Нет аккаунта?"
+                }}}
+                {{{Link
+                        className="main__link-exit cursor-hover"
+                        link=""
+                        label="Выход"
+                        onclick=logOut
                 }}}
             </form>
         </section>

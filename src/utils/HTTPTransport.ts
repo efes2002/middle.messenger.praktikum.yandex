@@ -6,7 +6,7 @@ type Options = {
 
 type FunHTTP = (
   arg0: string,
-  arg1: { headers: { 'Content-Type': string }; body: string },
+  arg1: {},
 ) => Promise<unknown>;
 
 const METHODS: Record<string, string> = {

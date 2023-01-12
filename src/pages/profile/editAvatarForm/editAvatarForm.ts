@@ -16,7 +16,7 @@ export default class EditAvatarForm extends Block {
                     <input
                             class="form-avatar__link"
                             type="file"
-                            name="avatar"
+                            
                             id="input__file">Выбрать файл на компьютере</input>
                     <div class="form-avatar__box-button">
                         {{{Button

@@ -5,7 +5,7 @@ import { ACTION, dispatch } from '../../utils/dispatch';
 import authController from '../../controllers/AuthController';
 // eslint-disable-next-line import/no-cycle
 
-export default class Main extends Block {
+export default class Messenger extends Block {
   constructor(props: Props) {
     super({
       ...props,

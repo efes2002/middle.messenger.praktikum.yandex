@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     store.set('isAuth', true);
   } catch (e) {
     router.start();
-    router.go('/');
     store.set('isAuth', false);
   }
 });

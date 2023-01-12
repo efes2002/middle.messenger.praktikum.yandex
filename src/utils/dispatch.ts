@@ -1,8 +1,10 @@
+// eslint-disable-next-line import/no-named-as-default
+import UserController from '../controllers/UserController';
 import { validationInput } from './validationInput';
 // eslint-disable-next-line import/no-cycle
 import store from './store';
-// eslint-disable-next-line import/no-cycle
-import authController, {} from '../controllers/AuthController';
+// eslint-disable-next-line import/no-named-as-default,import/no-cycle
+import AuthController from '../controllers/AuthController';
 import { SignupData, SigninData } from '../api/AuthAPI';
 
 export const ACTION: Record<any, string> = {
@@ -10,6 +12,7 @@ export const ACTION: Record<any, string> = {
   validationOnBlur: 'validationOnBlur',
   validationOnFocus: 'validationOnFocus',
   editProfile: 'editProfile',
+  editAvatar: 'editAvatar',
   signin: 'signin',
   signup: 'signup',
 };
@@ -35,10 +38,6 @@ function submitHandling(event: any):any {
       tempObj2[key] = 'OK верное значение';
     } else { tempObj2[key] = 'FALSE не верное значение'; }
   });
-  // eslint-disable-next-line no-console
-  //console.log(7, tempObj);
-  // eslint-disable-next-line no-console
-  //console.log('Я еще раз проверил на валидность значений, вот результа: ', tempObj2);
   return tempObj;
 }
 
@@ -55,7 +54,7 @@ export const dispatch = (action: string, value: any) => {
         login: tempObj.login,
         password: tempObj.password,
       };
-      authController.signin(dataValue);
+      AuthController.signin(dataValue);
       break;
     }
 
@@ -70,7 +69,7 @@ export const dispatch = (action: string, value: any) => {
         password: tempObj.password,
         phone: tempObj.phone,
       };
-      authController.signup(dataValue);
+      AuthController.signup(dataValue);
       break;
     }
 
@@ -118,6 +117,33 @@ export const dispatch = (action: string, value: any) => {
         // eslint-disable-next-line no-console
         console.log({ name: 'FALSE не верное значение' });
       }
+      break;
+    }
+
+    case ACTION.editAvatar: {
+      console.log('profile', event);
+      //console.log('profile1', event.target.form[0].file);
+      //console.log('profile4', event.target.parentElement.parentElement);
+
+
+
+
+      //const formData: FormData = new FormData(event.target.form);
+      //console.log('profile-formData1', new FormData(event));
+      // @ts-
+
+      const elementForm = document.querySelector('.form-avatar__box');
+      console.log('profile1', elementForm.file[0]);
+
+
+      /*
+      const formData = new FormData(event);
+      formData.set('file', file, 'fileName');
+      */
+
+      //console.log('profile-formData', formData);
+      //UserController.editAvatar(formData);
+      event.preventDefault();
       break;
     }
 

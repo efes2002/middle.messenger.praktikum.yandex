@@ -57,12 +57,6 @@ export class AuthAPI {
   logout() {
     return this._http.post('logout', {});
   }
-
-  create = undefined;
-
-  update = undefined;
-
-  delete = undefined;
 }
 
 export default new AuthAPI('/auth/');

@@ -32,6 +32,7 @@ export class AuthController {
   async fetchUser() {
     const user: any = await this.api.read();
     store.set('user', JSON.parse(user));
+    store.set('isAuth', true);
     if (user) { store.set('isAuth', true); }
   }
 

@@ -59,7 +59,7 @@ export default class Profile extends Block {
         this.props.closePopup();
       },
       editAvatar: (_element: Block, _children: Children, event: Event) => {
-        event.preventDefault();
+        dispatch(ACTION.editAvatar, { props: this.props, event, element: _element });
         this.props.closePopup();
       },
       editPassword: (_element: Block, _children: Children, event: Event) => {

@@ -1,10 +1,47 @@
 // eslint-disable-next-line max-classes-per-file
 import Block from 'src/utils/block';
 import store from './store';
+// eslint-disable-next-line import/no-cycle,import/no-named-as-default
+import { protectPage, PAGE_NAME } from './listPageAndSetting';
+
+function protectRoute(pathname: string):string {
+
+  let redirectPathname: string = '/';
+  let { isAuth } = store.getState();
+  if (!isAuth) { isAuth = false; }
+
+  const newProtectPage = protectPage.map((item: string) => `/${item}`);
+  const isProtectPage: boolean = newProtectPage.indexOf(pathname) !== -1;
+
+  if (isAuth) {
+    if (isProtectPage) {
+      //console.log(1);
+      redirectPathname = pathname;
+    } else {
+      //console.log(2);
+      redirectPathname = `/${PAGE_NAME.messenger}`;
+    }
+  }
+
+  if (!isAuth) {
+    if (isProtectPage) {
+      redirectPathname = `/${PAGE_NAME.login}`;
+      //console.log(3);
+    } else {
+      redirectPathname = pathname;
+      //console.log(5);
+    }
+  }
+
+  //console.log('protectRoute-Pathname', pathname);
+  //console.log('protectRoute-redirectPathname', redirectPathname);
+  //console.log('protectRoute-isAuth', isAuth);
+  //console.log('protectRoute-isNoProtectPage', newProtectPage, newProtectPage.indexOf(pathname), isProtectPage);
+  //console.log(store.getState());
+  return redirectPathname;
+}
 
 function render(query: string, block: Block | null) {
-
-
   const root = document.querySelector(query);
   if (root === null) { throw new Error(`root not found by selector "${query}"`); }
   root.innerHTML = '';
@@ -63,55 +100,43 @@ export default class Router {
 
   public use(pathname: string, block: typeof Block) {
     const route = new Route(pathname, block, '#root');
-
     this.routes.push(route);
-
     return this;
   }
 
   public start() {
-    console.log('router-start');
     window.onpopstate = (event: PopStateEvent) => {
       const target = event.currentTarget as Window;
-
-      this._onRoute(target.location.pathname);
+      this._onRouteWithProtect(target.location.pathname);
     };
+    this._onRouteWithProtect(window.location.pathname);
+  }
 
-    this._onRoute(window.location.pathname);
+  private _onRouteWithProtect(pathname: string) {
+    const goPathname: string = protectRoute(pathname);
+    this._onRoute(goPathname);
   }
 
   private _onRoute(pathname: string) {
-
-    console.log('route_onRoute', pathname, store.getState().isAuth);
     const route = this.getRoute(pathname);
     if (!route) { return; }
-
-    if (pathname === '/') {
-      this.go('/sign-up');
-      return;
-    }
-
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
-
     this._currentRoute = route;
     route.render();
   }
 
   public go(pathname: string) {
-    console.log('router-go');
     this.history.pushState({}, '', pathname);
-    this._onRoute(pathname);
+    this._onRouteWithProtect(pathname);
   }
 
   public back() {
-    console.log('router-back');
     this.history.back();
   }
 
   public forward() {
-    console.log('router-forward');
     this.history.forward();
   }
 
