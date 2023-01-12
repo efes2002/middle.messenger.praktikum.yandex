@@ -55,16 +55,22 @@ export default class Profile extends Block {
         this.props.isOpenForm = false;
       },
       editProfile: (_element: Block, children: Children, event: Event) => {
-        dispatch(ACTION.editProfile, { props: this.props, event, children });
-        this.props.closePopup();
+        dispatch(
+          ACTION.editProfile,
+          { props: this.props, event, children },
+          this.props.closePopup,
+        );
       },
       editAvatar: (_element: Block, _children: Children, event: Event) => {
         dispatch(ACTION.editAvatar, { props: this.props, event, element: _element });
         this.props.closePopup();
       },
       editPassword: (_element: Block, _children: Children, event: Event) => {
-        event.preventDefault();
-        this.props.closePopup();
+        dispatch(
+          ACTION.editPassword,
+          { props: this.props, event, element: _element },
+          this.props.closePopup,
+        );
       },
     });
   }
@@ -73,7 +79,11 @@ export default class Profile extends Block {
     // language=hbs
     return `
             <section class="profile">
-                {{{AvatarProfile isAvatarForm=true isOpen=isOpen editAvatar=editAvatar}}}
+                {{{AvatarProfile 
+                        isAvatarForm=true 
+                        isOpen=isOpen 
+                        editAvatar=editAvatar 
+                        avatar=user.avatar}}}
                 <h1 class="profile__title">
                     {{user.display_name}}
                 </h1>

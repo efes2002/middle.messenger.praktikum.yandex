@@ -3,6 +3,8 @@ import Block, { Children, Props } from '../../utils/block';
 import { ACTION, dispatch } from '../../utils/dispatch';
 // eslint-disable-next-line import/no-cycle
 import authController from '../../controllers/AuthController';
+import { BASE_URL_AVATAR } from '../../utils/constants';
+import store from '../../utils/store';
 // eslint-disable-next-line import/no-cycle
 
 export default class Messenger extends Block {
@@ -15,6 +17,7 @@ export default class Messenger extends Block {
       logOut: () => {
         authController.logout();
       },
+      avatarUrl: `${BASE_URL_AVATAR}${store.getState().user.avatar}`,
     });
   }
 
@@ -25,7 +28,7 @@ export default class Messenger extends Block {
                 <section class="main__left">
                     <article class="main__left-top">
                         <img class="main__avatar" 
-                             src="static/Avatarka.webp"
+                             src={{avatarUrl}}
                              alt="Это ваш Аватар"/>
                         <input class="main__list-search" value="Поиск"></input>
                     </article>

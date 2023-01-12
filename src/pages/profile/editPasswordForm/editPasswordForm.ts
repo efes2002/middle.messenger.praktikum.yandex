@@ -18,7 +18,7 @@ export default class EditPasswordForm extends Block {
                         {{{InputValidation
                                 className='form-pass__input'
                                 name='password'
-                                form=form
+                                form="formPass"
                                 id='oldPassword'
                                 classNameError='form-pass__input-error'
                                 errorText='Невалидный пароль'
@@ -30,7 +30,7 @@ export default class EditPasswordForm extends Block {
                         {{{InputValidation
                                 className='form-pass__input'
                                 name='password'
-                                form=form
+                                form="formPass"
                                 id='newPassword'
                                 classNameError='form-pass__input-error'
                                 errorText='Невалидный пароль'
@@ -42,13 +42,14 @@ export default class EditPasswordForm extends Block {
                         {{{InputValidation
                                 className='form-pass__input'
                                 name='password'
-                                form=form
+                                form="formPass"
                                 id='newPasswordSecond'
                                 classNameError='form-pass__input-error'
                                 errorText='Невалидный пароль'
                                 value=''}}}
                         <span class="form-pass__input-error"/></span>
                     </div>
+                    <span class="form-pass__input-two-password-error"/></span>
                     <div class="form-pass__box-button">
                         {{{Button
                                 className="popup__button popup__button-not"

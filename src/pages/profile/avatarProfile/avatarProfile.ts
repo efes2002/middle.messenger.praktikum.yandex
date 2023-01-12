@@ -1,9 +1,11 @@
 import Block, { Props } from '../../../utils/block';
+import { BASE_URL_AVATAR } from '../../../utils/constants';
 
 export default class AvatarProfile extends Block {
   constructor(props: Props) {
     super({
       ...props,
+      avatarUrl: `${BASE_URL_AVATAR}${props.avatar}`,
       events: {
         click: () => {
           props.isOpen(this, props);
@@ -15,7 +17,7 @@ export default class AvatarProfile extends Block {
   render() {
     // language=hbs
     return `
-            <img class="profile__avatar cursor-hover" src="static/Avatarka.webp"/>
+            <img alt="avatarka" class="profile__avatar cursor-hover" src={{avatarUrl}}></img>
         `;
   }
 }

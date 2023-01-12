@@ -6,6 +6,7 @@ import store from './store';
 // eslint-disable-next-line import/no-named-as-default,import/no-cycle
 import AuthController from '../controllers/AuthController';
 import { SignupData, SigninData } from '../api/AuthAPI';
+import { PasswordData, ProfileData } from '../api/UserAPI';
 
 export const ACTION: Record<any, string> = {
   submitForm: 'submitForm',
@@ -13,6 +14,7 @@ export const ACTION: Record<any, string> = {
   validationOnFocus: 'validationOnFocus',
   editProfile: 'editProfile',
   editAvatar: 'editAvatar',
+  editPassword: 'editPassword',
   signin: 'signin',
   signup: 'signup',
 };
@@ -41,7 +43,7 @@ function submitHandling(event: any):any {
   return tempObj;
 }
 
-export const dispatch = (action: string, value: any) => {
+export const dispatch = (action: string, value: any, closePopup?: any) => {
   const {
     props = {}, event = {},
   } = value;
@@ -103,16 +105,22 @@ export const dispatch = (action: string, value: any) => {
     }
 
     case ACTION.editProfile: {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const { value } = event.target.form[0];
-      const { name } = event.target.form[0];
       event.preventDefault();
-      store.set(`user.${name}`, value);
-      // eslint-disable-next-line no-console
-      console.log('Я еще раз проверил на валидность значений, вот результа: ');
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const { value, name } = event.target.form[0];
+      const userData = store.getState().user;
+      const dataValue: ProfileData = {
+        first_name: store.getState().user.first_name || '',
+        second_name: store.getState().user.second_name || '',
+        display_name: store.getState().user.display_name || '',
+        login: userData.login || '',
+        email: userData.email || '',
+        phone: userData.phone || '',
+      };
       if (validationInput(name, value) && (value !== '')) {
-        // eslint-disable-next-line no-console
-        console.log({ name: 'OK верное значение' });
+        UserController.editProfile({ ...dataValue, [name]: value });
+        console.log('ok', name, value);
+        closePopup();
       } else {
         // eslint-disable-next-line no-console
         console.log({ name: 'FALSE не верное значение' });
@@ -121,28 +129,28 @@ export const dispatch = (action: string, value: any) => {
     }
 
     case ACTION.editAvatar: {
-      console.log('profile', event);
-      //console.log('profile1', event.target.form[0].file);
-      //console.log('profile4', event.target.parentElement.parentElement);
+      event.preventDefault();
+      const formData: FormData = new FormData(event.target.form);
+      UserController.editAvatar(formData);
+      break;
+    }
 
-
-
-
-      //const formData: FormData = new FormData(event.target.form);
-      //console.log('profile-formData1', new FormData(event));
-      // @ts-
-
-      const elementForm = document.querySelector('.form-avatar__box');
-      console.log('profile1', elementForm.file[0]);
-
-
-      /*
-      const formData = new FormData(event);
-      formData.set('file', file, 'fileName');
-      */
-
-      //console.log('profile-formData', formData);
-      //UserController.editAvatar(formData);
+    case ACTION.editPassword: {
+      event.preventDefault();
+      const oldPassword = event.target.form[0].value;
+      const newPassword = event.target.form[1].value;
+      const newPasswordSecond = event.target.form[2].value;
+      const elementErrorTwoPas = event.target.form.children[3];
+      if (newPassword !== newPasswordSecond) {
+        elementErrorTwoPas.textContent = 'Вы ввели неправильный повторный пароль';
+      } else {
+        const dataValue: PasswordData = {
+          oldPassword,
+          newPassword,
+        };
+        UserController.editPassword(dataValue);
+        closePopup();
+      }
       event.preventDefault();
       break;
     }

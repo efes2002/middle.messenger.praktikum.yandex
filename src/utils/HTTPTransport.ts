@@ -72,7 +72,6 @@ export default class HTTPTransport {
       });
 
       xhr.onload = () => {
-        console.log(8801, xhr.status, xhr);
         if (xhr.status === 200) {
           resolve(xhr.responseText);
         } else {
