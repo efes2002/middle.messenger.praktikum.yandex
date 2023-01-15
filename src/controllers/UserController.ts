@@ -22,17 +22,10 @@ export class UserController {
   }
 
   async editPassword(data: PasswordData):Promise<void> {
-    try {
-      await this.api.editPassword(data);
-      console.log('password edit OK');
-    } catch (e: any) {
-      console.error(e);
-    }
+    await this.api.editPassword(data);
   }
 
   async editProfile(data: ProfileData):Promise<void> {
-
-    console.log('controllerEditProfile Data=', data);
     try {
       const user: any = await this.api.editProfile(data);
       const newData = JSON.parse(user);

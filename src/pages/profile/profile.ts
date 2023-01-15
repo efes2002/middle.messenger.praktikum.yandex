@@ -2,6 +2,8 @@
 import { dispatch, ACTION } from '../../utils/dispatch';
 import Block, { Children } from '../../utils/block';
 import store from '../../utils/store';
+// eslint-disable-next-line import/no-cycle
+import authController from '../../controllers/AuthController';
 
 export default class Profile extends Block {
   constructor(props: any) {
@@ -32,6 +34,9 @@ export default class Profile extends Block {
         second_name: store.getState().user.second_name,
         display_name: store.getState().user.display_name,
         phone: store.getState().user.phone,
+      },
+      logOut: () => {
+        authController.logout();
       },
       isOpen: (element: Block, children: Children) => {
         this.props.isOpenForm = true;
@@ -167,7 +172,8 @@ export default class Profile extends Block {
                 </div>
                 {{{Link
                         className="profile__exit cursor-hover"
-                        link="/"
+                        link=""
+                        onclick=logOut
                         label="Выйти из приложения"
                 }}}
             {{#if isOpenForm}}

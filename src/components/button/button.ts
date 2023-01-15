@@ -6,6 +6,7 @@ export default class Button extends Block {
       ...props,
       events: {
         click: (event: Event) => {
+          event.preventDefault();
           props.onclick(this, props, event);
         },
       },
@@ -15,6 +16,9 @@ export default class Button extends Block {
   render() {
     // language=hbs
     return `
-        <button class="{{className}}" type="button" form={{form}}>{{label}}</button>`;
+        <button 
+                class="{{className}}" 
+                type="button" 
+                form={{form}}> {{label}} </button>`;
   }
 }

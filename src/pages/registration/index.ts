@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import Registration from './registration';
+import { withStore } from '../../utils/store';
 
-export default class extends Registration {
-  constructor(props: any) {
-    super({ ...props });
-  }
-}
+const withState = withStore((state) => ({ regError: state.regError }));
+
+export default withState(Registration);

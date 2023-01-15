@@ -21,7 +21,7 @@ export const ACTION: Record<any, string> = {
 
 function submitHandling(event: any):any {
   const tempObj: Record<string, any> = {};
-  const tempObj2: Record<string, any> = {};
+  const tempObj2: Record<string, boolean> = {};
 
   Array.from(event.target.form.elements).forEach((item: any) => {
     if (item.nodeName === 'INPUT') {
@@ -30,17 +30,16 @@ function submitHandling(event: any):any {
       item.value = '';
     }
   });
-
   event.target.form.querySelectorAll('.form__input-error')
     // eslint-disable-next-line no-param-reassign,no-return-assign
     .forEach((item: any):string => item.textContent = '');
 
   Object.entries(tempObj).forEach(([key, value]: [string, any]) => {
     if (validationInput(key, value) && (value !== '')) {
-      tempObj2[key] = 'OK верное значение';
-    } else { tempObj2[key] = 'FALSE не верное значение'; }
+      tempObj2[key] = true;
+    } else { tempObj2[key] = false; }
   });
-  return tempObj;
+  return { tempObj, tempObj2 };
 }
 
 export const dispatch = (action: string, value: any, closePopup?: any) => {
@@ -51,18 +50,28 @@ export const dispatch = (action: string, value: any, closePopup?: any) => {
   switch (action) {
     case ACTION.signin: {
       event.preventDefault();
-      const tempObj = submitHandling(event);
+      let notErrorInput = true;
+      const { tempObj, tempObj2 } = submitHandling(event);
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      Object.entries(tempObj2).forEach((value) => {
+        if (!value[1]) { notErrorInput = false; }
+      });
       const dataValue: SigninData = {
         login: tempObj.login,
         password: tempObj.password,
       };
-      AuthController.signin(dataValue);
+      if (notErrorInput) {
+        AuthController.signin(dataValue);
+        store.set('loginError', '');
+      } else {
+        store.set('loginError', 'Ошибка в заполнение');
+      }
       break;
     }
 
     case ACTION.signup: {
-      event.preventDefault();
-      const tempObj = submitHandling(event);
+      let notErrorInput = true;
+      const { tempObj, tempObj2 } = submitHandling(event);
       const dataValue: SignupData = {
         first_name: tempObj.first_name,
         second_name: tempObj.second_name,
@@ -71,7 +80,16 @@ export const dispatch = (action: string, value: any, closePopup?: any) => {
         password: tempObj.password,
         phone: tempObj.phone,
       };
-      AuthController.signup(dataValue);
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      Object.entries(tempObj2).forEach((value) => {
+        if (!value[1]) { notErrorInput = false; }
+      });
+      if (notErrorInput) {
+        AuthController.signup(dataValue);
+        store.set('regError', '');
+      } else {
+        store.set('regError', 'Ошибка в заполнение');
+      }
       break;
     }
 
@@ -141,17 +159,29 @@ export const dispatch = (action: string, value: any, closePopup?: any) => {
       const newPassword = event.target.form[1].value;
       const newPasswordSecond = event.target.form[2].value;
       const elementErrorTwoPas = event.target.form.children[3];
-      if (newPassword !== newPasswordSecond) {
-        elementErrorTwoPas.textContent = 'Вы ввели неправильный повторный пароль';
-      } else {
-        const dataValue: PasswordData = {
-          oldPassword,
-          newPassword,
-        };
-        UserController.editPassword(dataValue);
-        closePopup();
+      if ((oldPassword === '') || (newPassword === '') || (newPasswordSecond === '')) {
+        store.set('profilePasError', 'Ошибка в заполнение');
+      } else if ((validationInput('password', oldPassword))
+          && (validationInput('password', newPassword))
+          && (validationInput('password', newPasswordSecond))) {
+        if (newPassword !== newPasswordSecond) {
+          elementErrorTwoPas.textContent = 'Вы ввели неправильный повторный пароль';
+        } else {
+          const dataValue: PasswordData = {
+            oldPassword,
+            newPassword,
+          };
+          UserController.editPassword(dataValue)
+            .then((data) => {
+              console.log(data, 'ok');
+              closePopup();
+            })
+            .catch((e) => {
+              store.set('profilePasError', 'Неверный пароль');
+              console.error(e);
+            });
+        }
       }
-      event.preventDefault();
       break;
     }
 

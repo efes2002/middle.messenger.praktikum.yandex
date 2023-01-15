@@ -25,15 +25,17 @@
 }
 
 .form__sign-box {
-  margin: 41px 0 0;
+  color: var(--main-tx-color-error);
+  margin: 0 0 -41px;
   padding: 0;
-  display: grid;
   font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
   line-height: 14px;
-  color: var(--main-tx-color-error);
+  display: grid;
+  align-items: center;
+  justify-items: center;
 }
 
 .form__title {

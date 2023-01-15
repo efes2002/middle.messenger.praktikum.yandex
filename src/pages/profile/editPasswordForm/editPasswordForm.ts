@@ -1,9 +1,11 @@
 import Block, { Props } from '../../../utils/block';
+import store from '../../../utils/store';
 
 export default class EditPasswordForm extends Block {
   constructor(props: Props) {
     super({
       ...props,
+      profilePasError: store.getState().profilePasError,
     });
   }
 
@@ -50,6 +52,7 @@ export default class EditPasswordForm extends Block {
                         <span class="form-pass__input-error"/></span>
                     </div>
                     <span class="form-pass__input-two-password-error"/></span>
+                    <div class="form__sign-box">{{profilePasError}}</div>
                     <div class="form-pass__box-button">
                         {{{Button
                                 className="popup__button popup__button-not"

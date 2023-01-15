@@ -2,6 +2,7 @@
 import { registrationHelpers } from './utils/registrationHelpers';
 // eslint-disable-next-line import/no-cycle
 import PAGES from './utils/listPageAndSetting';
+// eslint-disable-next-line import/no-cycle
 import Router from './utils/router';
 // eslint-disable-next-line import/no-cycle,import/no-named-as-default
 import AuthController from './controllers/AuthController';
@@ -17,6 +18,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     .forEach(([key, value]: [string, any]) => {
       router.use(`/${key}`, value);
     });
+
+  store.set('loginError', '');
+  store.set('regError', '');
+  store.set('profilePasError', '');
 
   try {
     await AuthController.fetchUser();

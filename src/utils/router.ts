@@ -15,10 +15,8 @@ function protectRoute(pathname: string):string {
 
   if (isAuth) {
     if (isProtectPage) {
-      //console.log(1);
       redirectPathname = pathname;
     } else {
-      //console.log(2);
       redirectPathname = `/${PAGE_NAME.messenger}`;
     }
   }
@@ -26,18 +24,10 @@ function protectRoute(pathname: string):string {
   if (!isAuth) {
     if (isProtectPage) {
       redirectPathname = `/${PAGE_NAME.login}`;
-      //console.log(3);
     } else {
       redirectPathname = pathname;
-      //console.log(5);
     }
   }
-
-  //console.log('protectRoute-Pathname', pathname);
-  //console.log('protectRoute-redirectPathname', redirectPathname);
-  //console.log('protectRoute-isAuth', isAuth);
-  //console.log('protectRoute-isNoProtectPage', newProtectPage, newProtectPage.indexOf(pathname), isProtectPage);
-  //console.log(store.getState());
   return redirectPathname;
 }
 

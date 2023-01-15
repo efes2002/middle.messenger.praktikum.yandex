@@ -15,7 +15,9 @@ export class AuthController {
       await this.api.signin(data);
       await this.fetchUser();
       router.go('/settings');
+      store.set('loginError', '');
     } catch (e: any) {
+      store.set('loginError', 'неверный логин или пароль');
       console.error(e);
     }
   }
@@ -25,6 +27,7 @@ export class AuthController {
       await this.api.signup(data);
       router.go('/');
     } catch (e: any) {
+      store.set('isAuth', false);
       console.error(e);
     }
   }

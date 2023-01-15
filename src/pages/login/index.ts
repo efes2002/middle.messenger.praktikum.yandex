@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import Login from './login';
+import { withStore } from '../../utils/store';
 
-export default class extends Login {
-  constructor(props: any) {
-    super({ ...props });
-  }
-}
+const withState = withStore((state) => ({ loginError: state.loginError }));
+
+export default withState(Login);

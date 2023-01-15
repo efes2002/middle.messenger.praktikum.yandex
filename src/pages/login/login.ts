@@ -1,19 +1,19 @@
 // eslint-disable-next-line import/no-cycle
-//import { router } from '../../index';
 import Block, { Props, Children } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
 import { ACTION, dispatch } from '../../utils/dispatch';
 // eslint-disable-next-line import/no-cycle
 import authController from '../../controllers/AuthController';
+import store from '../../utils/store';
 // eslint-disable-next-line import/no-cycle
 
 export default class Login extends Block {
   constructor(props: Props) {
     super({
       ...props,
+      loginError: store.getState().loginError,
       submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
         dispatch(ACTION.signin, { element: this, event });
-        //router.go('/messenger');
       },
       logOut: () => {
         authController.logout();
@@ -43,9 +43,7 @@ export default class Login extends Block {
                             id='loginPagePassword'
                             errorText='Не валидный пароль' }}}
                 </div>
-                {{#if errorBox.isErrorBox}}
-                    <div class="form__sign-box">Неверный логин или пароль</div>
-                {{/if}}
+                <div class="form__sign-box">{{loginError}}</div>
                 {{{Button
                         className="form__button cursor-hover"
                         nameInput=nameInput
@@ -57,12 +55,6 @@ export default class Login extends Block {
                         className="form__link cursor-hover"
                         link="/sign-up"
                         label="Нет аккаунта?"
-                }}}
-                {{{Link
-                        className="main__link-exit cursor-hover"
-                        link=""
-                        label="Выход"
-                        onclick=logOut
                 }}}
             </form>
         </section>
