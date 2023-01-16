@@ -23,10 +23,16 @@ import InputValidation from '../components/InputValidation/InputValidation';
 import Link from '../components/link/link';
 // eslint-disable-next-line import/no-cycle
 import LinkImg from '../components/linkImg/linkImg';
+import ButtonSimple from '../components/buttonSimple/buttonSimple';
+// eslint-disable-next-line import/no-cycle
+import LinkActive from '../components/linkAction/linkAction';
+import MiniForm from '../components/miniForm/miniForm';
+import MenuCreateChat from '../pages/messenger/menuCreateChat/menuCreateChat';
 
 const HELPERS: Record<string, any> = {
   Chats,
   Chat,
+  MenuCreateChat,
   Messages,
   Message,
   ErrorPage,
@@ -38,6 +44,7 @@ const HELPERS: Record<string, any> = {
   InputProfile,
   AvatarProfile,
   Button,
+  ButtonSimple,
   ButtonSendMessage,
   AddFileMessage,
   InputMessage,
@@ -45,6 +52,8 @@ const HELPERS: Record<string, any> = {
   InputValidation,
   Link,
   LinkImg,
+  LinkActive,
+  MiniForm,
 };
 
 // eslint-disable-next-line import/prefer-default-export

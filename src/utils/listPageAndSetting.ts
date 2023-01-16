@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line import/no-cycle,import/extensions
 import Messenger from '../pages/messenger';
 // eslint-disable-next-line import/no-cycle
 import Page404 from '../pages/page404';

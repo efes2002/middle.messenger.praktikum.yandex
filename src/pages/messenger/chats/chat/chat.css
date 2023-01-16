@@ -9,6 +9,10 @@
   grid-template-rows: 70px;
 }
 
+.chat__users-box_action {
+  background: var(--main-bg-color-3);
+}
+
 .chat__users-avatar {
   margin: 0;
   padding: 0;

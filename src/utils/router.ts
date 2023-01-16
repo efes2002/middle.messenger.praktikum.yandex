@@ -5,7 +5,6 @@ import store from './store';
 import { protectPage, PAGE_NAME } from './listPageAndSetting';
 
 function protectRoute(pathname: string):string {
-
   let redirectPathname: string = '/';
   let { isAuth } = store.getState();
   if (!isAuth) { isAuth = false; }

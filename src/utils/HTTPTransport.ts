@@ -58,13 +58,13 @@ export default class HTTPTransport {
   // eslint-disable-next-line class-methods-use-this
   request = (url: string, options: any) => {
     const {
-      method, headers = {}, body = {}, data = {},
+      method, headers = {}, body = {},
     } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
-
+      //console.log('XMLHttpRequest', method, url, body);
       xhr.withCredentials = true;
 
       Object.keys(headers).forEach((key) => {
