@@ -18,6 +18,7 @@ export default class MenuCreateChat extends Block {
         {{{MiniForm
                 actionButtonX=menuCreateChat.close
                 actionButton=actionButton
+                className="menu-create-chate"
                 idForm="formCreateChat"
                 title="Введите имя чата"
                 buttonLabel="Создать"

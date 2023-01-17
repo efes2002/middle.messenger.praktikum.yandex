@@ -34,7 +34,6 @@ class ChatsController {
 
   async delete(id: number) {
     await this.api.delete(id);
-
     this.fetchChats();
   }
 
@@ -44,21 +43,10 @@ class ChatsController {
 
   // eslint-disable-next-line class-methods-use-this
   selectChat(id: number) {
-    console.log(111, id, store.getState());
     const { chats } = store.getState();
     const chat = chats.find((item: any) => item.id === id);
-    store.set('selectedChatId2', { ...chat });
-    /*
-    const { chats } = store.getState();
-    const chat = chats.find((item: any) => item.id === id);
-    if (chat) {
-      console.log(666, chat);
-      store.set('selectedChatData', chat);
-    }
-    */
-
+    store.set('selectedChatData', { ...chat });
     store.set('selectedChatId', id);
-    console.log(333, store.getState());
   }
 }
 

@@ -35,7 +35,12 @@ export class ChatsAPI {
   }
 
   delete(id: number): Promise<unknown> {
-    return this._http.delete('', { chatId: id });
+    return this._http.delete('', {
+      body: JSON.stringify({ chatId: id }),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    });
   }
 
   read(): Promise<unknown> {
@@ -47,7 +52,12 @@ export class ChatsAPI {
   }
 
   addUsers(id: number, users: number[]): Promise<unknown> {
-    return this._http.put('/users', { users, chatId: id });
+    return this._http.put('/users', {
+      body: JSON.stringify({ users, chatId: id }),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    });
   }
 
   async getToken(id: number): Promise<string> {

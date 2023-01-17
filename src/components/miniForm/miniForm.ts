@@ -16,24 +16,24 @@ export default class MiniForm extends Block {
   render() {
     // language=hbs
     return `
-        <form class="main__popup-chat-create" id={{idForm}}
+        <form class="mini-form {{className}}" id={{idForm}}
         >
             {{{LinkActive
-                    className="main__popup-chat-create-x"
+                    className="mini-form__button-x"
                     link="/messenger"
                     label="x"
                     onclick=actionButtonX
             }}}
-            <h1 class="main__popup-chat-create-name">{{title}}</h1>
+            <h1 class="mini-form__name">{{title}}</h1>
             <input
-                    class="main__popup-chat-create-input"
+                    class="mini-form__input"
                     name="text"
-                    form="formCreateChat"
+                    form={{idForm}}
             />
             {{{ButtonSimple
                     onclick=onclickButton
-                    className="main__popup-chat-create-button"
-                    form="formCreateChat"
+                    className="mini-form__button"
+                    form=idForm
                     label=buttonLabel
             }}}
         </form>

@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   store.set('loginError', '');
   store.set('regError', '');
   store.set('profilePasError', '');
-  store.set('selectedChatId', null);
 
   try {
     await AuthController.fetchUser();

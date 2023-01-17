@@ -1,4 +1,4 @@
-import Block, { Props } from '../../../utils/block';
+import Block, { Props } from '../../../../utils/block';
 
 export default class ButtonSendMessage extends Block {
   constructor(props: Props) {
