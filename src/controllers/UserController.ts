@@ -30,7 +30,6 @@ export class UserController {
       const user: any = await this.api.editProfile(data);
       const newData = JSON.parse(user);
       store.set('user', { ...newData });
-      console.log('profile edit OK   newData=', newData);
     } catch (e: any) {
       console.error(e);
     }
