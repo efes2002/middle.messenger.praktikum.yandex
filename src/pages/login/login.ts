@@ -1,16 +1,22 @@
+// eslint-disable-next-line import/no-cycle
 import Block, { Props, Children } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
-import { ACTION, dispatch } from '../../utils/state';
+import { ACTION, dispatch } from '../../utils/dispatch';
 // eslint-disable-next-line import/no-cycle
-import { togglePage } from '../../index';
+import authController from '../../controllers/AuthController';
+import store from '../../utils/store';
+// eslint-disable-next-line import/no-cycle
 
 export default class Login extends Block {
   constructor(props: Props) {
     super({
       ...props,
+      loginError: store.getState().loginError,
       submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
-        dispatch(ACTION.submitForm, { event });
-        togglePage('main');
+        dispatch(ACTION.signin, { element: this, event });
+      },
+      logOut: () => {
+        authController.logout();
       },
     });
   }
@@ -37,18 +43,19 @@ export default class Login extends Block {
                             id='loginPagePassword'
                             errorText='Не валидный пароль' }}}
                 </div>
-                {{#if errorBox.isErrorBox}}
-                    <div class="form__sign-box">Неверный логин или пароль</div>
-                {{/if}}
+                <div class="form__sign-box">{{loginError}}</div>
                 {{{Button
                         className="form__button cursor-hover"
                         nameInput=nameInput
                         label='Войти'
                         onclick=submitForm
                         form="formUserLogin"}}}
-                <a class="form__link cursor-hover" onclick="togglePage('registration')">
-                    Нет аккаунта?
-                </a>
+
+                {{{Link
+                        className="form__link cursor-hover"
+                        link="/sign-up"
+                        label="Нет аккаунта?"
+                }}}
             </form>
         </section>
     `;

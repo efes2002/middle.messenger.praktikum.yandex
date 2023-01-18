@@ -1,44 +1,34 @@
 // eslint-disable-next-line import/no-cycle
-import { state } from './utils/state';
-// eslint-disable-next-line import/no-cycle
 import { registrationHelpers } from './utils/registrationHelpers';
 // eslint-disable-next-line import/no-cycle
-import PAGES, { PAGE_NAME } from './utils/listPageAndSetting';
+import PAGES from './utils/listPageAndSetting';
+// eslint-disable-next-line import/no-cycle
+import Router from './utils/router';
+// eslint-disable-next-line import/no-cycle,import/no-named-as-default
+import AuthController from './controllers/AuthController';
+import store from './utils/store';
 
-function renderPages(pages: Record<string, any>): any {
-  const objPages: Record<string, any> = {};
-  Object.entries(pages)
-    .forEach(([key, value]) => {
-      // eslint-disable-next-line new-cap
-      objPages[key] = new value({ ...state });
+// eslint-disable-next-line import/prefer-default-export
+export const router = new Router();
+
+document.addEventListener('DOMContentLoaded', async () => {
+  registrationHelpers();
+
+  Object.entries(PAGES)
+    .forEach(([key, value]: [string, any]) => {
+      router.use(`/${key}`, value);
     });
-  return objPages;
-}
 
-registrationHelpers();
+  store.set('loginError', '');
+  store.set('regError', '');
+  store.set('profilePasError', '');
 
-const listPage = renderPages(PAGES);
-
-export function togglePage(namePage: string) {
-  document.querySelector('#root')!.innerHTML = '';
-  document.querySelector('#root')!.append(listPage[namePage].getContent());
-}
-
-window.togglePage = togglePage;
-
-// Временное решение которое помогает объединить состояния у страниц которы мы передали в функцию
-// eslint-disable-next-line @typescript-eslint/no-shadow
-export const exchangeOfStates = (state: any, listPagesUpdate: string[]) => {
-  Object.entries(listPage)
-    .forEach(([key]) => {
-      if (listPagesUpdate.includes(key)) {
-        listPage[key].setProps(state);
-      }
-    });
-};
-
-// window.exchangeOfStates = exchangeOfStates;
-
-document.addEventListener('DOMContentLoaded', () => {
-  togglePage(PAGE_NAME.registration);
+  try {
+    await AuthController.fetchUser();
+    router.start();
+    store.set('isAuth', true);
+  } catch (e) {
+    router.start();
+    store.set('isAuth', false);
+  }
 });

@@ -1,28 +1,81 @@
 // eslint-disable-next-line import/no-cycle
-import { dispatch, ACTION } from '../../utils/state';
+import { dispatch, ACTION } from '../../utils/dispatch';
 import Block, { Children } from '../../utils/block';
+import store from '../../utils/store';
+// eslint-disable-next-line import/no-cycle
+import authController from '../../controllers/AuthController';
 
 export default class Profile extends Block {
   constructor(props: any) {
     super({
       ...props,
+      isOpenForm: false,
+      popupForm: {
+        isOpenName: {
+          isSimpleForm: false,
+          isPasswordForm: false,
+          isAvatarForm: false,
+        },
+        setting: {
+          title: '',
+          name: '',
+          value: '',
+          id: null,
+          classNameError: '',
+          errorText: '',
+        },
+      },
+      user: {
+        id: store.getState().user.id,
+        avatar: store.getState().user.avatar,
+        email: store.getState().user.email,
+        login: store.getState().user.login,
+        first_name: store.getState().user.first_name,
+        second_name: store.getState().user.second_name,
+        display_name: store.getState().user.display_name,
+        phone: store.getState().user.phone,
+      },
+      logOut: () => {
+        authController.logout();
+      },
       isOpen: (element: Block, children: Children) => {
-        dispatch(ACTION.isOpen, { props: this, element, children });
+        this.props.isOpenForm = true;
+        this.props.popupForm = {
+          isOpenName: {
+            isSimpleForm: element.props.isSimpleForm,
+            isPasswordForm: element.props.isPasswordForm,
+            isAvatarForm: element.props.isAvatarForm,
+          },
+          setting: {
+            title: children.title,
+            name: children.name,
+            value: children.value,
+            id: children.id,
+            classNameError: children.classNameError,
+            errorText: children.errorText,
+          },
+        };
       },
       closePopup: () => {
-        dispatch(ACTION.closePopup, { props: this.props });
+        this.props.isOpenForm = false;
       },
       editProfile: (_element: Block, children: Children, event: Event) => {
-        dispatch(ACTION.editProfile, { props: this.props, event, children });
-        dispatch(ACTION.closePopup, { props: this.props });
+        dispatch(
+          ACTION.editProfile,
+          { props: this.props, event, children },
+          this.props.closePopup,
+        );
       },
       editAvatar: (_element: Block, _children: Children, event: Event) => {
-        event.preventDefault();
-        dispatch(ACTION.closePopup, { props: this.props });
+        dispatch(ACTION.editAvatar, { props: this.props, event, element: _element });
+        this.props.closePopup();
       },
       editPassword: (_element: Block, _children: Children, event: Event) => {
-        event.preventDefault();
-        dispatch(ACTION.closePopup, { props: this.props });
+        dispatch(
+          ACTION.editPassword,
+          { props: this.props, event, element: _element },
+          this.props.closePopup,
+        );
       },
     });
   }
@@ -31,16 +84,20 @@ export default class Profile extends Block {
     // language=hbs
     return `
             <section class="profile">
-                {{{AvatarProfile isAvatarForm=true isOpen=isOpen editAvatar=editAvatar}}}
+                {{{AvatarProfile 
+                        isAvatarForm=true 
+                        isOpen=isOpen 
+                        editAvatar=editAvatar 
+                        avatar=user.avatar}}}
                 <h1 class="profile__title">
-                    {{users.display_name}}
+                    {{user.display_name}}
                 </h1>
                 <ul class="profile__items">
                     {{{InputProfile 
                             title='Почта' 
                             name='email'
                             id='profPageEmail'
-                            value=users.email 
+                            value=user.email 
                             isOpen=isOpen 
                             isSimpleForm=true 
                             classNameError='form__input-error'
@@ -49,7 +106,7 @@ export default class Profile extends Block {
                             title='Логин' 
                             name='login'
                             id='profPageLogin'
-                            value=users.login 
+                            value=user.login 
                             isOpen=isOpen 
                             isSimpleForm=true 
                             classNameError='form__input-error'
@@ -58,7 +115,7 @@ export default class Profile extends Block {
                             title='Имя'   
                             name='first_name'
                             id='profPageFirstName'
-                            value=users.first_name 
+                            value=user.first_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -67,7 +124,7 @@ export default class Profile extends Block {
                             title='Фамилия' 
                             name='second_name'
                             id='profPageSecondName'
-                            value=users.second_name 
+                            value=user.second_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -76,7 +133,7 @@ export default class Profile extends Block {
                             title='Имя в чате'
                             name='display_name'
                             id='profPageDisplayName' 
-                            value=users.display_name 
+                            value=user.display_name 
                             isOpen=isOpen
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -85,7 +142,7 @@ export default class Profile extends Block {
                             title='Телефон' 
                             name='phone'
                             id='profPagePhone'
-                            value=users.phone 
+                            value=user.phone 
                             isOpen=isOpen 
                             isSimpleForm=true
                             classNameError='form__input-error'
@@ -100,22 +157,34 @@ export default class Profile extends Block {
                             classNameError='form__input-error'
                             errorText='невалидно'}}}
                 </ul>
-                <div class="profile__box-link cursor-hover" onclick="togglePage('main')">
-                    <img class="profile__img-link" src="static/img12.svg"></img>
-                    <div class="profile__title-link">Назад</div>
+                <div class="profile__box-link cursor-hover">
+                    {{{LinkImg
+                            className="profile__img-link"
+                            link="/messenger"
+                            src="static/img12.svg"
+                            alt="кнопка настройки"
+                    }}}
+                    {{{Link
+                            className="profile__title-link"
+                            link="/messenger"
+                            label="Назад"
+                    }}}
                 </div>
-                <div class="profile__exit cursor-hover" onclick="togglePage('login')">
-                    Выйти из приложения
-                </div>
-            {{#if popupProfile.isOpen}}
+                {{{Link
+                        className="profile__exit cursor-hover"
+                        link=""
+                        onclick=logOut
+                        label="Выйти из приложения"
+                }}}
+            {{#if isOpenForm}}
                 {{{Popup
                         closePopup=closePopup
                         editProfile=editProfile
                         editAvatar=editAvatar
                         editPassword=editPassword
-                        isOpen=popupProfile.isOpen
-                        namePopupForm=popupProfile.namePopupForm
-                        setting=popupProfile.setting 
+                        isOpen=popupForm.isOpenValue
+                        namePopupForm=popupForm.isOpenName
+                        setting=popupForm.setting 
                 }}}
             {{/if}}
             </section>

@@ -1,6 +1,6 @@
 import Block, { Props } from '../../utils/block';
 // eslint-disable-next-line import/no-cycle
-import { ACTION, dispatch } from '../../utils/state';
+import { ACTION, dispatch } from '../../utils/dispatch';
 
 export default class InputValidation extends Block {
   constructor(props: Props) {
