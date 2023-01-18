@@ -137,7 +137,6 @@ export const dispatch = (action: string, value: any, closePopup?: any) => {
       };
       if (validationInput(name, value) && (value !== '')) {
         UserController.editProfile({ ...dataValue, [name]: value });
-        console.log('ok', name, value);
         closePopup();
       } else {
         // eslint-disable-next-line no-console
@@ -172,24 +171,15 @@ export const dispatch = (action: string, value: any, closePopup?: any) => {
             newPassword,
           };
           UserController.editPassword(dataValue)
-            .then((data) => {
-              console.log(data, 'ok');
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            .then(() => {
               closePopup();
             })
-            .catch((e) => {
+            .catch(() => {
               store.set('profilePasError', 'Неверный пароль');
-              console.error(e);
             });
         }
       }
-      break;
-    }
-
-    case ACTION.submitForm: {
-      event.preventDefault();
-
-
-
       break;
     }
     default:

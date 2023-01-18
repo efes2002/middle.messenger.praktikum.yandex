@@ -3,7 +3,7 @@ import HTTPTransport from '../utils/HTTPTransport';
 export interface PasswordData {
   oldPassword: string;
   newPassword: string;
-};
+}
 
 export interface ProfileData {
   first_name: string;
@@ -12,7 +12,7 @@ export interface ProfileData {
   login: string;
   email: string;
   phone: string;
-};
+}
 
 export class UserAPI {
   protected _http: HTTPTransport;

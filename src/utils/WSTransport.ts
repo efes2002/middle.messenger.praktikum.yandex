@@ -1,4 +1,4 @@
-import EventBus from './EventBus';
+import EventBus from './eventBus';
 
 export enum WSTransportEvents {
   Connected = 'connected',
@@ -17,8 +17,6 @@ export default class WSTransport extends EventBus {
   }
 
   public send(data: unknown) {
-
-    console.log('WebSocketSend', data);
     if (!this.socket) {
       throw new Error('Socket is not connected');
     }

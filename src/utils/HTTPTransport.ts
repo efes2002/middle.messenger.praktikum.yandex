@@ -64,7 +64,6 @@ export default class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
-      //console.log('XMLHttpRequest', method, url, body);
       xhr.withCredentials = true;
 
       Object.keys(headers).forEach((key) => {
