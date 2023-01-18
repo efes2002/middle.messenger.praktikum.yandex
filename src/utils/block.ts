@@ -10,7 +10,7 @@ export type Props = {
   events?: Record<string, (...args: any) => void>;
 };
 
-export default abstract class Block {
+export default class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -30,7 +30,7 @@ export default abstract class Block {
 
   children: Children;
 
-  protected constructor(childrenAndProps: Props = {}) {
+  constructor(childrenAndProps: Props = {}) {
     const { props, children } = this._getChildrenAndProps(childrenAndProps);
     const eventBus = new EventBus();
     this._eventBus = () => eventBus;
@@ -86,8 +86,8 @@ export default abstract class Block {
     this.componentDidMount();
   }
 
-  _componentDidUpdate() {
-    if (this.componentDidUpdate()) {
+  _componentDidUpdate(oldProps: Props, newProps: Props) {
+    if (this.componentDidUpdate(oldProps, newProps)) {
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -158,27 +158,55 @@ export default abstract class Block {
   dispatchComponentDidMount() {
     this._eventBus()
       .emit(Block.EVENTS.FLOW_CDM);
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((ch) => ch.dispatchComponentDidMount());
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
   }
 
   componentDidMount() {
   }
 
-  componentDidUpdate() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidUpdate(oldProps: Props, newProps: Props) {
     return true;
   }
 
   compile(template: any, context: any) {
     const contextAndStubs: any = { ...context };
+
+    Object.entries(this.children)
+      .forEach(([name, component]) => {
+        if (Array.isArray(component)) {
+          contextAndStubs[name] = component.map((child) => `<div data-id="${child.id}"></div>`);
+        } else {
+          contextAndStubs[name] = `<div data-id="${component._id}"></div>`;
+        }
+      });
+
     const compiled = Handlebars.compile(template);
     const temp = document.createElement('template');
     temp.innerHTML = compiled(contextAndStubs);
+
+    const replaceStub = (component: Block) => {
+      const stub = temp.content.querySelector(`[data-id="${component._id}"]`);
+      if (!stub) {
+        return;
+      }
+      component.getContent()?.append(...Array.from(stub.childNodes));
+      stub.replaceWith(component.getContent()!);
+    };
+
     Object.entries(this.children)
-      .forEach(([, component]: [string, Block]) => {
-        const stub = temp.content.querySelector(`[data-id="${component._id}"]`);
-        if (!stub) {
-          return;
+      .forEach(([, component]) => {
+        if (Array.isArray(component)) {
+          component.forEach(replaceStub);
+        } else {
+          replaceStub(component);
         }
-        stub.replaceWith(component.getContent());
       });
     return temp.content;
   }
