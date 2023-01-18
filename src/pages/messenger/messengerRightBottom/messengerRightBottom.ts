@@ -1,13 +1,22 @@
 // eslint-disable-next-line import/no-cycle
-import { ACTION, dispatch } from '../../../utils/dispatch';
-import Block, { Children, Props } from '../../../utils/block';
+import Block, { Props } from '../../../utils/block';
+import store from '../../../utils/store';
+import MessagesController from '../../../controllers/MessagesController';
 
 export default class MessengerRightBottom extends Block {
   constructor(props: Props) {
     super({
       ...props,
-      submitForm: (_element: HTMLElement, _children: Children, event: Event) => {
-        dispatch(ACTION.submitForm, { event });
+      isSelectId: store.getState().selectedChatId,
+      submitForm: (event: Event) => {
+        const target = event.target as HTMLButtonElement;
+        const formElement = target.form as HTMLFormElement;
+        const inputElement = formElement[0] as HTMLInputElement;
+        const inputValue: string = inputElement.value;
+        if (inputValue !== '') {
+          MessagesController.sendMessage(this.props.isSelectId, inputValue);
+        }
+        inputElement.value = '';
       },
     });
   }

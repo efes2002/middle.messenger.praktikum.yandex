@@ -185,6 +185,13 @@ export const dispatch = (action: string, value: any, closePopup?: any) => {
       break;
     }
 
+    case ACTION.submitForm: {
+      event.preventDefault();
+
+
+
+      break;
+    }
     default:
   }
 };

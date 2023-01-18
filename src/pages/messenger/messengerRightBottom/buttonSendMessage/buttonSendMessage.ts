@@ -6,7 +6,8 @@ export default class ButtonSendMessage extends Block {
       ...props,
       events: {
         click: (event: Event) => {
-          props.onclick(this, props, event);
+          event.preventDefault();
+          props.onclick(event);
         },
       },
     });

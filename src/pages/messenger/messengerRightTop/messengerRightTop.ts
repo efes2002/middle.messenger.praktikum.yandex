@@ -38,7 +38,7 @@ export default class MessengerRightTop extends Block {
                 {{#if selectedChatData.id}}
                     <div class="main__setting-chat">
                         <div class="main__setting-chat-title">
-                            {{selectedChatData.title}}
+                            {{selectedChatData.title}}, ID-{{selectedChatData.id}}
                         </div>
                         <div class="main__button-add-user">
                             {{{ButtonImg

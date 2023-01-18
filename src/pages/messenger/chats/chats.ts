@@ -6,7 +6,7 @@ export default class Chats extends Block {
     super({
       ...props,
       chatsData: store.getState().chats,
-      a: console.log(88,store.getState().chats),
+      a: console.log(store.getState().chats),
     });
   }
 

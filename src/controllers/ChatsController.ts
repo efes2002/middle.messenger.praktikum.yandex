@@ -25,7 +25,6 @@ class ChatsController {
       chats.map(tempFunc);
       store.set('chats', chats);
     }
-    console.log('ChatsController-fetchChats', store.getState().chats);
   }
 
   addUserToChat(id: number, userId: number) {
