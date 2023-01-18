@@ -11,7 +11,6 @@ export default class Message extends Block {
     super({
       ...props,
       isAuthor: funIsAuthor(store.getState().user.id, props.user_id),
-      d:console.log(55, props)
     });
   }
 

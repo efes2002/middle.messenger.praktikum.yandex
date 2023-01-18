@@ -4,7 +4,7 @@ import { User } from './AuthAPI';
 export interface PasswordData {
   oldPassword: string;
   newPassword: string;
-};
+}
 
 export interface ChatInfo {
   id: number;

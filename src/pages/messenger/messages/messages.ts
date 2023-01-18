@@ -7,7 +7,7 @@ function answer(messages = {}, id = 0) {
   if (answer) {
     return answer[1].filter((value: any) => value.type === 'message');
   } return [];
-};
+}
 
 export default class Messages extends Block {
   constructor(props: Props) {
