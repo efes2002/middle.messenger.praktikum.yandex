@@ -15,15 +15,20 @@ class ChatsController {
   }
 
   async fetchChats() {
-    const answer: any = await this.api.read();
-    const chats = JSON.parse(answer);
-    const tempFunc = async (chat: { id: number; }) => {
-      const token = await this.getToken(chat.id);
-      await MessagesController.connect(chat.id, token);
-    };
-    if (chats.length !== 0) {
-      await chats.map(tempFunc);
-      store.set('chats', chats);
+    try {
+      const answer: any = await this.api.read();
+      const chats = JSON.parse(answer);
+      const tempFunc = async (chat: { id: number; }) => {
+        const token = await this.getToken(chat.id);
+        await MessagesController.connect(chat.id, token);
+      };
+      if (chats.length !== 0) {
+        await chats.map(tempFunc);
+        store.set('chats', chats);
+      }
+    } catch (e: any) {
+      // eslint-disable-next-line no-console
+      console.error(e);
     }
   }
 
@@ -45,6 +50,7 @@ class ChatsController {
       await this.api.editAvatar(data);
       await this.fetchChats();
     } catch (e: any) {
+      // eslint-disable-next-line no-console
       console.error(e);
     }
   }

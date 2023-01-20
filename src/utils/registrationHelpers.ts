@@ -38,6 +38,7 @@ import MessengerRightTop from '../pages/messenger/messengerRightTop/messengerRig
 import MessengerRightBottom from '../pages/messenger/messengerRightBottom/messengerRightBottom';
 import MenuAddUser from '../pages/messenger/menuAddUser/menuAddUser';
 import MenuEditChatAvatar from '../pages/messenger/menuEditChatAvatar/menuEditChatAvatar';
+import ButtonCancel from '../components/buttonСancel/buttonСancel';
 
 const HELPERS: Record<string, any> = {
   Chats,
@@ -60,6 +61,7 @@ const HELPERS: Record<string, any> = {
   InputProfile,
   AvatarProfile,
   Button,
+  ButtonCancel,
   ButtonSimple,
   ButtonSendMessage,
   InputMessage,

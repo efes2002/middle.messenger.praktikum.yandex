@@ -1,12 +1,13 @@
 import Block, { Props } from '../../utils/block';
 
-export default class Button extends Block {
+export default class ButtonCancel extends Block {
   constructor(props: Props) {
     super({
       ...props,
       events: {
         click: (event: Event) => {
-          props.onclick(this, props, event);
+          event.preventDefault();
+          props.onclick();
         },
       },
     });
@@ -17,8 +18,7 @@ export default class Button extends Block {
     return `
         <button
                 class="{{className}}"
-                type="submit"
-                form={{form}}
+                type="button"
         >{{label}}</button>`;
   }
 }
