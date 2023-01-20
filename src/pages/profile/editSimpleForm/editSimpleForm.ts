@@ -4,6 +4,12 @@ export default class EditSimpleForm extends Block {
   constructor(props: Props) {
     super({
       ...props,
+      events: {
+        submit: (event: Event) => {
+          event.preventDefault();
+          props.editProfile(this, props, event);
+        },
+      },
     });
   }
 
@@ -24,16 +30,15 @@ export default class EditSimpleForm extends Block {
                 }}}
                 <span class="form__input-error"></span>
                 <div class="form-simple__box-button">
-                    {{{Button
+                    {{{ButtonCancel
                             className="popup__button popup__button-not"
                             label="Отмена"
                             onclick=closePopup
-                            form="formSimple"}}}
-                    {{{Button
-                            className="popup__button popup__button-yes"
-                            label="Применить"
-                            onclick=editProfile
-                            form="formSimple"}}}
+                    }}}
+                    <input 
+                            class="popup__button popup__button-yes" 
+                            type="submit" 
+                            value="Применить"/>    
                 </div>
             </form>
         </section>

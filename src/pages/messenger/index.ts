@@ -4,6 +4,7 @@ import { withStore } from '../../utils/store';
 
 const withState = withStore((state) => ({
   user: state.user,
+  isLoggingChat: state.isLoggingChat,
 }));
 
 export default withState(Messenger);

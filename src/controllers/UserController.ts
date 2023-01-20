@@ -17,6 +17,7 @@ export class UserController {
       const newData = JSON.parse(user);
       store.set('user', newData);
     } catch (e: any) {
+      // eslint-disable-next-line no-console
       console.error(e);
     }
   }
@@ -31,6 +32,7 @@ export class UserController {
       const newData = JSON.parse(user);
       store.set('user', { ...newData });
     } catch (e: any) {
+      // eslint-disable-next-line no-console
       console.error(e);
     }
   }

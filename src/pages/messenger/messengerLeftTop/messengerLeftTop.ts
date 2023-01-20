@@ -14,9 +14,7 @@ export default class MessengerLeftTop extends Block {
     // language=hbs
     return `
         <article class="main__left-top">
-            <img class="main__avatar"
-                 src={{avatarUrl}}
-                 alt="Это ваш Аватар"/>
+            <img class="chat__avatar-img" src={{avatarUrl}} alt="Это ваш Аватар"></img>
             <input class="main__list-search" value="Поиск"></input>
         </article>
         `;

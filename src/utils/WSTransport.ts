@@ -20,17 +20,13 @@ export default class WSTransport extends EventBus {
     if (!this.socket) {
       throw new Error('Socket is not connected');
     }
-
     this.socket.send(JSON.stringify(data));
   }
 
   public connect(): Promise<void> {
     this.socket = new WebSocket(this.url);
-
     this.subscribe(this.socket);
-
     this.setupPing();
-
     return new Promise((resolve) => {
       this.on(WSTransportEvents.Connected, () => {
         resolve();
@@ -68,11 +64,9 @@ export default class WSTransport extends EventBus {
 
     socket.addEventListener('message', (message) => {
       const data = JSON.parse(message.data);
-
       if (data.type && data.type === 'pong') {
         return;
       }
-
       this.emit(WSTransportEvents.Message, data);
     });
   }

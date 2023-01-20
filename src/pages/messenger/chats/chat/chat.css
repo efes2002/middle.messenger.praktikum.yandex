@@ -27,6 +27,14 @@
   margin: 0;
   padding: 0;
   border-radius: 50%;
+}
+
+.chat__avatar-img-not {
+  width: 55px;
+  height: 55px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
   background-color: #5f7ea1;
 }
 

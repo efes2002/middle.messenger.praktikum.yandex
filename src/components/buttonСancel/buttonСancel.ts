@@ -1,14 +1,13 @@
 import Block, { Props } from '../../utils/block';
 
-export default class ButtonSimple extends Block {
+export default class ButtonCancel extends Block {
   constructor(props: Props) {
     super({
       ...props,
       events: {
         click: (event: Event) => {
           event.preventDefault();
-          props.onclick(event);
-          return false;
+          props.onclick();
         },
       },
     });
@@ -17,6 +16,9 @@ export default class ButtonSimple extends Block {
   render() {
     // language=hbs
     return `
-        <button class="{{className}}" type="button" form="{{form}}">{{label}}</button>`;
+        <button
+                class="{{className}}"
+                type="button"
+        >{{label}}</button>`;
   }
 }

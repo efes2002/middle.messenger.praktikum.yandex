@@ -51,6 +51,12 @@ export class ChatsAPI {
     return this._http.get(`/${id}/users`, {});
   }
 
+  editAvatar(data: FormData) {
+    return this._http.put('/avatar', {
+      body: data,
+    });
+  }
+
   addUsers(id: number, users: number[]): Promise<unknown> {
     return this._http.put('/users', {
       body: JSON.stringify({ users, chatId: id }),
