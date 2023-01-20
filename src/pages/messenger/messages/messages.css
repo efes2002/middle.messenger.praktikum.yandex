@@ -1,4 +1,9 @@
 .messages {
+  height: 100%;
+  align-content: start;
+  align-self: start;
+
+
   margin: 7px 10px;
   padding: 0;
   display: grid;

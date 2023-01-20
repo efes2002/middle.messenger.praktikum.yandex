@@ -4,11 +4,13 @@ export default class MiniForm extends Block {
   constructor(props: Props) {
     super({
       ...props,
-      onclickButton: (event: Event) => {
-        const target = event.target as HTMLButtonElement;
-        const formElement = target.form as HTMLFormElement;
-        const inputValue: string = (formElement[0] as HTMLInputElement).value;
-        props.actionButton(inputValue);
+      events: {
+        submit: (event: Event) => {
+          event.preventDefault();
+          const formElement = event.target as HTMLFormElement;
+          const inputValue: string = (formElement[0] as HTMLInputElement).value;
+          props.actionButton(inputValue);
+        },
       },
     });
   }
@@ -30,12 +32,7 @@ export default class MiniForm extends Block {
                     name="text"
                     form={{idForm}}
             />
-            {{{ButtonSimple
-                    onclick=onclickButton
-                    className="mini-form__button"
-                    form=idForm
-                    label=buttonLabel
-            }}}
+            <input class="mini-form__button" type="submit" value="{{buttonLabel}}"/>
         </form>
     `;
   }

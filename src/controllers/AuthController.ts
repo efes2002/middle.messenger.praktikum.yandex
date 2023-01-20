@@ -14,10 +14,11 @@ export class AuthController {
     try {
       await this.api.signin(data);
       await this.fetchUser();
-      router.go('/settings');
+      router.go('/');
       store.set('loginError', '');
     } catch (e: any) {
       store.set('loginError', 'неверный логин или пароль');
+      // eslint-disable-next-line no-console
       console.error(e);
     }
   }
@@ -28,15 +29,21 @@ export class AuthController {
       router.go('/');
     } catch (e: any) {
       store.set('isAuth', false);
+      // eslint-disable-next-line no-console
       console.error(e);
     }
   }
 
   async fetchUser() {
-    const user: any = await this.api.read();
-    store.set('user', JSON.parse(user));
-    store.set('isAuth', true);
-    if (user) { store.set('isAuth', true); }
+    try {
+      const user: any = await this.api.read();
+      store.set('user', JSON.parse(user));
+      store.set('isAuth', true);
+      if (user) { store.set('isAuth', true); }
+    } catch (e: any) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+    }
   }
 
   async logout() {
@@ -45,6 +52,7 @@ export class AuthController {
       store.set('isAuth', false);
       router.go('/');
     } catch (e: any) {
+      // eslint-disable-next-line no-console
       console.error(e.message);
     }
   }
