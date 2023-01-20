@@ -60,6 +60,7 @@ export default class Profile extends Block {
         this.props.isOpenForm = false;
       },
       editProfile: (_element: Block, children: Children, event: Event) => {
+        console.log(33)
         dispatch(
           ACTION.editProfile,
           { props: this.props, event, children },

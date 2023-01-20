@@ -29,7 +29,7 @@ export default class Message extends Block {
                         <div class="message__time">{{time}}</div>
                         <img class="message__status" 
                              src="static/messageStatus_{{#if is_read}}2{{else}}3{{/if}}.png" 
-                             alt="Символ статуса отправки сообщения"/>
+                             alt="Символ статуса отправки сообщения" />
                     </div>
                 </div>
             </div>

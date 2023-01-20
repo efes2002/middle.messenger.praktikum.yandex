@@ -16,6 +16,14 @@
   padding: 0;
   width: 45px;
   height: 45px;
+  border-radius: 50%;
+}
+
+.main__avatar-not {
+  margin: 16px 0 0;
+  padding: 0;
+  width: 45px;
+  height: 45px;
   background-color: slategray;
   border-radius: 50%;
 }

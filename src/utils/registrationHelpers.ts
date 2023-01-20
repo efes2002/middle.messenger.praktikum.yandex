@@ -37,11 +37,13 @@ import MessengerRightTop from '../pages/messenger/messengerRightTop/messengerRig
 // eslint-disable-next-line import/no-cycle
 import MessengerRightBottom from '../pages/messenger/messengerRightBottom/messengerRightBottom';
 import MenuAddUser from '../pages/messenger/menuAddUser/menuAddUser';
+import MenuEditChatAvatar from '../pages/messenger/menuEditChatAvatar/menuEditChatAvatar';
 
 const HELPERS: Record<string, any> = {
   Chats,
   Chat,
   MenuCreateChat,
+  MenuEditChatAvatar,
   MenuAddUser,
   Messages,
   MessengerLeftBottom,

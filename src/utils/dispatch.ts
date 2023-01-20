@@ -123,9 +123,14 @@ export const dispatch = (action: string, value: any, closePopup?: any) => {
     }
 
     case ACTION.editProfile: {
-      event.preventDefault();
+
+
+
+
       // eslint-disable-next-line @typescript-eslint/no-shadow
       const { value, name } = event.target.form[0];
+
+      console.log(77, value, name);
       const userData = store.getState().user;
       const dataValue: ProfileData = {
         first_name: store.getState().user.first_name || '',

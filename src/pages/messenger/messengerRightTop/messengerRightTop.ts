@@ -27,6 +27,15 @@ export default class MessengerRightTop extends Block {
           this.props.isOpenMenuAddUser = false;
         },
       },
+      isOpenMenuEditChatAvatar: false,
+      menuEditChatAvatar: {
+        open: () => {
+          this.props.isOpenMenuEditChatAvatar = true;
+        },
+        close: () => {
+          this.props.isOpenMenuEditChatAvatar = false;
+        },
+      },
     });
   }
 
@@ -43,7 +52,7 @@ export default class MessengerRightTop extends Block {
                         <div class="main__button-add-user">
                             {{{ButtonImg
                                     className="main__button-add-user-img cursor-hover"
-                                    src="static/img18.svg"
+                                    src="static/img21.svg"
                                     alt="кнопка добавить пользователя"
                                     onclick=menuAddUser.open
                             }}}
@@ -54,6 +63,24 @@ export default class MessengerRightTop extends Block {
                             }}}
                             {{#if isOpenMenuAddUser}}
                                 {{{MenuAddUser menuAddUser=menuAddUser}}}
+                            {{else}}
+                                <div></div>
+                            {{/if}}
+                        </div>
+                        <div class="main__add-avatar-chat">
+                            {{{ButtonImg
+                                    className="main__button-add-user-img cursor-hover"
+                                    src="static/img18.svg"
+                                    alt="кнопка изменить аватар"
+                                    onclick=menuEditChatAvatar.open
+                            }}}
+                            {{{Link
+                                    className="main__button-title"
+                                    onclick=menuEditChatAvatar.open
+                                    label="изм. Аватар"
+                            }}}
+                            {{#if isOpenMenuEditChatAvatar}}
+                                {{{MenuEditChatAvatar menuEditChatAvatar=menuEditChatAvatar}}}
                             {{else}}
                                 <div></div>
                             {{/if}}
@@ -71,7 +98,6 @@ export default class MessengerRightTop extends Block {
                                     label="Удалить чат"
                             }}}
                         </div>
-
                     </div>
                 {{/if}}
             </div>

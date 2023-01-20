@@ -22,7 +22,7 @@ export default class Messages extends Block {
     // language=hbs
     return `
             <section class="messages">
-                {{#if selectedChatId}}
+                {{#if true}}
                     {{#each messages }}
                         {{{Message
                                 time=time

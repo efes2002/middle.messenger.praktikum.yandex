@@ -1,4 +1,5 @@
 import Block, { Props } from '../../../utils/block';
+import { ACTION, dispatch } from 'src/utils/dispatch';
 
 export default class EditSimpleForm extends Block {
   constructor(props: Props) {

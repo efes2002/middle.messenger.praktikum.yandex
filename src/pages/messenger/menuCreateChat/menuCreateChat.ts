@@ -12,6 +12,8 @@ export default class MenuCreateChat extends Block {
     });
   }
 
+
+
   render() {
     // language=hbs
     return `

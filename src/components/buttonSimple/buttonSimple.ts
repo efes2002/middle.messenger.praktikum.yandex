@@ -8,6 +8,7 @@ export default class ButtonSimple extends Block {
         click: (event: Event) => {
           event.preventDefault();
           props.onclick(event);
+          return false;
         },
       },
     });

@@ -22,7 +22,7 @@ class ChatsController {
       await MessagesController.connect(chat.id, token);
     };
     if (chats.length !== 0) {
-      chats.map(tempFunc);
+      await chats.map(tempFunc);
       store.set('chats', chats);
     }
   }
@@ -38,6 +38,15 @@ class ChatsController {
 
   getToken(id: number) {
     return this.api.getToken(id);
+  }
+
+  async editAvatar(data: FormData) {
+    try {
+      await this.api.editAvatar(data);
+      await this.fetchChats();
+    } catch (e: any) {
+      console.error(e);
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
