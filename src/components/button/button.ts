@@ -15,6 +15,10 @@ export default class Button extends Block {
   render() {
     // language=hbs
     return `
-        <button class="{{className}}" type="button" form={{form}}>{{label}}</button>`;
+        <button
+                class="{{className}}"
+                type="submit"
+                form={{form}}
+        >{{label}}</button>`;
   }
 }

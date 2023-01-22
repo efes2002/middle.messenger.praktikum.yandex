@@ -1,8 +1,8 @@
-Sprint_2 - dev_1
+Sprint_3
 
 Проектная работа - Messenger 
 
-Инструменты: Parcel, Handlebars, CSS, JS, TypeScript, Express
+Инструменты: Parcel, Handlebars, CSS, JS, TypeScript, Express, WebSocket
 
 Figma: https://www.figma.com/community/file/1173753027075427256
 

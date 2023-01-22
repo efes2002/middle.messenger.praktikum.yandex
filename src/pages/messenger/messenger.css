@@ -1,0 +1,33 @@
+.main {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-column-gap: 3px;
+}
+
+.main__left {
+  height: 100vh;
+  width: 320px;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  align-content: stretch;
+  grid-template-columns: auto;
+  grid-template-rows: 120px auto 50px;
+  grid-row-gap: 3px;
+}
+
+.main__right {
+  height: 100vh;
+  width: 777px;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  align-items: start;
+  align-content: stretch;
+  grid-template-columns: auto;
+  grid-template-rows: 50px auto 50px;
+  grid-row-gap: 3px;
+}

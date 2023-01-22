@@ -1,0 +1,74 @@
+.main__bottom-menu {
+  position: relative;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  background-color: var(--main-bg-color-2);
+  display: grid;
+  grid-template-columns: 50px 50px;
+  grid-template-rows: 50px;
+  grid-column-gap: 50px;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-bg-bt-color-1);
+}
+
+.main__setting {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 2px;
+  justify-items: center;
+}
+
+.main__button-creat-chat {
+  display: grid;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 8px;
+  color: var(--main-bg-bt-color-1);
+  text-decoration: none;
+}
+
+.main__profile {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 2px;
+  justify-items: center;
+  text-decoration: none;
+}
+
+.main__setting-button {
+  width: 30px;
+  height: 30px;
+  background: #5f7ea2;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.main__profile-text {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 10px;
+  text-decoration: none;
+  color: #5f7ea2;
+}
+
+.main__profile-text:hover {
+  text-decoration: none;
+}
+
+.main__profile-text:active {
+  text-decoration: none;
+}

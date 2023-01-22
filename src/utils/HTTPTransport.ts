@@ -2,10 +2,12 @@ type Options = {
   data?: any;
   method?: string;
   headers?: any;
-  timeout?: number;
 };
 
-type FunHTTP = (arg0: string, arg1: Options) => Promise<unknown>;
+type FunHTTP = (
+  arg0: string,
+  arg1: {},
+) => Promise<unknown>;
 
 const METHODS: Record<string, string> = {
   GET: 'GET',
@@ -22,54 +24,69 @@ function queryStringify(data: any): string {
 }
 
 export default class HTTPTransport {
-  get:FunHTTP = (url, options = {}) => {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
+
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+  }
+
+  get:FunHTTP = (path, options: Options = {}) => {
     const params = options.data ? queryStringify(options.data) : '';
-    return this.request(url + params, { ...options, method: METHODS.GET }, options.timeout);
+    return this.request(
+      this.endpoint + path + params,
+      { ...options, method: METHODS.GET },
+    );
   };
 
-  put:FunHTTP = (url, options = {}) => this.request(
-    url,
+  put:FunHTTP = (path, options: Options = {}) => this.request(
+    this.endpoint + path,
     { ...options, method: METHODS.PUT },
-    options.timeout,
   );
 
-  post:FunHTTP = (url, options = {}) => this.request(
-    url,
+  post:FunHTTP = (path, options: Options = {}) => this.request(
+    this.endpoint + path,
     { ...options, method: METHODS.POST },
-    options.timeout,
   );
 
-  delete:FunHTTP = (url, options = {}) => this.request(
-    url,
+  delete:FunHTTP = (path, options: Options = {}) => this.request(
+    this.endpoint + path,
     { ...options, method: METHODS.DELETE },
-    options.timeout,
   );
 
   // eslint-disable-next-line class-methods-use-this
-  request = (url: string, options: any, timeout = 5000) => {
-    const { method, headers = {}, data = {} } = options;
+  request = (url: string, options: any) => {
+    const {
+      method, headers = {}, body = {},
+    } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
+      xhr.withCredentials = true;
 
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      function setHeaders(headers: any) {
-        // eslint-disable-next-line guard-for-in,no-restricted-syntax
-        for (const key in headers) {
-          xhr.setRequestHeader(key, headers[key]);
+      Object.keys(headers).forEach((key) => {
+        xhr.setRequestHeader(key, headers[key]);
+      });
+
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          resolve(xhr.responseText);
+        } else {
+          reject(xhr);
         }
-      }
-      setHeaders(headers);
-      xhr.timeout = timeout;
+      };
 
-      if (method === METHODS.GET) { xhr.send(); } else { xhr.send(JSON.stringify(data)); }
-
-      // eslint-disable-next-line func-names
-      xhr.onload = function () { resolve(xhr); };
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
+
+      if (method === METHODS.GET || !body) {
+        xhr.send();
+      } else {
+        xhr.send(body);
+      }
     });
   };
 }
