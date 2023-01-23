@@ -86,8 +86,8 @@ export default class Block {
     this.componentDidMount();
   }
 
-  _componentDidUpdate(oldProps: Props, newProps: Props) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
+  _componentDidUpdate() {
+    if (this.componentDidUpdate()) {
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -171,7 +171,7 @@ export default class Block {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidUpdate(oldProps: Props, newProps: Props) {
+  componentDidUpdate() {
     return true;
   }
 

@@ -32,3 +32,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     store.set('isAuth', false);
   }
 });
+
+export class hello {
+}
