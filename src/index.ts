@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import { registrationHelpers } from './utils/registrationHelpers';
+import './index.css';
 // eslint-disable-next-line import/no-cycle
 import PAGES from './utils/listPageAndSetting';
 // eslint-disable-next-line import/no-cycle
@@ -32,6 +33,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     store.set('isAuth', false);
   }
 });
-
-export class hello {
-}
