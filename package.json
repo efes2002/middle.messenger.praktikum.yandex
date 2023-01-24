@@ -11,6 +11,12 @@
     "check": "npm run lint && npm run test",
     "test": "ts-mocha --require ignore-styles"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run check",
+      "pre-push": "npm run build"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -33,6 +39,7 @@
     "eslint-config-airbnb-typescript": "17.0.0",
     "handlebars": "4.7.7",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.3",
     "ignore-styles": "^5.0.1",
     "mini-css-extract-plugin": "^2.7.2",
     "mocha": "^10.2.0",
