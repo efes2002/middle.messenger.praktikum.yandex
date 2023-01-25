@@ -24,7 +24,7 @@ export default class MessengerLeftBottom extends Block {
                 <li class="main__setting cursor-hover">
                     {{{ButtonImg
                             className="main__button-creat-chat cursor-hover"
-                            src="static/img19.svg"
+                            src='static/img19.svg'
                             alt="кнопка Создать чат"
                             onclick=menuCreateChat.open
                     }}}

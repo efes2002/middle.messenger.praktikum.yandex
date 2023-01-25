@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { isEqual, set } from './helpers';
 import EventBus from './eventBus';
-import Block from './Block';
+import Block from './block';
 
 export enum StoreEvents {
   Updated = 'updated',
