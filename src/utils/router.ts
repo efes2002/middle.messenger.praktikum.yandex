@@ -1,8 +1,13 @@
 // eslint-disable-next-line max-classes-per-file
-import Block from 'src/utils/block';
+import Block from './block';
 import store from './store';
 // eslint-disable-next-line import/no-cycle,import/no-named-as-default
 import { protectPage, PAGE_NAME } from './listPageAndSetting';
+
+export interface BlockConstructable<P = any> {
+  // @ts-ignore
+  new(props: P): Block<P>;
+}
 
 function protectRoute(pathname: string):string {
   let redirectPathname: string = '/';

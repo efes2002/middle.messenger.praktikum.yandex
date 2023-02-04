@@ -4,8 +4,8 @@
   font-weight: 400;
   font-display: swap;
   src:
-    url("../vendor/Inter-Regular.woff2") format("woff2"),
-    url("../vendor/Inter-Regular.woff") format("woff");
+    url("../../static/Inter-Regular.woff2") format("woff2"),
+    url("../../static/Inter-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -14,8 +14,8 @@
   font-weight: 500;
   font-display: swap;
   src:
-    url("../vendor/Inter-Medium.woff2") format("woff2"),
-    url("../vendor/Inter-Medium.woff") format("woff");
+    url("../../static/Inter-Medium.woff2") format("woff2"),
+    url("../../static/Inter-Medium.woff") format("woff");
 }
 
 @font-face {
@@ -24,8 +24,8 @@
   font-weight: 700;
   font-display: swap;
   src:
-    url("../vendor/Inter-Bold.woff2") format("woff2"),
-    url("../vendor/Inter-Bold.woff") format("woff");
+    url("../../static/Inter-Bold.woff2") format("woff2"),
+    url("../../static/Inter-Bold.woff") format("woff");
 }
 
 @font-face {
@@ -34,6 +34,6 @@
   font-weight: 900;
   font-display: swap;
   src:
-    url("../vendor/Inter-Black.woff2") format("woff2"),
-    url("../vendor/Inter-Black.woff") format("woff");
+    url("../../static/Inter-Black.woff2") format("woff2"),
+    url("../../static/Inter-Black.woff") format("woff");
 }
